@@ -1,5 +1,6 @@
 import asyncio
 import cgi
+import copy
 import logging
 import shutil
 import typing
@@ -496,16 +497,19 @@ def _build_translate_settings(
     # Validate settings before proceeding
     try:
         translate_settings.validate_settings()
-        settings = translate_settings.to_settings_model()
+        setting_model = translate_settings.to_settings_model()
+        if not setting_model.gui_settings.disable_config_auto_save:
+            global settings
+            settings = copy.deepcopy(translate_settings)
         translate_settings.translation.output = original_output
         translate_settings.pdf.pages = original_pages
         translate_settings.gui_settings = original_gui_settings
         translate_settings.basic.gui = False
         translate_settings.basic.debug = False
-        if not settings.gui_settings.disable_config_auto_save:
+        if not setting_model.gui_settings.disable_config_auto_save:
             config_manager.write_user_default_config_file(settings=translate_settings)
-        settings.validate_settings()
-        return settings
+        setting_model.validate_settings()
+        return setting_model
     except ValueError as e:
         raise gr.Error(f"Invalid settings: {e}") from e
 
