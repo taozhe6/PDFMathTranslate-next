@@ -13,6 +13,7 @@ from string import Template
 import chardet
 import gradio as gr
 import requests
+import yaml
 from babeldoc import __version__ as babeldoc_version
 from gradio_i18n import Translate
 from gradio_pdf import PDF
@@ -31,6 +32,13 @@ from pdf2zh_next.i18n import LANGUAGES
 from pdf2zh_next.i18n import gettext as _
 
 logger = logging.getLogger(__name__)
+
+
+def get_translation_dic(file_path: Path):
+    with file_path.open(encoding="utf-8", newline="\n") as f:
+        return yaml.safe_load(f)
+
+
 __gui_service_arg_names = []
 # The following variables associate strings with specific languages
 lang_map = {
@@ -1040,10 +1048,11 @@ custom_css = """
     }
     """
 
-# Build path to logo image
+# Build paths to resources
 current_dir = Path(__file__).parent
 assets_dir = current_dir / "assets"
 logo_path = assets_dir / "powered_by_siliconflow_light.png"
+translation_file_path = current_dir / "gui_translation.yaml"
 
 tech_details_string = f"""
                     <summary>Technical details</summary>
@@ -1073,7 +1082,7 @@ with gr.Blocks(
         value=settings.gui_settings.ui_lang,
         render=False,
     )
-    with Translate("pdf2zh_next/gui_translation.yaml", lang_selector):
+    with Translate(get_translation_dic(translation_file_path), lang_selector):
         gr.Markdown("# [PDFMathTranslate Next](https://pdf2zh-next.com)")
 
         translation_engine_arg_inputs = []
