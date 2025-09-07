@@ -110,10 +110,11 @@ class TestDeepLXTranslator:
 
         translator = DeepLXTranslator(self.settings, self.rate_limiter)
 
-        with pytest.raises(ValueError):
-            translator.do_translate("Hello, world!")
+        # Expect RetryError after exhausting all retry attempts
+        from tenacity import RetryError
 
-        # The error handling is working correctly as shown in the log output
+        with pytest.raises(RetryError):
+            translator.do_translate("Hello, world!")
 
     def test_empty_text_handling(self):
         """Test empty text handling"""
