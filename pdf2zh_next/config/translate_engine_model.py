@@ -162,6 +162,31 @@ class DeepLSettings(BaseModel):
 
 GUI_PASSWORD_FIELDS.append("deepl_auth_key")
 
+
+class DeepLXSettings(BaseModel):
+    """DeepLX Translation settings"""
+
+    translate_engine_type: Literal["DeepLX"] = Field(default="DeepLX")
+    deeplx_base_url: str | None = Field(
+        default="http://localhost:1188",
+        description="DeepLX API service base URL (without endpoint path like /deepl or /translate)",
+    )
+    deeplx_timeout: str | None = Field(
+        default="30", description="Request timeout in seconds"
+    )
+
+    def validate_settings(self) -> None:
+        if not self.deeplx_base_url:
+            raise ValueError("DeepLX base URL is required")
+        self.deeplx_base_url = _clean_url(self.deeplx_base_url)
+        self.deeplx_timeout = _check_if_positive_float(
+            _clean_string(self.deeplx_timeout), field="Timeout"
+        )
+
+
+GUI_SENSITIVE_FIELDS.append("deeplx_base_url")
+
+
 # for openai compatibility translator
 # You only need to add the corresponding configuration class
 # and return the OpenAISettings instance using the transform method.
@@ -721,6 +746,7 @@ TRANSLATION_ENGINE_SETTING_TYPE: TypeAlias = (
     | GoogleSettings
     | BingSettings
     | DeepLSettings
+    | DeepLXSettings
     | DeepSeekSettings
     | OllamaSettings
     | XinferenceSettings
