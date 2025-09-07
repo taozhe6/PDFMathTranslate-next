@@ -17,16 +17,15 @@ class DeepLXTranslator(BaseTranslator):
     """DeepLX translator implementation"""
 
     name = "deeplx"
-    # Based on DeepLX API documentation and PDF2ZH-Next supported languages
-    # DeepLX uses uppercase codes and maps all Chinese variants to ZH
+    # DeepLX language mapping based on supported language codes
+    # PDF2ZH-Next uses specific Chinese variants, but DeepLX only supports unified ZH
     lang_map = {
-        "zh": "ZH",
-        "zh-hans": "ZH",
-        "zh-cn": "ZH",
-        "zh-hk": "ZH",  # Add missing Hong Kong Chinese
-        "zh-tw": "ZH",  # Add missing Taiwan Chinese
-        "en": "EN",
-        "auto": "AUTO",
+        "zh": "ZH",  # Basic Chinese
+        "zh-cn": "ZH",  # Simplified Chinese (PDF2ZH-Next format)
+        "zh-hk": "ZH",  # Traditional Chinese - Hong Kong (PDF2ZH-Next format)
+        "zh-tw": "ZH",  # Traditional Chinese - Taiwan (PDF2ZH-Next format)
+        "en": "EN",  # English
+        "auto": "AUTO",  # Auto-detect
     }
 
     def __init__(
