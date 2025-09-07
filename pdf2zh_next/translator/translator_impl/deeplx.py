@@ -17,7 +17,17 @@ class DeepLXTranslator(BaseTranslator):
     """DeepLX translator implementation"""
 
     name = "deeplx"
-    lang_map = {"zh": "ZH", "zh-hans": "ZH", "zh-cn": "ZH"}
+    # Based on DeepLX API documentation and PDF2ZH-Next supported languages
+    # DeepLX uses uppercase codes and maps all Chinese variants to ZH
+    lang_map = {
+        "zh": "ZH",
+        "zh-hans": "ZH",
+        "zh-cn": "ZH",
+        "zh-hk": "ZH",  # Add missing Hong Kong Chinese
+        "zh-tw": "ZH",  # Add missing Taiwan Chinese
+        "en": "EN",
+        "auto": "AUTO",
+    }
 
     def __init__(
         self,
@@ -65,29 +75,13 @@ class DeepLXTranslator(BaseTranslator):
         if not text or not text.strip():
             return ""
 
-        # Handle language code mapping
+        # Handle language code mapping using class lang_map
         source_lang = self.lang_in or "AUTO"
         target_lang = self.lang_out
 
-        # DeepLX language code mapping
-        lang_mapping = {
-            "zh": "ZH",
-            "zh-hans": "ZH",
-            "zh-cn": "ZH",
-            "en": "EN",
-            "auto": "AUTO",
-        }
-
-        # Apply language mapping
-        if source_lang.lower() in lang_mapping:
-            source_lang = lang_mapping[source_lang.lower()]
-        else:
-            source_lang = source_lang.upper()
-
-        if target_lang.lower() in lang_mapping:
-            target_lang = lang_mapping[target_lang.lower()]
-        else:
-            target_lang = target_lang.upper()
+        # Apply language mapping from class attribute, fallback to uppercase
+        source_lang = self.lang_map.get(source_lang.lower(), source_lang.upper())
+        target_lang = self.lang_map.get(target_lang.lower(), target_lang.upper())
 
         # Construct request payload
         payload = {"text": text, "source_lang": source_lang, "target_lang": target_lang}
