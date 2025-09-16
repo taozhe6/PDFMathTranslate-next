@@ -1170,7 +1170,6 @@ def save_config(
     translate_settings = _build_translate_settings(
         settings.clone(), file_path, output_dir, False, ui_inputs
     )
-    logger.warning(translate_settings)
     config_manager.write_user_default_config_file(settings=translate_settings)
     return
 
