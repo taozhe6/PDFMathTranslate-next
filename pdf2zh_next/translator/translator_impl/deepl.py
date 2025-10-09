@@ -35,8 +35,6 @@ class DeepLTranslator(BaseTranslator):
         before_sleep=before_sleep_log(logger, logging.WARNING),
     )
     def do_translate(self, text, rate_limit_params: dict = None):
-        if self.lang_in == 'en':
-            self.lang_in = 'en_US'
         response = self.client.translate_text(
             text, target_lang=self.lang_out, source_lang=self.lang_in
         )
