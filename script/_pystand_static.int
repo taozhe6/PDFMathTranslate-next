@@ -11,7 +11,7 @@ if len(sys.argv) == 1:
     sys.argv.append("--gui")  # 无参数时自动添加 -i 参数
     WAIT_FOR_INPUT = True
 
-multiprocessing.set_executable(os.path.join(os.path.dirname(__file__), 'runtime', 'pythonw.exe'))
+multiprocessing.set_executable(os.path.join(os.path.dirname(__file__), 'runtime', 'python.exe'))
 
 files = os.listdir(os.path.dirname(__file__))
 for file in files:
