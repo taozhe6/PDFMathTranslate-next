@@ -1856,6 +1856,7 @@ with gr.Blocks(
                 output_file_glossary,
                 output_title,  # Visibility of output title
             ],
+            concurrency_limit=5,
         )
 
         # Cancel button click handler
