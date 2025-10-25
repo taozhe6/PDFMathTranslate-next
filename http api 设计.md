@@ -2,7 +2,7 @@
 
 ### 要求
 
-1. 不可以有 `redis` 等第三方独立服务依赖。可以import包；
+1. 不可以有 `redis` 等第三方独立服务依赖。可以 import 包；
 
 2. `fastapi` 实现 http api；
 
@@ -46,7 +46,7 @@
 
 ### 需要提供的 API
 
-1. 使用 `Settingsmodel` + 上传 PDF 来创建任务，并返回任务 id。 任务 id 使用 `pdf2zh_next.4位随机16进制.uuid` 格式。其中 "pdf2zh_next"固定前缀，`uuid` 是随机生成的一个 `uuid`。例如：`pdf2zh_next.3E87.uuid`；
+1. 使用 `Settingsmodel` + 上传 PDF 来创建任务，并返回任务 id。任务 id 使用 `pdf2zh_next.4位随机16进制.uuid` 格式。其中 "pdf2zh_next"固定前缀，`uuid` 是随机生成的一个 `uuid`。例如：`pdf2zh_next.3E87.uuid`；
 
 2. 仅上传 PDF，使用**默认配置**创建任务；
 
@@ -56,13 +56,13 @@
     settings = config_manager.initialize_cli_config()
     ```
 
-3. 使用任务ID查询任务；
+3. 使用任务 ID 查询任务；
 
 4. 下载结果文件；
 
 5. 取消任务。
 
-- 任务信息仅保存在内存中。重启后原先所有任务丢失，原有任务id失效。
+- 任务信息仅保存在内存中。重启后原先所有任务丢失，原有任务 id 失效。
 
 - 内存中最多允许排队 `10` 个任务，超出则报错。(排队任务数可在配置中修改)
 

@@ -55,30 +55,30 @@
   - Content-Type: `multipart/form-data`
     - `file`: PDF（二进制）或 `link`: URL（二选一）
     - `settings`: JSON（`SettingsModel` 结构，若省略则使用默认）
-  - 响应: `{ task_id }`
+  - 响应：`{ task_id }`
 
 2) 创建任务（仅上传 PDF，使用默认配置）
 - `POST /api/v1/tasks/default`
   - multipart form：`file` 或 `link`
-  - 响应: `{ task_id }`
+  - 响应：`{ task_id }`
 
 3) 查询任务
 - `GET /api/v1/tasks/{task_id}`
-  - 响应: 任务元信息（status、progress、文件可用性、错误信息、创建/更新时间等）
+  - 响应：任务元信息（status、progress、文件可用性、错误信息、创建/更新时间等）
 
 4) 下载结果
 - `GET /api/v1/tasks/{task_id}/result`（聚合）
-  - 响应: `{ mono_url, dual_url, glossary_url }`（如可访问则返回 URL；或 404）
+  - 响应：`{ mono_url, dual_url, glossary_url }`（如可访问则返回 URL；或 404）
 - `GET /api/v1/tasks/{task_id}/files/mono|dual|glossary`
   - 以 `FileResponse` 方式直传下载
 
 5) 取消任务
 - `POST /api/v1/tasks/{task_id}/cancel`
-  - 响应: `{ ok: true }`（若处于 queued/running 则尝试取消；终态返回 409）
+  - 响应：`{ ok: true }`（若处于 queued/running 则尝试取消；终态返回 409）
 
 6) 健康检查
 - `GET /health`
-  - 响应: `{ status: "ok", version: string, queue_size: int, running: int }`
+  - 响应：`{ status: "ok", version: string, queue_size: int, running: int }`
   - 说明：用于探针/监控，默认豁免鉴权（可通过配置修改）。
 
 - 错误码：
