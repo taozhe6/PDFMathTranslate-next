@@ -1864,6 +1864,70 @@ with gr.Blocks(
             inputs=[state],
         )
 
+        def load_saved_config():
+            """Reload configuration from file when page loads"""
+            try:
+                # Reload configuration from config file
+                fresh_settings = config_manager.initialize_cli_config()
+
+                updates = []
+                
+                # Update UI language
+                loaded_ui_lang = fresh_settings.gui_settings.ui_lang
+                updates.append(gr.update(value=loaded_ui_lang))
+                
+                # Update translation language settings
+                loaded_lang_from = rev_lang_map.get(fresh_settings.translation.lang_in, "English")
+                loaded_lang_to = fresh_settings.translation.lang_out
+                for display_name, code in lang_map.items():
+                    if code == loaded_lang_to:
+                        loaded_lang_to = display_name
+                        break
+                else:
+                    loaded_lang_to = "Simplified Chinese"
+                
+                updates.append(gr.update(value=loaded_lang_from))
+                updates.append(gr.update(value=loaded_lang_to))
+                
+                # Update translation engine settings for each service
+                for service_name in available_services:
+                    metadata = TRANSLATION_ENGINE_METADATA_MAP[service_name]
+                    if not metadata.cli_detail_field_name:
+                        continue
+                    
+                    detail_settings = getattr(fresh_settings, metadata.cli_detail_field_name)
+                    
+                    for field_name, field in metadata.setting_model_type.model_fields.items():
+                        if disable_gui_sensitive_input:
+                            if field_name in GUI_SENSITIVE_FIELDS:
+                                continue
+                            if field_name in GUI_PASSWORD_FIELDS:
+                                continue
+                        if field.default_factory:
+                            continue
+
+                        if field_name == "translate_engine_type":
+                            continue
+                        if field_name == "support_llm":
+                            continue
+                        
+                        value = getattr(detail_settings, field_name)
+                        updates.append(gr.update(value=value))
+                
+                return updates
+            except Exception as e:
+                logger.warning(f"Could not reload config on page load: {e}")
+                # Return empty updates if reload fails
+                return [gr.update()] * (3 + len(translation_engine_arg_inputs))
+
+        load_outputs = [lang_selector, lang_from, lang_to] + translation_engine_arg_inputs
+        
+        # Reload handler
+        demo.load(
+            load_saved_config,
+            outputs=load_outputs,
+        )
+
 
 def parse_user_passwd(file_path: str, welcome_page: str) -> tuple[list, str]:
     """
