@@ -26,8 +26,14 @@ There are several methods to open the WebUI interface. If you are using **Window
 
     Drop the PDF file into the window and click `Translate`.
 
+5. If you deploy PDFMathTranslate with docker, and you are using ollama as PDFMathTranslate's backend LLM, you should fill "Ollama host" with
+
+   ```bash
+   http://host.docker.internal:11434
+   ```
+
 <!-- <img src="./images/gui.gif" width="500"/> -->
-<img src='./../images/gui.gif' width="500"/>
+<img src='./../../images/gui.gif' width="500"/>
 
 ### Environment Variables
 
@@ -38,8 +44,8 @@ You can set the source and target languages using environment variables:
 
 ## Preview
 
-<img src="./../images/before.png" width="500"/>
-<img src="./../images/after.png" width="500"/>
+<img src="./../../images/before.png" width="500"/>
+<img src="./../../images/after.png" width="500"/>
 
 ## Maintainance
 
