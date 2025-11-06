@@ -24,6 +24,12 @@ Please do NOT submit PRs related to the above types.
 >
 > If you want to contribute documentation, please **only modify the English version of the documentation**. Other language versions are translated by contributors themselves.
 
+## PRs that are recommended to discuss with maintainers via Issue before submission
+
+For the following types of PRs, it is recommended to discuss with maintainers first before submission:
+
+1. PRs related to multi-user sharing functionality. (This project is primarily designed for single-user use and does not intend to introduce a comprehensive multi-user system).
+
 ## Contribution Process
 
 1. Fork this repository and clone it locally.
