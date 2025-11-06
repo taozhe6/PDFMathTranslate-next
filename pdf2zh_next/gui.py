@@ -1106,7 +1106,7 @@ tech_details_string = f"""
                     </a>
                     <br>
                 """
-
+update_current_languages(settings.gui_settings.ui_lang)
 # The following code creates the GUI
 with gr.Blocks(
     title="PDFMathTranslate - PDF Translation with preserved formats",
@@ -1134,9 +1134,9 @@ with gr.Blocks(
                 lang_selector.render()
                 gr.Markdown(_("## File"))
                 file_type = gr.Radio(
-                    choices=[_("File"), _("Link")],
-                    label=_("Type"),
-                    value=_("File"),
+                    choices=["File", "Link"],
+                    label="Type",
+                    value="File",
                 )
                 file_input = gr.File(
                     label=_("File"),
@@ -1261,7 +1261,7 @@ with gr.Blocks(
 
                 page_range = gr.Radio(
                     choices=list(page_map.keys()),
-                    label=_("Pages"),
+                    label="Pages",
                     value=list(page_map.keys())[0],
                 )
 
@@ -1282,11 +1282,11 @@ with gr.Blocks(
                 with gr.Group() as rate_limit_settings:
                     rate_limit_mode = gr.Radio(
                         choices=[
-                            (_("RPM (Requests Per Minute)"), "RPM"),
-                            (_("Concurrent Requests"), "Concurrent Threads"),
-                            (_("Custom"), "Custom"),
+                            ("RPM (Requests Per Minute)", "RPM"),
+                            ("Concurrent Requests", "Concurrent Threads"),
+                            ("Custom", "Custom"),
                         ],
-                        label=_("Rate Limit Mode"),
+                        label="Rate Limit Mode",
                         value="Custom",
                         interactive=True,
                         visible=False,
@@ -1370,11 +1370,11 @@ with gr.Blocks(
                     )
 
                 watermark_output_mode = gr.Radio(
-                    choices=[_("Watermarked"), _("No Watermark")],
-                    label=_("Watermark mode"),
-                    value=_("Watermarked")
+                    choices=["Watermarked", "No Watermark"],
+                    label="Watermark mode",
+                    value="Watermarked"
                     if settings.pdf.watermark_output_mode == "watermarked"
-                    else _("No Watermark"),
+                    else "No Watermark",
                 )
 
                 # Additional translation options
@@ -1631,8 +1631,8 @@ with gr.Blocks(
         def on_select_filetype(file_type):
             """Update visibility based on selected file type"""
             return (
-                gr.update(visible=file_type == _("File")),
-                gr.update(visible=file_type == _("Link")),
+                gr.update(visible=file_type == "File"),
+                gr.update(visible=file_type == "Link"),
             )
 
         def on_select_page(choice):
@@ -1968,9 +1968,9 @@ with gr.Blocks(
                     gr.update(value=fresh_settings.pdf.use_alternating_pages_dual)
                 )
                 watermark_value = (
-                    _("Watermarked")
+                    "Watermarked"
                     if fresh_settings.pdf.watermark_output_mode == "watermarked"
-                    else _("No Watermark")
+                    else "No Watermark"
                 )
                 updates.append(gr.update(value=watermark_value))
                 # Rate Limit Options
