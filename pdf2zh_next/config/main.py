@@ -592,8 +592,15 @@ class ConfigManager:
     def write_user_default_config_file(self, settings: CLIEnvSettingsModel):
         # clear input file
         settings.basic.input_files = set()
-        self._write_toml_file(WRITE_TEMP_CONFIG_FILE, settings.model_dump(mode="json"))
+        
+        content = settings.model_dump(mode="json")
+        if self._is_file_content_identical(DEFAULT_CONFIG_FILE, content):
+            log.info(f"Config file {DEFAULT_CONFIG_FILE} is identical to the settings, skip it")
+            return
+
+        self._write_toml_file(WRITE_TEMP_CONFIG_FILE, content)
         WRITE_TEMP_CONFIG_FILE.replace(DEFAULT_CONFIG_FILE)
+        log.info(f"Written user default config file to {DEFAULT_CONFIG_FILE}")
 
     def _build_model_from_args(
         self, model_class: type[BaseModel], args_dict: dict
