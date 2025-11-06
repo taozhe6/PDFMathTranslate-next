@@ -7,6 +7,7 @@ import shutil
 import tempfile
 import typing
 import uuid
+from enum import Enum
 from pathlib import Path
 from string import Template
 
@@ -26,12 +27,20 @@ from pdf2zh_next.config.translate_engine_model import GUI_PASSWORD_FIELDS
 from pdf2zh_next.config.translate_engine_model import GUI_SENSITIVE_FIELDS
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA_MAP
+from pdf2zh_next.const import DEFAULT_CONFIG_FILE
 from pdf2zh_next.high_level import TranslationError
 from pdf2zh_next.high_level import do_translate_async_stream
 from pdf2zh_next.i18n import LANGUAGES
 from pdf2zh_next.i18n import gettext as _
 
 logger = logging.getLogger(__name__)
+
+
+class SaveMode(Enum):
+    """Enum for configuration save behavior."""
+    follow_settings = "follow_settings"  # Follow disable_config_auto_save setting
+    never = "never"  # Never save
+    always = "always"  # Always save regardless of disable_config_auto_save
 
 
 def get_translation_dic(file_path: Path):
@@ -416,7 +425,7 @@ def _build_translate_settings(
     base_settings: CLIEnvSettingsModel,
     file_path: Path,
     output_dir: Path,
-    save_to_disk: bool,
+    save_mode: SaveMode,
     ui_inputs: dict,
 ) -> SettingsModel:
     """
@@ -426,6 +435,7 @@ def _build_translate_settings(
         - base_settings: The base settings model to build upon
         - file_path: The path to the input file
         - output_dir: The output directory
+        - save_mode: SaveMode enum indicating when to save config
         - ui_inputs: A dictionary of UI inputs
 
     Returns:
@@ -659,7 +669,16 @@ def _build_translate_settings(
         translate_settings.basic.gui = False
         translate_settings.basic.debug = False
         translate_settings.translation.glossaries = None
-        if save_to_disk and not settings.gui_settings.disable_config_auto_save:
+        
+        # Determine if config should be saved based on save_mode
+        should_save = False
+        if save_mode == SaveMode.always:
+            should_save = True
+        elif save_mode == SaveMode.follow_settings:
+            should_save = not settings.gui_settings.disable_config_auto_save
+        # SaveMode.never: should_save remains False
+        
+        if should_save:
             config_manager.write_user_default_config_file(
                 settings=translate_settings
             )
@@ -932,7 +951,7 @@ async def translate_file(
 
         # Step 2: Build translation settings
         translate_settings = _build_translate_settings(
-            settings.clone(), file_path, output_dir, True, ui_inputs
+            settings.clone(), file_path, output_dir, SaveMode.follow_settings, ui_inputs
         )
 
         # Step 3: Create and run the translation task
@@ -1013,14 +1032,17 @@ def save_config(
     ui_inputs = build_ui_inputs(*ui_args)
 
     # Track progress
-    progress(0, desc="Starting translation...")
+    progress(0, desc="Saving configuration...")
 
     # Prepare output directory
     output_dir = Path("pdf2zh_files")
 
     _ = _build_translate_settings(
-        settings.clone(), config_fake_pdf_path, output_dir, True, ui_inputs
+        settings.clone(), config_fake_pdf_path, output_dir, SaveMode.always, ui_inputs
     )
+    
+    # Show success message
+    gr.Info(f"Configuration saved to: {DEFAULT_CONFIG_FILE}")
 
 # Custom theme definition
 custom_blue = gr.themes.Color(
