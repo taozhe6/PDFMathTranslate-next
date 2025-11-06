@@ -38,6 +38,7 @@ logger = logging.getLogger(__name__)
 
 class SaveMode(Enum):
     """Enum for configuration save behavior."""
+
     follow_settings = "follow_settings"  # Follow disable_config_auto_save setting
     never = "never"  # Never save
     always = "always"  # Always save regardless of disable_config_auto_save
@@ -669,7 +670,7 @@ def _build_translate_settings(
         translate_settings.basic.gui = False
         translate_settings.basic.debug = False
         translate_settings.translation.glossaries = None
-        
+
         # Determine if config should be saved based on save_mode
         should_save = False
         if save_mode == SaveMode.always:
@@ -677,11 +678,9 @@ def _build_translate_settings(
         elif save_mode == SaveMode.follow_settings:
             should_save = not settings.gui_settings.disable_config_auto_save
         # SaveMode.never: should_save remains False
-        
+
         if should_save:
-            config_manager.write_user_default_config_file(
-                settings=translate_settings
-            )
+            config_manager.write_user_default_config_file(settings=translate_settings)
         settings.validate_settings()
         return settings
     except ValueError as e:
@@ -712,7 +711,7 @@ def _build_glossary_list(glossary_file, service_name=None):
 def build_ui_inputs(*args):
     """
     Build ui_inputs dictionary from *args.
-    
+
     Args:
         *args: UI setting controls in the following order:
             service, lang_from, lang_to, page_range, page_input,
@@ -726,7 +725,7 @@ def build_ui_inputs(*args):
             only_include_translated_page, merge_alternating_line_numbers, remove_non_formula_lines,
             non_formula_line_iou_threshold, figure_table_protection_threshold, skip_formula_offset_calculation,
             *translation_engine_arg_inputs
-    
+
     Returns:
         dict: ui_inputs dictionary with all UI settings
     """
@@ -776,28 +775,28 @@ def build_ui_inputs(*args):
         "figure_table_protection_threshold",
         "skip_formula_offset_calculation",
     ]
-    
+
     # Split args into fixed params and translation_engine_arg_inputs
     num_fixed = len(fixed_param_names)
     fixed_args = args[:num_fixed]
     translation_engine_arg_inputs = args[num_fixed:]
-    
+
     # Build ui_inputs dictionary
     ui_inputs = {}
-    for param_name, arg_value in zip(fixed_param_names, fixed_args):
+    for param_name, arg_value in zip(fixed_param_names, fixed_args, strict=False):
         ui_inputs[param_name] = arg_value
-    
+
     # Convert glossary_file to glossaries
     service = ui_inputs["service"]
     glossary_file = ui_inputs["glossary_file"]
     ui_inputs["glossaries"] = _build_glossary_list(glossary_file, service)
-    
+
     # Add translation engine args
     for arg_name, arg_input in zip(
         __gui_service_arg_names, translation_engine_arg_inputs, strict=False
     ):
         ui_inputs[arg_name] = arg_input
-    
+
     return ui_inputs
 
 
@@ -1040,9 +1039,10 @@ def save_config(
     _ = _build_translate_settings(
         settings.clone(), config_fake_pdf_path, output_dir, SaveMode.always, ui_inputs
     )
-    
+
     # Show success message
     gr.Info(f"Configuration saved to: {DEFAULT_CONFIG_FILE}")
+
 
 # Custom theme definition
 custom_blue = gr.themes.Color(
