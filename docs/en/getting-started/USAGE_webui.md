@@ -46,7 +46,3 @@ You can set the source and target languages using environment variables:
 
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
-
-## Maintainance
-
-GUI maintained by [Rongxin](https://github.com/reycn)

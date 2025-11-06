@@ -32,6 +32,7 @@ from pdf2zh_next.high_level import TranslationError
 from pdf2zh_next.high_level import do_translate_async_stream
 from pdf2zh_next.i18n import LANGUAGES
 from pdf2zh_next.i18n import gettext as _
+from pdf2zh_next.i18n import update_current_languages
 
 logger = logging.getLogger(__name__)
 
@@ -663,7 +664,7 @@ def _build_translate_settings(
     # Validate settings before proceeding
     try:
         translate_settings.validate_settings()
-        settings = translate_settings.to_settings_model()
+        temp_settings = translate_settings.to_settings_model()
         translate_settings.translation.output = original_output
         translate_settings.pdf.pages = original_pages
         translate_settings.gui_settings = original_gui_settings
@@ -676,13 +677,15 @@ def _build_translate_settings(
         if save_mode == SaveMode.always:
             should_save = True
         elif save_mode == SaveMode.follow_settings:
-            should_save = not settings.gui_settings.disable_config_auto_save
+            should_save = not temp_settings.gui_settings.disable_config_auto_save
         # SaveMode.never: should_save remains False
 
         if should_save:
             config_manager.write_user_default_config_file(settings=translate_settings)
-        settings.validate_settings()
-        return settings
+            global settings
+            settings = translate_settings
+        temp_settings.validate_settings()
+        return temp_settings
     except ValueError as e:
         raise gr.Error(f"Invalid settings: {e}") from e
 
@@ -1613,7 +1616,7 @@ with gr.Blocks(
                 )
                 translate_btn = gr.Button(_("Translate"), variant="primary")
                 cancel_btn = gr.Button(_("Cancel"), variant="secondary")
-                save_btn = gr.Button(_("Save"), variant="secondary")
+                save_btn = gr.Button(_("Save Settings"), variant="secondary")
 
                 tech_details = gr.Markdown(
                     tech_details_string,
@@ -1742,6 +1745,7 @@ with gr.Blocks(
 
         def on_lang_selector_change(lang):
             settings.gui_settings.ui_lang = lang
+            update_current_languages(lang)
             config_manager.write_user_default_config_file(settings=settings.clone())
             return
 
@@ -1877,6 +1881,10 @@ with gr.Blocks(
             figure_table_protection_threshold,
             skip_formula_offset_calculation,
             *translation_engine_arg_inputs,
+            # any UI components that are used by translate/save should be listed above!
+            # Extra UI components to be updated on load (not used by translate/save)
+            siliconflow_free_acknowledgement,
+            glossary_table,
         ]
 
         # Translation button click handler
@@ -1911,6 +1919,205 @@ with gr.Blocks(
             save_config,
             inputs=ui_setting_controls,
         )
+
+        def load_saved_config_to_ui(state):
+            """Reload all settings from config and update UI components."""
+            try:
+                fresh_settings = settings
+                update_current_languages(settings.gui_settings.ui_lang)
+
+                updates: list = []
+
+                # Determine selected service by cli flag
+                selected_service = None
+                for metadata in TRANSLATION_ENGINE_METADATA:
+                    if getattr(fresh_settings, metadata.cli_flag_name, False):
+                        selected_service = metadata.translate_engine_type
+                        break
+                if not selected_service:
+                    selected_service = available_services[0]
+                llm_support = LLM_support_index_map.get(selected_service, False)
+
+                # Follow the EXACT order of ui_setting_controls
+                # service
+                updates.append(gr.update(value=selected_service))
+                # lang_from, lang_to
+                loaded_lang_from = rev_lang_map.get(
+                    fresh_settings.translation.lang_in, "English"
+                )
+                loaded_lang_to_code = fresh_settings.translation.lang_out
+                loaded_lang_to = next(
+                    (k for k, v in lang_map.items() if v == loaded_lang_to_code),
+                    "Simplified Chinese",
+                )
+                updates.append(gr.update(value=loaded_lang_from))
+                updates.append(gr.update(value=loaded_lang_to))
+                # page_range, page_input
+                pages_setting = fresh_settings.pdf.pages
+                if pages_setting is None or pages_setting == "":
+                    updates.append(gr.update(value="All"))
+                    updates.append(gr.update(value="", visible=False))
+                else:
+                    updates.append(gr.update(value="Range"))
+                    updates.append(gr.update(value=str(pages_setting), visible=True))
+                # PDF Output Options
+                updates.append(gr.update(value=fresh_settings.pdf.no_mono))
+                updates.append(gr.update(value=fresh_settings.pdf.no_dual))
+                updates.append(gr.update(value=fresh_settings.pdf.dual_translate_first))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.use_alternating_pages_dual)
+                )
+                watermark_value = (
+                    _("Watermarked")
+                    if fresh_settings.pdf.watermark_output_mode == "watermarked"
+                    else _("No Watermark")
+                )
+                updates.append(gr.update(value=watermark_value))
+                # Rate Limit Options
+                rate_limit_visible = selected_service != "SiliconFlowFree"
+                updates.append(gr.update(value="Custom", visible=rate_limit_visible))
+                updates.append(gr.update(visible=False))  # rpm_input
+                updates.append(gr.update(visible=False))  # concurrent_threads_input
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.qps or 4,
+                        visible=rate_limit_visible,
+                    )
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.pool_max_workers,
+                        visible=rate_limit_visible,
+                    )
+                )
+                # Advanced Options
+                updates.append(gr.update(value=""))  # prompt
+                updates.append(
+                    gr.update(value=fresh_settings.translation.min_text_length)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.translation.rpc_doclayout or "")
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.custom_system_prompt or ""
+                    )
+                )
+                updates.append(
+                    gr.update(visible=llm_support)
+                )  # glossary_file visibility
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.save_auto_extracted_glossary
+                    )
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.translation.no_auto_extract_glossary)
+                )
+                primary_font_display = (
+                    "Auto"
+                    if not fresh_settings.translation.primary_font_family
+                    else fresh_settings.translation.primary_font_family
+                )
+                updates.append(gr.update(value=primary_font_display))
+                updates.append(gr.update(value=fresh_settings.pdf.skip_clean))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.disable_rich_text_translate)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.enhance_compatibility)
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.split_short_lines))
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.pdf.short_line_split_factor,
+                        visible=fresh_settings.pdf.split_short_lines,
+                    )
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.translate_table_text))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.skip_scanned_detection)
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.max_pages_per_part))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.formular_font_pattern or "")
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.formular_char_pattern or "")
+                )
+                updates.append(gr.update(value=fresh_settings.translation.ignore_cache))
+                updates.append(state)  # state, keep unchanged
+                updates.append(gr.update(value=fresh_settings.pdf.ocr_workaround))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.auto_enable_ocr_workaround)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.only_include_translated_page)
+                )
+                # BabelDOC
+                updates.append(
+                    gr.update(
+                        value=not fresh_settings.pdf.no_merge_alternating_line_numbers
+                    )
+                )
+                updates.append(
+                    gr.update(value=not fresh_settings.pdf.no_remove_non_formula_lines)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.non_formula_line_iou_threshold)
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.pdf.figure_table_protection_threshold
+                    )
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.skip_formula_offset_calculation)
+                )
+                # Translation engine detail fields (ordered)
+                disable_sensitive_gui = (
+                    fresh_settings.gui_settings.disable_gui_sensitive_input
+                )
+                for service_name in available_services:
+                    metadata = TRANSLATION_ENGINE_METADATA_MAP[service_name]
+                    if not metadata.cli_detail_field_name:
+                        continue
+                    detail_settings = getattr(
+                        fresh_settings, metadata.cli_detail_field_name
+                    )
+                    for (
+                        field_name,
+                        field,
+                    ) in metadata.setting_model_type.model_fields.items():
+                        if disable_sensitive_gui:
+                            if field_name in GUI_SENSITIVE_FIELDS:
+                                continue
+                            if field_name in GUI_PASSWORD_FIELDS:
+                                continue
+                        if field.default_factory:
+                            continue
+                        if (
+                            field_name == "translate_engine_type"
+                            or field_name == "support_llm"
+                        ):
+                            continue
+                        value = getattr(detail_settings, field_name)
+                        visible = metadata.translate_engine_type == selected_service
+                        updates.append(gr.update(value=value, visible=visible))
+                # Extra UI components at the end of ui_setting_controls
+                siliconflow_free_ack_visible = selected_service == "SiliconFlowFree"
+                updates.append(gr.update(visible=siliconflow_free_ack_visible))
+                updates.append(
+                    gr.update(visible=llm_support)
+                )  # glossary_table visibility
+
+                return updates
+            except Exception as e:
+                logger.warning(f"Could not reload config on page load: {e}")
+                return [None] * len(ui_setting_controls)
+
+        # Use ui_setting_controls as outputs for page load
+        demo.load(load_saved_config_to_ui, inputs=[state], outputs=ui_setting_controls)
 
 
 def parse_user_passwd(file_path: str, welcome_page: str) -> tuple[list, str]:
