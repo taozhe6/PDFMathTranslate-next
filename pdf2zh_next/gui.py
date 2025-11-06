@@ -1918,7 +1918,7 @@ with gr.Blocks(
             inputs=ui_setting_controls,
         )
 
-        def load_saved_config_to_ui():
+        def load_saved_config_to_ui(state):
             """Reload all settings from config and update UI components."""
             try:
                 fresh_settings = settings
@@ -2043,7 +2043,7 @@ with gr.Blocks(
                     gr.update(value=fresh_settings.pdf.formular_char_pattern or "")
                 )
                 updates.append(gr.update(value=fresh_settings.translation.ignore_cache))
-                updates.append(None)  # state, keep unchanged
+                updates.append(state)  # state, keep unchanged
                 updates.append(gr.update(value=fresh_settings.pdf.ocr_workaround))
                 updates.append(
                     gr.update(value=fresh_settings.pdf.auto_enable_ocr_workaround)
@@ -2114,7 +2114,7 @@ with gr.Blocks(
                 return [None] * len(ui_setting_controls)
 
         # Use ui_setting_controls as outputs for page load
-        demo.load(load_saved_config_to_ui, outputs=ui_setting_controls)
+        demo.load(load_saved_config_to_ui, inputs=state, outputs=ui_setting_controls)
 
 
 def parse_user_passwd(file_path: str, welcome_page: str) -> tuple[list, str]:
