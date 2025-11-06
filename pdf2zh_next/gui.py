@@ -32,6 +32,7 @@ from pdf2zh_next.high_level import TranslationError
 from pdf2zh_next.high_level import do_translate_async_stream
 from pdf2zh_next.i18n import LANGUAGES
 from pdf2zh_next.i18n import gettext as _
+from pdf2zh_next.i18n import update_current_languages
 
 logger = logging.getLogger(__name__)
 
@@ -1744,6 +1745,7 @@ with gr.Blocks(
 
         def on_lang_selector_change(lang):
             settings.gui_settings.ui_lang = lang
+            update_current_languages(lang)
             config_manager.write_user_default_config_file(settings=settings.clone())
             return
 
@@ -1922,6 +1924,7 @@ with gr.Blocks(
             """Reload all settings from config and update UI components."""
             try:
                 fresh_settings = settings
+                update_current_languages(settings.gui_settings.ui_lang)
 
                 updates: list = []
 
@@ -2114,7 +2117,7 @@ with gr.Blocks(
                 return [None] * len(ui_setting_controls)
 
         # Use ui_setting_controls as outputs for page load
-        demo.load(load_saved_config_to_ui, inputs=state, outputs=ui_setting_controls)
+        demo.load(load_saved_config_to_ui, inputs=[state], outputs=ui_setting_controls)
 
 
 def parse_user_passwd(file_path: str, welcome_page: str) -> tuple[list, str]:
