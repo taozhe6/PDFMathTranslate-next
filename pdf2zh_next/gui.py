@@ -25,6 +25,10 @@ from pdf2zh_next.config.cli_env_model import CLIEnvSettingsModel
 from pdf2zh_next.config.model import SettingsModel
 from pdf2zh_next.config.translate_engine_model import GUI_PASSWORD_FIELDS
 from pdf2zh_next.config.translate_engine_model import GUI_SENSITIVE_FIELDS
+from pdf2zh_next.config.translate_engine_model import TERM_EXTRACTION_ENGINE_METADATA
+from pdf2zh_next.config.translate_engine_model import (
+    TERM_EXTRACTION_ENGINE_METADATA_MAP,
+)
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA_MAP
 from pdf2zh_next.const import DEFAULT_CONFIG_FILE
@@ -51,6 +55,7 @@ def get_translation_dic(file_path: Path):
 
 
 __gui_service_arg_names = []
+__gui_term_service_arg_names = []
 LLM_support_index_map = {}
 # The following variables associate strings with specific languages
 lang_map = {
@@ -471,7 +476,7 @@ def _build_translate_settings(
     # Advanced Translation Options
     min_text_length = ui_inputs.get("min_text_length")
     rpc_doclayout = ui_inputs.get("rpc_doclayout")
-    no_auto_extract_glossary = ui_inputs.get("no_auto_extract_glossary")
+    enable_auto_term_extraction = ui_inputs.get("enable_auto_term_extraction")
     primary_font_family = ui_inputs.get("primary_font_family")
 
     # Advanced PDF Options
@@ -497,6 +502,14 @@ def _build_translate_settings(
         "figure_table_protection_threshold"
     )
     skip_formula_offset_calculation = ui_inputs.get("skip_formula_offset_calculation")
+
+    # Term extraction options
+    term_service = ui_inputs.get("term_service")
+    term_rate_limit_mode = ui_inputs.get("term_rate_limit_mode")
+    term_rpm_input = ui_inputs.get("term_rpm_input")
+    term_concurrent_threads = ui_inputs.get("term_concurrent_threads")
+    term_custom_qps = ui_inputs.get("term_custom_qps")
+    term_custom_pool_workers = ui_inputs.get("term_custom_pool_workers")
 
     # New input for custom_system_prompt
     custom_system_prompt_input = ui_inputs.get("custom_system_prompt_input")
@@ -534,7 +547,12 @@ def _build_translate_settings(
         translate_settings.translation.min_text_length = int(min_text_length)
     if rpc_doclayout:
         translate_settings.translation.rpc_doclayout = rpc_doclayout
-    translate_settings.translation.no_auto_extract_glossary = no_auto_extract_glossary
+
+    # UI uses positive switch, config uses negative flag, so we invert here
+    if enable_auto_term_extraction is not None:
+        translate_settings.translation.no_auto_extract_glossary = (
+            not enable_auto_term_extraction
+        )
     if primary_font_family:
         if primary_font_family == "Auto":
             translate_settings.translation.primary_font_family = None
@@ -552,6 +570,78 @@ def _build_translate_settings(
         translate_settings.translation.pool_max_workers = (
             int(pool_workers) if pool_workers is not None else None
         )
+
+    # Calculate and update term extraction rate limit settings
+    if term_rate_limit_mode:
+        term_rate_inputs = {
+            "rpm_input": term_rpm_input,
+            "concurrent_threads": term_concurrent_threads,
+            "custom_qps": term_custom_qps,
+            "custom_pool_workers": term_custom_pool_workers,
+        }
+        term_qps, term_pool_workers = _calculate_rate_limit_params(
+            term_rate_limit_mode,
+            term_rate_inputs,
+            translate_settings.translation.term_qps
+            or translate_settings.translation.qps
+            or 4,
+        )
+        translate_settings.translation.term_qps = int(term_qps)
+        translate_settings.translation.term_pool_max_workers = (
+            int(term_pool_workers) if term_pool_workers is not None else None
+        )
+
+    # Reset all term extraction engine flags
+    for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+        term_flag_name = f"term_{term_metadata.cli_flag_name}"
+        if hasattr(translate_settings, term_flag_name):
+            setattr(translate_settings, term_flag_name, False)
+
+    # Configure term extraction engine settings from UI when not following main engine
+    follow_main_label = _("Follow main translation engine")
+    if (
+        term_service
+        and term_service != follow_main_label
+        and not translate_settings.translation.no_auto_extract_glossary
+        and term_service in TERM_EXTRACTION_ENGINE_METADATA_MAP
+    ):
+        term_metadata = TERM_EXTRACTION_ENGINE_METADATA_MAP[term_service]
+
+        # Enable selected term extraction engine flag
+        term_flag_name = f"term_{term_metadata.cli_flag_name}"
+        if hasattr(translate_settings, term_flag_name):
+            setattr(translate_settings, term_flag_name, True)
+
+        # Update term extraction engine detail settings
+        if term_metadata.cli_detail_field_name:
+            term_detail_field_name = f"term_{term_metadata.cli_detail_field_name}"
+            term_detail_settings = getattr(translate_settings, term_detail_field_name)
+            term_model_type = term_metadata.term_setting_model_type
+
+            for field_name, field in term_model_type.model_fields.items():
+                if field_name in ("translate_engine_type", "support_llm"):
+                    continue
+
+                value = ui_inputs.get(field_name)
+                if value is None:
+                    continue
+
+                type_hint = field.annotation
+                original_type = typing.get_origin(type_hint)
+                type_args = typing.get_args(type_hint)
+
+                if type_hint is str or str in type_args:
+                    pass
+                elif type_hint is int or int in type_args:
+                    value = int(value)
+                elif type_hint is bool or bool in type_args:
+                    value = bool(value)
+                else:
+                    raise Exception(
+                        f"Unsupported type {type_hint} for field {field_name} in gui term extraction engine settings"
+                    )
+
+                setattr(term_detail_settings, field_name, value)
 
     # Update PDF Settings
     translate_settings.pdf.pages = pages
@@ -721,13 +811,14 @@ def build_ui_inputs(*args):
             no_mono, no_dual, dual_translate_first, use_alternating_pages_dual, watermark_output_mode,
             rate_limit_mode, rpm_input, concurrent_threads_input, custom_qps_input, custom_pool_max_workers_input,
             prompt, min_text_length, rpc_doclayout, custom_system_prompt_input, glossary_file,
-            save_auto_extracted_glossary, no_auto_extract_glossary, primary_font_family, skip_clean,
+            save_auto_extracted_glossary, enable_auto_term_extraction, primary_font_family, skip_clean,
             disable_rich_text_translate, enhance_compatibility, split_short_lines, short_line_split_factor,
             translate_table_text, skip_scanned_detection, max_pages_per_part, formular_font_pattern,
             formular_char_pattern, ignore_cache, state, ocr_workaround, auto_enable_ocr_workaround,
             only_include_translated_page, merge_alternating_line_numbers, remove_non_formula_lines,
             non_formula_line_iou_threshold, figure_table_protection_threshold, skip_formula_offset_calculation,
-            *translation_engine_arg_inputs
+            term_service, term_rate_limit_mode, term_rpm_input, term_concurrent_threads_input,
+            term_custom_qps_input, term_custom_pool_max_workers_input, *translation_engine_arg_inputs
 
     Returns:
         dict: ui_inputs dictionary with all UI settings
@@ -755,7 +846,7 @@ def build_ui_inputs(*args):
         "custom_system_prompt_input",
         "glossary_file",  # will be converted to glossaries
         "save_auto_extracted_glossary",
-        "no_auto_extract_glossary",
+        "enable_auto_term_extraction",
         "primary_font_family",
         "skip_clean",
         "disable_rich_text_translate",
@@ -777,6 +868,12 @@ def build_ui_inputs(*args):
         "non_formula_line_iou_threshold",
         "figure_table_protection_threshold",
         "skip_formula_offset_calculation",
+        "term_service",
+        "term_rate_limit_mode",
+        "term_rpm_input",
+        "term_concurrent_threads",
+        "term_custom_qps",
+        "term_custom_pool_workers",
     ]
 
     # Split args into fixed params and translation_engine_arg_inputs
@@ -794,9 +891,22 @@ def build_ui_inputs(*args):
     glossary_file = ui_inputs["glossary_file"]
     ui_inputs["glossaries"] = _build_glossary_list(glossary_file, service)
 
-    # Add translation engine args
+    # Add translation engine args (main translator + term translator detail settings)
+    main_detail_count = len(__gui_service_arg_names)
+    term_detail_count = len(__gui_term_service_arg_names)
+
+    main_detail_inputs = translation_engine_arg_inputs[:main_detail_count]
+    term_detail_inputs = translation_engine_arg_inputs[
+        main_detail_count : main_detail_count + term_detail_count
+    ]
+
     for arg_name, arg_input in zip(
-        __gui_service_arg_names, translation_engine_arg_inputs, strict=False
+        __gui_service_arg_names, main_detail_inputs, strict=False
+    ):
+        ui_inputs[arg_name] = arg_input
+
+    for arg_name, arg_input in zip(
+        __gui_term_service_arg_names, term_detail_inputs, strict=False
     ):
         ui_inputs[arg_name] = arg_input
 
@@ -1128,6 +1238,8 @@ with gr.Blocks(
         detail_text_inputs = []
         require_llm_translator_inputs = []
         detail_text_input_index_map = {}
+        term_detail_text_inputs = []
+        term_detail_text_input_index_map = {}
         LLM_support_index_map.clear()
         with gr.Row():
             with gr.Column(scale=1):
@@ -1161,6 +1273,7 @@ with gr.Blocks(
                 )
 
                 detail_index = 0
+                term_detail_index = 0
                 with gr.Group() as translation_engine_settings:
                     service = gr.Dropdown(
                         label=_("Service"),
@@ -1246,6 +1359,175 @@ with gr.Blocks(
                                 detail_text_inputs.append(field_input)
                                 __gui_service_arg_names.append(field_name)
                                 translation_engine_arg_inputs.append(field_input)
+
+                # Term extraction options (engine + rate limit + detail settings)
+                with gr.Accordion(_("Auto Term Extraction"), open=True):
+                    enable_auto_term_extraction = gr.Checkbox(
+                        label=_("Enable auto term extraction"),
+                        value=not settings.translation.no_auto_extract_glossary,
+                        interactive=True,
+                    )
+
+                    term_disabled_info = gr.Markdown(
+                        _(
+                            "Auto term extraction is disabled. Term extraction settings below will not take effect until it is enabled."
+                        ),
+                        visible=settings.translation.no_auto_extract_glossary,
+                    )
+
+                    with gr.Group(visible=True) as term_settings_group:
+                        term_service = gr.Dropdown(
+                            label=_("Term extraction engine"),
+                            choices=[_("Follow main translation engine")]
+                            + [
+                                metadata.translate_engine_type
+                                for metadata in TERM_EXTRACTION_ENGINE_METADATA
+                            ],
+                            value=_("Follow main translation engine"),
+                        )
+
+                        # Term engine detail settings
+                        __gui_term_service_arg_names = []
+                        for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                            if not term_metadata.cli_detail_field_name:
+                                continue
+                            term_detail_field_name = (
+                                f"term_{term_metadata.cli_detail_field_name}"
+                            )
+                            term_detail_settings = getattr(
+                                settings, term_detail_field_name
+                            )
+
+                            # Term engine settings group should stay visible;
+                            # visibility is controlled by each field input.
+                            with gr.Group() as term_service_detail:
+                                term_detail_text_input_index_map[
+                                    term_metadata.translate_engine_type
+                                ] = []
+                                for (
+                                    field_name,
+                                    field,
+                                ) in term_metadata.term_setting_model_type.model_fields.items():
+                                    if field_name in (
+                                        "translate_engine_type",
+                                        "support_llm",
+                                    ):
+                                        continue
+                                    if field.default_factory:
+                                        continue
+
+                                    base_field_name = field_name
+                                    if base_field_name.startswith("term_"):
+                                        base_name = base_field_name[len("term_") :]
+                                    else:
+                                        base_name = base_field_name
+
+                                    if disable_gui_sensitive_input:
+                                        if base_name in GUI_SENSITIVE_FIELDS:
+                                            continue
+                                        if base_name in GUI_PASSWORD_FIELDS:
+                                            continue
+
+                                    type_hint = field.annotation
+                                    original_type = typing.get_origin(type_hint)
+                                    type_args = typing.get_args(type_hint)
+                                    value = getattr(term_detail_settings, field_name)
+
+                                    if (
+                                        type_hint is str
+                                        or str in type_args
+                                        or type_hint is int
+                                        or int in type_args
+                                    ):
+                                        if base_name in GUI_PASSWORD_FIELDS:
+                                            field_input = gr.Textbox(
+                                                label=field.description,
+                                                value=value,
+                                                interactive=True,
+                                                type="password",
+                                                visible=False,
+                                            )
+                                        else:
+                                            field_input = gr.Textbox(
+                                                label=field.description,
+                                                value=value,
+                                                interactive=True,
+                                                visible=False,
+                                            )
+                                    elif type_hint is bool or bool in type_args:
+                                        field_input = gr.Checkbox(
+                                            label=field.description,
+                                            value=value,
+                                            interactive=True,
+                                            visible=False,
+                                        )
+                                    else:
+                                        raise Exception(
+                                            f"Unsupported type {type_hint} for field {field_name} in gui term extraction engine settings"
+                                        )
+
+                                    term_detail_text_input_index_map[
+                                        term_metadata.translate_engine_type
+                                    ].append(term_detail_index)
+                                    term_detail_index += 1
+                                    term_detail_text_inputs.append(field_input)
+                                    __gui_term_service_arg_names.append(field_name)
+                                    translation_engine_arg_inputs.append(field_input)
+
+                        term_rate_limit_mode = gr.Radio(
+                            choices=[
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
+                            ],
+                            label=_("Term rate limit mode"),
+                            value="Custom",
+                            interactive=True,
+                        )
+
+                        term_rpm_input = gr.Number(
+                            label=_("Term RPM (Requests Per Minute)"),
+                            value=240,
+                            precision=0,
+                            minimum=1,
+                            maximum=60000,
+                            interactive=True,
+                            visible=False,
+                        )
+
+                        term_concurrent_threads_input = gr.Number(
+                            label=_("Term concurrent threads"),
+                            value=20,
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                        )
+
+                        term_custom_qps_input = gr.Number(
+                            label=_("Term QPS (Queries Per Second)"),
+                            value=(
+                                settings.translation.term_qps
+                                or settings.translation.qps
+                                or 4
+                            ),
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=True,
+                        )
+
+                        term_custom_pool_max_workers_input = gr.Number(
+                            label=_("Term pool max workers"),
+                            value=settings.translation.term_pool_max_workers,
+                            precision=0,
+                            minimum=0,
+                            maximum=1000,
+                            interactive=True,
+                            visible=True,
+                        )
 
                 with gr.Row():
                     lang_from = gr.Dropdown(
@@ -1411,13 +1693,6 @@ with gr.Blocks(
                         visible=False,
                         interactive=True,
                         placeholder="http://host:port",
-                    )
-
-                    # New advanced translation options
-                    no_auto_extract_glossary = gr.Checkbox(
-                        label=_("Disable auto extract glossary"),
-                        value=settings.translation.no_auto_extract_glossary,
-                        interactive=True,
                     )
 
                     save_auto_extracted_glossary = gr.Checkbox(
@@ -1725,6 +2000,36 @@ with gr.Blocks(
                 gr.update(visible=custom_visible),
             ]
 
+        def on_enable_auto_term_extraction_change(enabled: bool):
+            """Update term disabled info visibility based on auto term extraction toggle"""
+            return gr.update(visible=not enabled)
+
+        def on_term_rate_limit_mode_change(mode: str):
+            """Update term rate-limit controls visibility based on mode"""
+            rpm_visible = mode == "RPM"
+            threads_visible = mode == "Concurrent Threads"
+            custom_visible = mode == "Custom"
+            return [
+                gr.update(visible=rpm_visible),
+                gr.update(visible=threads_visible),
+                gr.update(visible=custom_visible),
+                gr.update(visible=custom_visible),
+            ]
+
+        def on_term_service_change(term_service_name: str):
+            """Update term engine-specific settings visibility"""
+            if not term_detail_text_inputs:
+                return
+            detail_group_index = term_detail_text_input_index_map.get(
+                term_service_name, []
+            )
+            if len(term_detail_text_inputs) == 1:
+                return [gr.update(visible=(0 in detail_group_index))]
+            return [
+                gr.update(visible=(i in detail_group_index))
+                for i in range(len(term_detail_text_inputs))
+            ]
+
         def on_service_change_with_rate_limit(mode, service_name):
             """Expand original on_select_service with rate-limit-UI updated"""
             original_updates = on_select_service(service_name)
@@ -1827,6 +2132,34 @@ with gr.Blocks(
             short_line_split_factor,
         )
 
+        # Auto term extraction toggle handlers
+        enable_auto_term_extraction.change(
+            on_enable_auto_term_extraction_change,
+            enable_auto_term_extraction,
+            term_disabled_info,
+        )
+
+        # Term rate limit handlers
+        term_rate_limit_mode.change(
+            on_term_rate_limit_mode_change,
+            term_rate_limit_mode,
+            [
+                term_rpm_input,
+                term_concurrent_threads_input,
+                term_custom_qps_input,
+                term_custom_pool_max_workers_input,
+            ],
+        )
+
+        # Term service change handler
+        term_service.change(
+            on_term_service_change,
+            term_service,
+            outputs=(
+                term_detail_text_inputs if len(term_detail_text_inputs) > 0 else None
+            ),
+        )
+
         # State for managing translation tasks
         state = gr.State({"session_id": None, "current_task": None})
 
@@ -1857,7 +2190,7 @@ with gr.Blocks(
             glossary_file,
             save_auto_extracted_glossary,
             # New advanced translation options
-            no_auto_extract_glossary,
+            enable_auto_term_extraction,
             primary_font_family,
             skip_clean,
             disable_rich_text_translate,
@@ -1880,11 +2213,19 @@ with gr.Blocks(
             non_formula_line_iou_threshold,
             figure_table_protection_threshold,
             skip_formula_offset_calculation,
+            # Term extraction engine options
+            term_service,
+            term_rate_limit_mode,
+            term_rpm_input,
+            term_concurrent_threads_input,
+            term_custom_qps_input,
+            term_custom_pool_max_workers_input,
             *translation_engine_arg_inputs,
             # any UI components that are used by translate/save should be listed above!
             # Extra UI components to be updated on load (not used by translate/save)
             siliconflow_free_acknowledgement,
             glossary_table,
+            term_disabled_info,
         ]
 
         # Translation button click handler
@@ -2011,8 +2352,11 @@ with gr.Blocks(
                         value=fresh_settings.translation.save_auto_extracted_glossary
                     )
                 )
+                # enable_auto_term_extraction is the inverse of no_auto_extract_glossary
                 updates.append(
-                    gr.update(value=fresh_settings.translation.no_auto_extract_glossary)
+                    gr.update(
+                        value=not fresh_settings.translation.no_auto_extract_glossary
+                    )
                 )
                 primary_font_display = (
                     "Auto"
@@ -2074,6 +2418,39 @@ with gr.Blocks(
                 updates.append(
                     gr.update(value=fresh_settings.pdf.skip_formula_offset_calculation)
                 )
+                # Term extraction engine basic settings
+                term_engine_enabled = (
+                    not fresh_settings.translation.no_auto_extract_glossary
+                )
+                selected_term_service = _("Follow main translation engine")
+                for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                    term_flag_name = f"term_{term_metadata.cli_flag_name}"
+                    if getattr(fresh_settings, term_flag_name, False):
+                        selected_term_service = term_metadata.translate_engine_type
+                        break
+                updates.append(gr.update(value=selected_term_service))
+                # Term rate limit: use Custom mode by default
+                updates.append(gr.update(value="Custom"))
+                updates.append(gr.update(visible=False))  # term_rpm_input
+                updates.append(
+                    gr.update(visible=False)
+                )  # term_concurrent_threads_input
+                updates.append(
+                    gr.update(
+                        value=(
+                            fresh_settings.translation.term_qps
+                            or fresh_settings.translation.qps
+                            or 4
+                        ),
+                        visible=True,
+                    )
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.term_pool_max_workers,
+                        visible=True,
+                    )
+                )
                 # Translation engine detail fields (ordered)
                 disable_sensitive_gui = (
                     fresh_settings.gui_settings.disable_gui_sensitive_input
@@ -2104,12 +2481,52 @@ with gr.Blocks(
                         value = getattr(detail_settings, field_name)
                         visible = metadata.translate_engine_type == selected_service
                         updates.append(gr.update(value=value, visible=visible))
+
+                # Term extraction engine detail fields (ordered)
+                for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                    if not term_metadata.cli_detail_field_name:
+                        continue
+                    term_detail_field_name = (
+                        f"term_{term_metadata.cli_detail_field_name}"
+                    )
+                    term_detail_settings = getattr(
+                        fresh_settings, term_detail_field_name
+                    )
+                    for (
+                        field_name,
+                        field,
+                    ) in term_metadata.term_setting_model_type.model_fields.items():
+                        if field.default_factory:
+                            continue
+                        if field_name in ("translate_engine_type", "support_llm"):
+                            continue
+                        base_field_name = field_name
+                        if base_field_name.startswith("term_"):
+                            base_name = base_field_name[len("term_") :]
+                        else:
+                            base_name = base_field_name
+                        if disable_sensitive_gui:
+                            if base_name in GUI_SENSITIVE_FIELDS:
+                                continue
+                            if base_name in GUI_PASSWORD_FIELDS:
+                                continue
+                        value = getattr(term_detail_settings, field_name)
+                        visible = (
+                            term_metadata.translate_engine_type == selected_term_service
+                        )
+                        updates.append(gr.update(value=value, visible=visible))
+
                 # Extra UI components at the end of ui_setting_controls
                 siliconflow_free_ack_visible = selected_service == "SiliconFlowFree"
                 updates.append(gr.update(visible=siliconflow_free_ack_visible))
                 updates.append(
                     gr.update(visible=llm_support)
                 )  # glossary_table visibility
+                updates.append(
+                    gr.update(
+                        visible=fresh_settings.translation.no_auto_extract_glossary
+                    )
+                )  # term_disabled_info visibility
 
                 return updates
             except Exception as e:

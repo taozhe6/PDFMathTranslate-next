@@ -55,9 +55,10 @@ def _create_translator_instance(
                 raise TranslateEngineSettingError(
                     f"{translate_engine_type} does not support glossary. Please choose a different translator or remove the glossary."
                 )
-
+            temp_settings = settings.model_copy()
+            temp_settings.translate_engine_settings = translator_config
             translator = getattr(module, f"{translate_engine_type}Translator")(
-                settings, rate_limiter
+                temp_settings, rate_limiter
             )
             # Health check: perform a short translation ignoring cache to validate translator availability
             translator.translate("Hello", ignore_cache=True)
