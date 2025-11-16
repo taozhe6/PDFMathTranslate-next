@@ -423,7 +423,20 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
     if translator is None:
         raise ValueError("No translator found")
 
-    term_extraction_translator = get_term_translator(settings)
+    if settings.term_extraction_engine_settings == settings.translate_engine_settings:
+        term_extraction_translator = translator
+        if recommended_qps := getattr(translator, "pdf2zh_next_recommended_qps", None):
+            settings.translation.term_qps = recommended_qps
+            logger.info(f"Updated term qps to {recommended_qps}")
+        if recommended_pool_max_workers := getattr(
+            translator, "pdf2zh_next_recommended_pool_max_workers", None
+        ):
+            settings.translation.term_pool_max_workers = recommended_pool_max_workers
+            logger.info(
+                f"Updated term pool max workers to {recommended_pool_max_workers}"
+            )
+    else:
+        term_extraction_translator = get_term_translator(settings)
 
     # 设置分割策略
     split_strategy = None

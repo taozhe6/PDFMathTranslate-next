@@ -46,9 +46,11 @@ class SiliconFlowFreeTranslator(BaseTranslator):
 
         self.url = AVAILABLE_SERVER_ENDPOINTS[0]
         self.get_fast_service()
-        self.fetch_setting_and_update()
+        self.pdf2zh_next_recommended_qps = 10
+        self.pdf2zh_next_recommended_pool_max_workers = 100
+        self.fetch_setting()
 
-    def fetch_setting_and_update(self):
+    def fetch_setting(self):
         try:
             response = self.client.get(f"{self.url}/config")
             if response.status_code == 200:
@@ -63,8 +65,8 @@ class SiliconFlowFreeTranslator(BaseTranslator):
                     assert qps > 0
                     assert max_pool_size > 0
 
-                    self.settings.translation.qps = qps
-                    self.settings.translation.pool_max_workers = max_pool_size
+                    self.pdf2zh_next_recommended_qps = qps
+                    self.pdf2zh_next_recommended_pool_max_workers = max_pool_size
 
                     if isinstance(self.rate_limiter, QPSRateLimiter):
                         self.rate_limiter.set_max_qps(qps)
