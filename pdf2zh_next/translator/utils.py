@@ -14,17 +14,27 @@ from pdf2zh_next.translator.rate_limiter.qps_rate_limiter import QPSRateLimiter
 logger = logging.getLogger(__name__)
 
 
-def get_rate_limiter(settings: SettingsModel) -> BaseRateLimiter:
-    if settings.translation.qps:
-        return QPSRateLimiter(settings.translation.qps)
-    else:
-        return None
+def get_rate_limiter(qps: int | None) -> BaseRateLimiter | None:
+    """Create rate limiter based on qps value."""
+    if qps and qps > 0:
+        return QPSRateLimiter(qps)
+    return None
 
 
-def get_translator(settings: SettingsModel) -> BaseTranslator:
-    rate_limiter = get_rate_limiter(settings=settings)
-    translator_config = settings.translate_engine_settings
+def _create_translator_instance(
+    settings: SettingsModel,
+    translator_config,
+    rate_limiter: BaseRateLimiter | None,
+    enforce_glossary_support: bool = True,
+) -> BaseTranslator:
+    """Create translator instance from translator_config.
 
+    Args:
+        settings: Global settings model.
+        translator_config: Concrete translation engine settings instance.
+        rate_limiter: Rate limiter for this translator.
+        enforce_glossary_support: Whether to enforce glossary + LLM support check.
+    """
     if isinstance(translator_config, NOT_SUPPORTED_TRANSLATION_ENGINE_SETTING_TYPE):
         raise TranslateEngineSettingError(
             f"{translator_config.translate_engine_type} is not supported, Please use other translator!"
@@ -36,10 +46,16 @@ def get_translator(settings: SettingsModel) -> BaseTranslator:
             logger.info(f"Using {translate_engine_type} translator")
             model_name = f"pdf2zh_next.translator.translator_impl.{translate_engine_type.lower()}"
             module = importlib.import_module(model_name)
-            if settings.translation.glossaries and not metadata.support_llm:
+
+            if (
+                enforce_glossary_support
+                and settings.translation.glossaries
+                and not metadata.support_llm
+            ):
                 raise TranslateEngineSettingError(
                     f"{translate_engine_type} does not support glossary. Please choose a different translator or remove the glossary."
                 )
+
             translator = getattr(module, f"{translate_engine_type}Translator")(
                 settings, rate_limiter
             )
@@ -48,3 +64,37 @@ def get_translator(settings: SettingsModel) -> BaseTranslator:
             return translator
 
     raise ValueError("No translator found")
+
+
+def get_translator(settings: SettingsModel) -> BaseTranslator:
+    """Get main translator instance according to translate_engine_settings."""
+    translator_config = settings.translate_engine_settings
+    rate_limiter = get_rate_limiter(settings.translation.qps)
+    return _create_translator_instance(
+        settings=settings,
+        translator_config=translator_config,
+        rate_limiter=rate_limiter,
+        enforce_glossary_support=True,
+    )
+
+
+def get_term_translator(settings: SettingsModel) -> BaseTranslator | None:
+    """Get term-extraction translator instance if configured.
+
+    This translator uses a potentially different engine and separate rate limit
+    from the main translation engine.
+    """
+    translator_config = settings.term_extraction_engine_settings
+    if translator_config is None:
+        return None
+
+    # Prefer dedicated term_qps, fallback to main qps when not set
+    term_qps = settings.translation.term_qps or settings.translation.qps
+    rate_limiter = get_rate_limiter(term_qps)
+
+    return _create_translator_instance(
+        settings=settings,
+        translator_config=translator_config,
+        rate_limiter=rate_limiter,
+        enforce_glossary_support=False,
+    )

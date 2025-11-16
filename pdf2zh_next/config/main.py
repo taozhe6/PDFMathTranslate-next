@@ -31,6 +31,9 @@ from pdf2zh_next.const import WRITE_TEMP_CONFIG_FILE
 # please contact the maintainer!
 
 _translation_engine_flag_names = [x.cli_flag_name for x in TRANSLATION_ENGINE_METADATA]
+_term_translation_engine_flag_names = [
+    f"term_{x.cli_flag_name}" for x in TRANSLATION_ENGINE_METADATA if x.support_llm
+]
 
 log = logging.getLogger(__name__)
 
@@ -494,12 +497,18 @@ class ConfigManager:
         """
         result = {}
         enabled_engine = None
+        enabled_term_engine = None
+
         for config in config_dicts:
             for engine_name in _translation_engine_flag_names:
                 if config.get(engine_name, False):
                     enabled_engine = engine_name
                     break
-            if enabled_engine:
+            for term_engine_name in _term_translation_engine_flag_names:
+                if config.get(term_engine_name, False):
+                    enabled_term_engine = term_engine_name
+                    break
+            if enabled_engine and enabled_term_engine:
                 break
 
         # Process from lowest to highest priority
@@ -512,6 +521,12 @@ class ConfigManager:
                 if engine_name in result:
                     result[engine_name] = False
             result[enabled_engine] = True
+
+        if enabled_term_engine:
+            for engine_name in _term_translation_engine_flag_names:
+                if engine_name in result:
+                    result[engine_name] = False
+            result[enabled_term_engine] = True
 
         return result
 
@@ -592,10 +607,12 @@ class ConfigManager:
     def write_user_default_config_file(self, settings: CLIEnvSettingsModel):
         # clear input file
         settings.basic.input_files = set()
-        
+
         content = settings.model_dump(mode="json")
         if self._is_file_content_identical(DEFAULT_CONFIG_FILE, content):
-            log.info(f"Config file {DEFAULT_CONFIG_FILE} is identical to the settings, skip it")
+            log.info(
+                f"Config file {DEFAULT_CONFIG_FILE} is identical to the settings, skip it"
+            )
             return
 
         self._write_toml_file(WRITE_TEMP_CONFIG_FILE, content)
