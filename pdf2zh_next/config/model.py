@@ -8,6 +8,10 @@ from pathlib import Path
 from pydantic import BaseModel
 from pydantic import Field
 
+from pdf2zh_next.config.translate_engine_model import (
+    TERM_EXTRACTION_ENGINE_SETTING_TYPE,
+)
+from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA_MAP
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_SETTING_TYPE
 
 log = logging.getLogger(__name__)
@@ -106,6 +110,14 @@ class TranslationSettings(BaseModel):
     pool_max_workers: int | None = Field(
         default=None,
         description="Maximum number of workers for translation pool. If not set, will use qps as the number of workers",
+    )
+    term_qps: int | None = Field(
+        default=None,
+        description="QPS limit for term extraction translation service. If not set, will follow qps.",
+    )
+    term_pool_max_workers: int | None = Field(
+        default=None,
+        description="Maximum number of workers for term extraction translation pool. If not set or 0, will follow pool_max_workers.",
     )
     no_auto_extract_glossary: bool = Field(
         default=False,
@@ -217,6 +229,11 @@ class SettingsModel(BaseModel):
     translate_engine_settings: TRANSLATION_ENGINE_SETTING_TYPE | None = Field(
         description="Translation engine settings", discriminator="translate_engine_type"
     )
+    term_extraction_engine_settings: TERM_EXTRACTION_ENGINE_SETTING_TYPE | None = Field(
+        default=None,
+        description="Term extraction translation engine settings",
+        discriminator="translate_engine_type",
+    )
 
     def clone(self) -> SettingsModel:
         return self.model_copy(deep=True)
@@ -264,6 +281,46 @@ class SettingsModel(BaseModel):
             to_type = self.translate_engine_settings.translate_engine_type
             log.info(f"Transformed translate_engine_settings: {from_type} -> {to_type}")
             self.translate_engine_settings.validate_settings()
+
+        # Validate and normalize term extraction engine settings
+        main_engine_type = self.translate_engine_settings.translate_engine_type
+        main_metadata = TRANSLATION_ENGINE_METADATA_MAP.get(main_engine_type)
+
+        if self.term_extraction_engine_settings is not None:
+            term_engine_type = (
+                self.term_extraction_engine_settings.translate_engine_type
+            )
+            term_metadata = TRANSLATION_ENGINE_METADATA_MAP.get(term_engine_type)
+            if not term_metadata or not term_metadata.support_llm:
+                raise ValueError(
+                    f"Term extraction engine {term_engine_type} must support LLM"
+                )
+            # Validate and transform term extraction engine if necessary
+            if hasattr(self.term_extraction_engine_settings, "validate_settings"):
+                self.term_extraction_engine_settings.validate_settings()
+            if hasattr(self.term_extraction_engine_settings, "transform"):
+                from_type = self.term_extraction_engine_settings.translate_engine_type
+                self.term_extraction_engine_settings = (
+                    self.term_extraction_engine_settings.transform()
+                )
+                to_type = self.term_extraction_engine_settings.translate_engine_type
+                log.info(
+                    f"Transformed term_extraction_engine_settings: {from_type} -> {to_type}"
+                )
+                if hasattr(self.term_extraction_engine_settings, "validate_settings"):
+                    self.term_extraction_engine_settings.validate_settings()
+        else:
+            # Default behavior: follow main engine if it supports LLM, otherwise disable auto term extraction
+            if main_metadata and main_metadata.support_llm:
+                self.term_extraction_engine_settings = self.translate_engine_settings
+            else:
+                self.term_extraction_engine_settings = None
+                if not self.translation.no_auto_extract_glossary:
+                    self.translation.no_auto_extract_glossary = True
+                    log.warning(
+                        "Current translation engine does not support LLM, "
+                        "automatic term extraction will be disabled."
+                    )
 
         # Validate files
         for file in self.basic.input_files:
@@ -318,6 +375,15 @@ class SettingsModel(BaseModel):
 
         if self.translation.qps < 1:
             raise ValueError("qps must be greater than 0")
+
+        if self.translation.term_qps is not None and self.translation.term_qps < 1:
+            raise ValueError("term_qps must be greater than 0")
+
+        if (
+            self.translation.term_pool_max_workers is not None
+            and self.translation.term_pool_max_workers < 0
+        ):
+            raise ValueError("term_pool_max_workers must be greater than or equal to 0")
 
         if self.translation.min_text_length < 0:
             raise ValueError("min_text_length must be greater than or equal to 0")
@@ -409,3 +475,9 @@ class SettingsModel(BaseModel):
             raise ValueError(f"Error parsing pages parameter: {e}") from e
 
         return ranges
+
+
+if __name__ == "__main__":
+    import json
+
+    print(json.dumps(SettingsModel.model_json_schema(), ensure_ascii=False))

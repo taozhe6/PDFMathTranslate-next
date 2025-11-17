@@ -22,6 +22,7 @@ from babeldoc.main import create_progress_handler
 from rich.logging import RichHandler
 
 from pdf2zh_next.config.model import SettingsModel
+from pdf2zh_next.translator import get_term_translator
 from pdf2zh_next.translator import get_translator
 from pdf2zh_next.utils import asynchronize
 
@@ -422,6 +423,21 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
     if translator is None:
         raise ValueError("No translator found")
 
+    if settings.term_extraction_engine_settings == settings.translate_engine_settings:
+        term_extraction_translator = translator
+        if recommended_qps := getattr(translator, "pdf2zh_next_recommended_qps", None):
+            settings.translation.term_qps = recommended_qps
+            logger.info(f"Updated term qps to {recommended_qps}")
+        if recommended_pool_max_workers := getattr(
+            translator, "pdf2zh_next_recommended_pool_max_workers", None
+        ):
+            settings.translation.term_pool_max_workers = recommended_pool_max_workers
+            logger.info(
+                f"Updated term pool max workers to {recommended_pool_max_workers}"
+            )
+    else:
+        term_extraction_translator = get_term_translator(settings)
+
     # 设置分割策略
     split_strategy = None
     if settings.pdf.max_pages_per_part:
@@ -493,6 +509,9 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
         non_formula_line_iou_threshold=settings.pdf.non_formula_line_iou_threshold,
         figure_table_protection_threshold=settings.pdf.figure_table_protection_threshold,
         skip_formula_offset_calculation=settings.pdf.skip_formula_offset_calculation,
+        # Term extraction translator (can be different from main translator)
+        term_extraction_translator=term_extraction_translator,
+        term_pool_max_workers=settings.translation.term_pool_max_workers,
     )
     return babeldoc_config
 
