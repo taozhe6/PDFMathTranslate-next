@@ -511,6 +511,7 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
         skip_formula_offset_calculation=settings.pdf.skip_formula_offset_calculation,
         # Term extraction translator (can be different from main translator)
         term_extraction_translator=term_extraction_translator,
+        term_pool_max_workers=settings.translation.term_pool_max_workers,
     )
     return babeldoc_config
 
