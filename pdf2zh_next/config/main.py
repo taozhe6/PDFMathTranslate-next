@@ -499,16 +499,24 @@ class ConfigManager:
         enabled_engine = None
         enabled_term_engine = None
 
+        # Determine which translation and term engines are enabled based on priority.
+        # config_dicts is ordered from highest to lowest priority, so once an engine
+        # type is selected, it must not be overridden by lower-priority configs.
         for config in config_dicts:
-            for engine_name in _translation_engine_flag_names:
-                if config.get(engine_name, False):
-                    enabled_engine = engine_name
-                    break
-            for term_engine_name in _term_translation_engine_flag_names:
-                if config.get(term_engine_name, False):
-                    enabled_term_engine = term_engine_name
-                    break
-            if enabled_engine and enabled_term_engine:
+            if enabled_engine is None:
+                for engine_name in _translation_engine_flag_names:
+                    if config.get(engine_name, False):
+                        enabled_engine = engine_name
+                        break
+
+            if enabled_term_engine is None:
+                for term_engine_name in _term_translation_engine_flag_names:
+                    if config.get(term_engine_name, False):
+                        enabled_term_engine = term_engine_name
+                        break
+
+            # If both engine types have been selected we can stop scanning for flags.
+            if enabled_engine is not None and enabled_term_engine is not None:
                 break
 
         # Process from lowest to highest priority
