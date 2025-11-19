@@ -180,7 +180,10 @@ def _translate_wrapper(
                             }
 
                         # Term extraction translator
-                        if hasattr(config.term_extraction_translator, "token_count"):
+                        if (
+                            hasattr(config.term_extraction_translator, "token_count")
+                            and config.term_extraction_translator != config.translator
+                        ):
                             token_usage["term"] = {
                                 "total": config.term_extraction_translator.token_count.value
                                 if hasattr(
