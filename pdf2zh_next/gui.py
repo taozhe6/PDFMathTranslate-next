@@ -1127,7 +1127,8 @@ async def translate_file(
                 visible=bool(glossary_path)
             ),  # Show glossary download if available
             gr.update(
-                value=f"## Translated{token_info}", visible=bool(mono_path or dual_path)
+                value=f"{_('## Translated')}{token_info}",
+                visible=bool(mono_path or dual_path),
             ),  # Show output title if any output
         )
     except asyncio.CancelledError:

@@ -45,7 +45,7 @@ class SiliconFlowFreeTranslator(BaseTranslator):
 
         self.enable_json_mode = False
         if settings.translate_engine_settings.siliconflow_free_enable_json_mode:
-            self.add_cache_impact_parameters("request_jsom_mode", True)
+            self.add_cache_impact_parameters("request_json_mode", True)
             self.enable_json_mode = True
         # CloudFlare has a timeout of 100 seconds
         self.client = httpx.Client(timeout=100)
