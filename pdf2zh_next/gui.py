@@ -1294,6 +1294,18 @@ with gr.Blocks(
 
                 gr.Markdown(_("## Translation Options"))
 
+                with gr.Row():
+                    lang_from = gr.Dropdown(
+                        label=_("Translate from"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_from,
+                    )
+                    lang_to = gr.Dropdown(
+                        label=_("Translate to"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_to,
+                    )
+
                 siliconflow_free_acknowledgement = gr.Markdown(
                     _(
                         "Free translation service provided by [SiliconFlow](https://siliconflow.cn)"
@@ -1622,18 +1634,6 @@ with gr.Blocks(
                             interactive=True,
                             visible=True,
                         )
-
-                with gr.Row():
-                    lang_from = gr.Dropdown(
-                        label=_("Translate from"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_from,
-                    )
-                    lang_to = gr.Dropdown(
-                        label=_("Translate to"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_to,
-                    )
 
                 page_range = gr.Radio(
                     choices=list(page_map.keys()),
