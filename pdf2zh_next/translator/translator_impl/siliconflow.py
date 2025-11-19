@@ -46,6 +46,13 @@ class SiliconFlowTranslator(BaseTranslator):
         self.token_count = AtomicInteger()
         self.prompt_token_count = AtomicInteger()
         self.completion_token_count = AtomicInteger()
+        self.cache_hit_prompt_token_count = AtomicInteger()
+
+        self.enable_json_mode = (
+            settings.translate_engine_settings.siliconflow_enable_json_mode
+        )
+        if self.enable_json_mode:
+            self.add_cache_impact_parameters("enable_json_mode", self.enable_json_mode)
 
     @retry(
         retry=retry_if_exception_type(openai.RateLimitError),
@@ -54,21 +61,40 @@ class SiliconFlowTranslator(BaseTranslator):
         before_sleep=before_sleep_log(logger, logging.WARNING),
     )
     def do_translate(self, text, rate_limit_params: dict = None) -> str:
+        extra_body = {}
+
+        if self.enable_json_mode:
+            extra_body["response_format"] = {"type": "json_object"}
+        if self.send_enable_thinking_param:
+            extra_body["enable_thinking"] = self.enable_thinking
+
         response = self.client.chat.completions.create(
             model=self.model,
             **self.options,
             messages=self.prompt(text),
-            extra_body={"enable_thinking": self.enable_thinking}
-            if self.send_enable_thinking_param
-            else None,
+            extra_body=extra_body,
         )
-        if hasattr(response, "usage") and response.usage:
-            if hasattr(response.usage, "total_tokens"):
-                self.token_count.inc(response.usage.total_tokens)
-            if hasattr(response.usage, "prompt_tokens"):
-                self.prompt_token_count.inc(response.usage.prompt_tokens)
-            if hasattr(response.usage, "completion_tokens"):
-                self.completion_token_count.inc(response.usage.completion_tokens)
+        try:
+            if hasattr(response, "usage") and response.usage:
+                if hasattr(response.usage, "total_tokens"):
+                    self.token_count.inc(response.usage.total_tokens)
+                if hasattr(response.usage, "prompt_tokens"):
+                    self.prompt_token_count.inc(response.usage.prompt_tokens)
+                if hasattr(response.usage, "completion_tokens"):
+                    self.completion_token_count.inc(response.usage.completion_tokens)
+                if hasattr(response.usage, "prompt_cache_hit_tokens"):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_cache_hit_tokens
+                    )
+                elif hasattr(response.usage, "prompt_tokens_details") and hasattr(
+                    response.usage.prompt_tokens_details, "cached_tokens"
+                ):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_tokens_details.cached_tokens
+                    )
+        except Exception as e:
+            logger.error(f"Error getting token usage: {e}")
+            pass
         message = response.choices[0].message.content.strip()
         message = self._remove_cot_content(message)
         return message
@@ -83,6 +109,13 @@ class SiliconFlowTranslator(BaseTranslator):
         if text is None:
             return None
 
+        extra_body = {}
+
+        if self.enable_json_mode:
+            extra_body["response_format"] = {"type": "json_object"}
+        if self.send_enable_thinking_param:
+            extra_body["enable_thinking"] = self.enable_thinking
+
         response = self.client.chat.completions.create(
             model=self.model,
             **self.options,
@@ -92,17 +125,29 @@ class SiliconFlowTranslator(BaseTranslator):
                     "content": text,
                 },
             ],
-            extra_body={"enable_thinking": self.enable_thinking}
-            if self.send_enable_thinking_param
-            else None,
+            extra_body=extra_body,
         )
-        if hasattr(response, "usage") and response.usage:
-            if hasattr(response.usage, "total_tokens"):
-                self.token_count.inc(response.usage.total_tokens)
-            if hasattr(response.usage, "prompt_tokens"):
-                self.prompt_token_count.inc(response.usage.prompt_tokens)
-            if hasattr(response.usage, "completion_tokens"):
-                self.completion_token_count.inc(response.usage.completion_tokens)
+        try:
+            if hasattr(response, "usage") and response.usage:
+                if hasattr(response.usage, "total_tokens"):
+                    self.token_count.inc(response.usage.total_tokens)
+                if hasattr(response.usage, "prompt_tokens"):
+                    self.prompt_token_count.inc(response.usage.prompt_tokens)
+                if hasattr(response.usage, "completion_tokens"):
+                    self.completion_token_count.inc(response.usage.completion_tokens)
+                if hasattr(response.usage, "prompt_cache_hit_tokens"):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_cache_hit_tokens
+                    )
+                elif hasattr(response.usage, "prompt_tokens_details") and hasattr(
+                    response.usage.prompt_tokens_details, "cached_tokens"
+                ):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_tokens_details.cached_tokens
+                    )
+        except Exception as e:
+            logger.error(f"Error getting token usage: {e}")
+            pass
         message = response.choices[0].message.content.strip()
         message = self._remove_cot_content(message)
         return message

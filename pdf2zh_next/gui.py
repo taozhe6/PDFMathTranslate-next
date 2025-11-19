@@ -915,7 +915,7 @@ def build_ui_inputs(*args):
 
 async def _run_translation_task(
     settings: SettingsModel, file_path: Path, state: dict, progress: gr.Progress
-) -> tuple[Path | None, Path | None, Path | None]:
+) -> tuple[Path | None, Path | None, Path | None, dict | None]:
     """
     This function runs the translation task and handles progress updates.
 
@@ -926,11 +926,12 @@ async def _run_translation_task(
         - progress: The Gradio progress bar
 
     Returns:
-        - A tuple of (mono_pdf_path, dual_pdf_path)
+        - A tuple of (mono_pdf_path, dual_pdf_path, glossary_path, token_usage)
     """
     mono_path = None
     dual_path = None
     glossary_path = None
+    token_usage = None
 
     try:
         settings.basic.input_files = set()
@@ -956,6 +957,7 @@ async def _run_translation_task(
                 mono_path = result.mono_pdf_path
                 dual_path = result.dual_pdf_path
                 glossary_path = result.auto_extracted_glossary_path
+                token_usage = event.get("token_usage", {})
                 progress(1.0, desc="Translation complete!")
                 break
             elif event["type"] == "error":
@@ -985,7 +987,7 @@ async def _run_translation_task(
         logger.error(f"Error in _run_translation_task: {e}", exc_info=True)
         raise gr.Error(f"Translation failed: {e}") from e
 
-    return mono_path, dual_path, glossary_path
+    return mono_path, dual_path, glossary_path, token_usage
 
 
 async def stop_translate_file(state: dict) -> None:
@@ -1073,7 +1075,7 @@ async def translate_file(
         state["current_task"] = task
 
         # Wait for the translation to complete
-        mono_path, dual_path, glossary_path = await task
+        mono_path, dual_path, glossary_path, token_usage = await task
         if not mono_path or not mono_path.exists():
             mono_path = None
         else:
@@ -1087,6 +1089,32 @@ async def translate_file(
             glossary_path = None
         else:
             glossary_path = glossary_path.as_posix()
+
+        token_info = ""
+        if token_usage:
+            token_info = "\n\n**Token Usage:**\n"  # noqa: S105, this is not a hardcoded password
+            total_usage = {
+                "total": 0,
+                "prompt": 0,
+                "cache_hit_prompt": 0,
+                "completion": 0,
+            }
+            if "main" in token_usage:
+                m = token_usage["main"]
+                token_info += f"- Main: Total {m['total']} (Prompt {m['prompt']}, Cache Hit Prompt {m['cache_hit_prompt']}, Completion {m['completion']})\n"
+                total_usage["total"] += m["total"]
+                total_usage["prompt"] += m["prompt"]
+                total_usage["cache_hit_prompt"] += m["cache_hit_prompt"]
+                total_usage["completion"] += m["completion"]
+            if "term" in token_usage:
+                t = token_usage["term"]
+                token_info += f"- Term: Total {t['total']} (Prompt {t['prompt']}, Cache Hit Prompt {t['cache_hit_prompt']}, Completion {t['completion']})\n"
+                total_usage["total"] += t["total"]
+                total_usage["prompt"] += t["prompt"]
+                total_usage["cache_hit_prompt"] += t["cache_hit_prompt"]
+                total_usage["completion"] += t["completion"]
+            token_info += f"- Total: Total {total_usage['total']} (Prompt {total_usage['prompt']}, Cache Hit Prompt {total_usage['cache_hit_prompt']}, Completion {total_usage['completion']})\n"
+            logger.info(f"Token usage: {token_info}")
         # Build success UI updates
         return (
             str(mono_path) if mono_path else None,  # Output mono file
@@ -1099,7 +1127,8 @@ async def translate_file(
                 visible=bool(glossary_path)
             ),  # Show glossary download if available
             gr.update(
-                visible=bool(mono_path or dual_path)
+                value=f"{_('## Translated')}{token_info}",
+                visible=bool(mono_path or dual_path),
             ),  # Show output title if any output
         )
     except asyncio.CancelledError:
@@ -1265,6 +1294,18 @@ with gr.Blocks(
 
                 gr.Markdown(_("## Translation Options"))
 
+                with gr.Row():
+                    lang_from = gr.Dropdown(
+                        label=_("Translate from"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_from,
+                    )
+                    lang_to = gr.Dropdown(
+                        label=_("Translate to"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_to,
+                    )
+
                 siliconflow_free_acknowledgement = gr.Markdown(
                     _(
                         "Free translation service provided by [SiliconFlow](https://siliconflow.cn)"
@@ -1359,6 +1400,71 @@ with gr.Blocks(
                                 detail_text_inputs.append(field_input)
                                 __gui_service_arg_names.append(field_name)
                                 translation_engine_arg_inputs.append(field_input)
+                    with gr.Group() as rate_limit_settings:
+                        rate_limit_mode = gr.Radio(
+                            choices=[
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
+                            ],
+                            label="Rate Limit Mode",
+                            value="Custom",
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button"
+                            ),
+                        )
+
+                        rpm_input = gr.Number(
+                            label=_("RPM (Requests Per Minute)"),
+                            value=240,  # More conservative default value
+                            precision=0,
+                            minimum=1,
+                            maximum=60000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Most API providers provide this parameter, such as OpenAI GPT-4: 500 RPM"
+                            ),
+                        )
+
+                        concurrent_threads_input = gr.Number(
+                            label=_("Concurrent Threads"),
+                            value=20,  # More conservative default value
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Maximum number of requests processed simultaneously"
+                            ),
+                        )
+
+                        custom_qps_input = gr.Number(
+                            label=_("QPS (Queries Per Second)"),
+                            value=settings.translation.qps or 4,
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_("Number of requests sent per second"),
+                        )
+
+                        custom_pool_max_workers_input = gr.Number(
+                            label=_("Pool Max Workers"),
+                            value=settings.translation.pool_max_workers,
+                            precision=0,
+                            minimum=0,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "If not set or set to 0, QPS will be used as the number of workers"
+                            ),
+                        )
 
                 # Term extraction options (engine + rate limit + detail settings)
                 with gr.Accordion(_("Auto Term Extraction"), open=True):
@@ -1529,18 +1635,6 @@ with gr.Blocks(
                             visible=True,
                         )
 
-                with gr.Row():
-                    lang_from = gr.Dropdown(
-                        label=_("Translate from"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_from,
-                    )
-                    lang_to = gr.Dropdown(
-                        label=_("Translate to"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_to,
-                    )
-
                 page_range = gr.Radio(
                     choices=list(page_map.keys()),
                     label="Pages",
@@ -1560,70 +1654,6 @@ with gr.Blocks(
                     value=settings.pdf.only_include_translated_page,
                     interactive=True,
                 )
-
-                with gr.Group() as rate_limit_settings:
-                    rate_limit_mode = gr.Radio(
-                        choices=[
-                            ("RPM (Requests Per Minute)", "RPM"),
-                            ("Concurrent Requests", "Concurrent Threads"),
-                            ("Custom", "Custom"),
-                        ],
-                        label="Rate Limit Mode",
-                        value="Custom",
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button"
-                        ),
-                    )
-
-                    rpm_input = gr.Number(
-                        label=_("RPM (Requests Per Minute)"),
-                        value=240,  # More conservative default value
-                        precision=0,
-                        minimum=1,
-                        maximum=60000,
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "Most API providers provide this parameter, such as OpenAI GPT-4: 500 RPM"
-                        ),
-                    )
-
-                    concurrent_threads_input = gr.Number(
-                        label=_("Concurrent Threads"),
-                        value=20,  # More conservative default value
-                        precision=0,
-                        minimum=1,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_("Maximum number of requests processed simultaneously"),
-                    )
-
-                    custom_qps_input = gr.Number(
-                        label=_("QPS (Queries Per Second)"),
-                        value=settings.translation.qps or 4,
-                        precision=0,
-                        minimum=1,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_("Number of requests sent per second"),
-                    )
-
-                    custom_pool_max_workers_input = gr.Number(
-                        label=_("Pool Max Workers"),
-                        value=settings.translation.pool_max_workers,
-                        precision=0,
-                        minimum=0,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "If not set or set to 0, QPS will be used as the number of workers"
-                        ),
-                    )
 
                 # PDF Output Options
                 gr.Markdown(_("## PDF Output Options"))
@@ -1675,7 +1705,7 @@ with gr.Blocks(
                         value=settings.translation.custom_system_prompt or "",
                         interactive=True,
                         placeholder=_(
-                            "e.g. /no_think You are a professional, authentic machine translation engine."
+                            "e.g. /no_think You are a professional zh-CN native translator who needs to fluently translate text into zh-CN."
                         ),
                     )
 

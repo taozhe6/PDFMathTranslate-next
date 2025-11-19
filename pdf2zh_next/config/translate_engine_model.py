@@ -388,6 +388,9 @@ class SiliconFlowSettings(BaseModel):
         default=False,
         description="Send enable thinking param to SiliconFlow service",
     )
+    siliconflow_enable_json_mode: bool | None = Field(
+        default=False, description="Enable JSON mode for SiliconFlow service"
+    )
 
     def validate_settings(self) -> None:
         if not self.siliconflow_api_key:
@@ -407,6 +410,10 @@ class SiliconFlowFreeSettings(BaseModel):
     translate_engine_type: Literal["SiliconFlowFree"] = Field(default="SiliconFlowFree")
     support_llm: Literal["yes", "no"] = Field(
         default="yes", description="Whether the translator supports LLM"
+    )
+
+    siliconflow_free_enable_json_mode: bool | None = Field(
+        default=False, description="Enable JSON mode for SiliconFlow Free service"
     )
 
     def validate_settings(self) -> None:
@@ -855,7 +862,7 @@ NOT_SUPPORTED_TRANSLATION_ENGINE_SETTING_TYPE: TypeAlias = NoneType
 
 # 默认翻译引擎
 _DEFAULT_TRANSLATION_ENGINE = SiliconFlowFreeSettings
-assert len(_DEFAULT_TRANSLATION_ENGINE.model_fields) == 2, (
+assert len(_DEFAULT_TRANSLATION_ENGINE.model_fields) == 3, (
     "Default translation engine cannot have detail settings"
 )
 
