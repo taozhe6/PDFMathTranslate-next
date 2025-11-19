@@ -61,13 +61,18 @@ class SiliconFlowTranslator(BaseTranslator):
         before_sleep=before_sleep_log(logger, logging.WARNING),
     )
     def do_translate(self, text, rate_limit_params: dict = None) -> str:
+        extra_body = {}
+
+        if self.enable_json_mode:
+            extra_body["response_format"] = {"type": "json_object"}
+        if self.send_enable_thinking_param:
+            extra_body["enable_thinking"] = self.enable_thinking
+
         response = self.client.chat.completions.create(
             model=self.model,
             **self.options,
             messages=self.prompt(text),
-            extra_body={"enable_thinking": self.enable_thinking}
-            if self.send_enable_thinking_param
-            else None,
+            extra_body=extra_body,
         )
         try:
             if hasattr(response, "usage") and response.usage:
