@@ -507,7 +507,10 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
     if translator is None:
         raise ValueError("No translator found")
 
-    if settings.term_extraction_engine_settings == settings.translate_engine_settings:
+    if (
+        settings.term_extraction_engine_settings == settings.translate_engine_settings
+        and settings.translation.term_qps == settings.translation.qps
+    ):
         term_extraction_translator = translator
         if recommended_qps := getattr(translator, "pdf2zh_next_recommended_qps", None):
             settings.translation.term_qps = recommended_qps
