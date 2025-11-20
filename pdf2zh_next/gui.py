@@ -31,6 +31,7 @@ from pdf2zh_next.config.translate_engine_model import (
 )
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA_MAP
+from pdf2zh_next.const import DEFAULT_CONFIG_DIR
 from pdf2zh_next.const import DEFAULT_CONFIG_FILE
 from pdf2zh_next.high_level import TranslationError
 from pdf2zh_next.high_level import do_translate_async_stream
@@ -1231,7 +1232,14 @@ current_dir = Path(__file__).parent
 assets_dir = current_dir / "assets"
 logo_path = assets_dir / "powered_by_siliconflow_light.png"
 translation_file_path = current_dir / "gui_translation.yaml"
-config_fake_pdf_path = assets_dir / "config.fake.pdf"
+config_fake_pdf_path = DEFAULT_CONFIG_DIR / "config.fake.pdf"
+
+if not config_fake_pdf_path.exists():
+    with config_fake_pdf_path.open("w") as f:
+        f.write("This is a fake PDF file for configuration saving.")
+        f.flush()
+
+
 tech_details_string = f"""
                     <summary>Technical details</summary>
                     - ⭐ Star at GitHub: <a href="https://github.com/PDFMathTranslate/PDFMathTranslate-next">PDFMathTranslate/PDFMathTranslate-next</a><br>
