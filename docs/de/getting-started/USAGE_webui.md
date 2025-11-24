@@ -47,9 +47,5 @@ Sie können die Quell- und Zielsprachen mit Umgebungsvariablen festlegen:
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## Wartung
-
-GUI wird von [Rongxin](https://github.com/reycn) gepflegt
-
 <div align="right"> 
 <h6><small>Ein Teil des Inhalts dieser Seite wurde von GPT übersetzt und kann Fehler enthalten.</small></h6>

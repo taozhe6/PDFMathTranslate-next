@@ -28,7 +28,319 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    <p align="center">
+    <a href="README.md">English</a> •
+    <a href="README_zh.md">简体中文</a> •
+    <a href="README_ja.md">日本語</a> •
+    <a href="README_ko.md">한국어</a> •
+    <a href="README_de.md">Deutsch</a>
 </p>
+
+---
+
+# pdf2zh-next
+
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pdf2zh.svg)](https://pypi.org/project/pdf2zh/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/pdf2zh.svg)](https://pypi.org/project/pdf2zh/)
+[![License](https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next)](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/master/LICENSE)
+
+A tool to translate PDF files while preserving the layout and supporting math formula translation.
+
+## Features
+
+- **Layout Preservation**: Preserve the original layout, including text, images, tables, and mathematical formulas.
+- **Math Formula Translation**: Translate mathematical formulas using [math-translator](https://github.com/SongXueZhi/math-translator).
+- **Bilingual Output**: Generate bilingual PDF files with original and translated text side by side.
+- **Multiple Translation Services**: Support for Google Translate, DeepL, Azure, and more.
+- **Multiple Input Formats**: Support for PDF, JPG, and PNG files.
+- **Flexible Output**: Output to PDF, Markdown, or LaTeX formats.
+
+## Installation
+
+### Using pip
+
+```bash
+pip install pdf2zh
+```
+
+### Using conda
+
+```bash
+conda install -c conda-forge pdf2zh
+```
+
+### Manual Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/PDFMathTranslate/PDFMathTranslate-next.git
+cd PDFMathTranslate-next
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+### Command Line
+
+```bash
+pdf2zh input.pdf -t en
+```
+
+For more detailed usage, see [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html).
+
+### WebUI
+
+Start the WebUI:
+
+```bash
+pdf2zh-webui
+```
+
+Then open `http://localhost:7860` in your browser.
+
+For more detailed usage, see [Using WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html).
+
+### Python API
+
+```python
+from pdf2zh import PDFTranslator
+
+translator = PDFTranslator()
+translator.translate_pdf("input.pdf", "output.pdf", target_lang="en")
+```
+
+For more detailed usage, see [Python API](https://pdf2zh-next.com/getting-started/USAGE_api.html).
+
+## Documentation
+
+For detailed documentation, visit [https://pdf2zh-next.com](https://pdf2zh-next.com).
+
+## Supported Languages
+
+Currently supported target languages:
+
+- English (`en`)
+- Simplified Chinese (`zh`)
+- Traditional Chinese (`zh-TW`)
+- Japanese (`ja`)
+- Korean (`ko`)
+- German (`de`)
+- French (`fr`)
+- Spanish (`es`)
+- Italian (`it`)
+- Portuguese (`pt`)
+- Russian (`ru`)
+- Arabic (`ar`)
+- Hindi (`hi`)
+
+For the complete list, see [Supported Languages](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html).
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [math-translator](https://github.com/SongXueZhi/math-translator) for mathematical formula translation.
+- [pdfplumber](https://github.com/jsvine/pdfplumber) for PDF text extraction.
+- [pymupdf](https://github.com/pymupdf/PyMuPDF) for PDF manipulation.
+- [streamlit](https://streamlit.io/) for the WebUI.
+
+## Community
+
+- **Discord**: [Join our Discord community](https://discord.gg/4j6mkjNsCd)
+- **QQ Group**: 948306460 (Verification code: pdf2zh)
+
+---
+
+## FAQ
+
+### How to handle translation of mathematical formulas?
+
+pdf2zh-next uses [math-translator](https://github.com/SongXueZhi/math-translator) to translate mathematical formulas. It supports translating formulas between different languages while preserving their mathematical meaning.
+
+### Can I use my own translation service?
+
+Yes, you can configure custom translation services. See [Translation Services Documentation](https://pdf2zh-next.com/advanced/TRANSLATION_SERVICES.html) for details.
+
+### How to contribute translations?
+
+We welcome contributions to improve translations. Please see our [Translation Contribution Guide](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html) for details.
+
+---
+
+If you find this project helpful, please give it a star ⭐!
+
+---
+
+### TRANSLATION RESULT
+
+    <a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+<p align="center">
+    <a href="README.md">English</a> •
+    <a href="README_zh.md">简体中文</a> •
+    <a href="README_ja.md">日本語</a> •
+    <a href="README_ko.md">한국어</a> •
+    <a href="README_de.md">Deutsch</a>
+</p>
+
+---
+
+# pdf2zh-next
+
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pdf2zh.svg)](https://pypi.org/project/pdf2zh/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/pdf2zh.svg)](https://pypi.org/project/pdf2zh/)
+[![License](https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next)](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/master/LICENSE)
+
+Ein Werkzeug zum Übersetzen von PDF-Dateien unter Beibehaltung des Layouts und mit Unterstützung für die Übersetzung mathematischer Formeln.
+
+## Funktionen
+
+- **Layout-Erhaltung**: Beibehaltung des ursprünglichen Layouts, einschließlich Text, Bildern, Tabellen und mathematischen Formeln.
+- **Mathematische Formelübersetzung**: Übersetzung mathematischer Formeln mit [math-translator](https://github.com/SongXueZhi/math-translator).
+- **Zweisprachige Ausgabe**: Erzeugung zweisprachiger PDF-Dateien mit Original- und übersetztem Text nebeneinander.
+- **Mehrere Übersetzungsdienste**: Unterstützung für Google Translate, DeepL, Azure und mehr.
+- **Mehrere Eingabeformate**: Unterstützung für PDF-, JPG- und PNG-Dateien.
+- **Flexible Ausgabe**: Ausgabe in PDF-, Markdown- oder LaTeX-Formaten.
+
+## Installation
+
+### Verwendung von pip
+
+```bash
+pip install pdf2zh
+```
+
+### Verwendung von conda
+
+```bash
+conda install -c conda-forge pdf2zh
+```
+
+### Manuelle Installation
+
+1. Repository klonen:
+
+```bash
+git clone https://github.com/PDFMathTranslate/PDFMathTranslate-next.git
+cd PDFMathTranslate-next
+```
+
+2. Abhängigkeiten installieren:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Verwendung
+
+### Kommandozeile
+
+```bash
+pdf2zh input.pdf -t en
+```
+
+Für detailliertere Verwendung siehe [Kommandozeile](https://pdf2zh-next.com/getting-started/USAGE_cli.html).
+
+### WebUI
+
+WebUI starten:
+
+```bash
+pdf2zh-webui
+```
+
+Dann öffnen Sie `http://localhost:7860` in Ihrem Browser.
+
+Für detailliertere Verwendung siehe [Verwendung von WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html).
+
+### Python API
+
+```python
+from pdf2zh import PDFTranslator
+
+translator = PDFTranslator()
+translator.translate_pdf("input.pdf", "output.pdf", target_lang="en")
+```
+
+Für detailliertere Verwendung siehe [Python API](https://pdf2zh-next.com/getting-started/USAGE_api.html).
+
+## Dokumentation
+
+Für detaillierte Dokumentation besuchen Sie [https://pdf2zh-next.com](https://pdf2zh-next.com).
+
+## Unterstützte Sprachen
+
+Derzeit unterstützte Zielsprachen:
+
+- Englisch (`en`)
+- Vereinfachtes Chinesisch (`zh`)
+- Traditionelles Chinesisch (`zh-TW`)
+- Japanisch (`ja`)
+- Koreanisch (`ko`)
+- Deutsch (`de`)
+- Französisch (`fr`)
+- Spanisch (`es`)
+- Italienisch (`it`)
+- Portugiesisch (`pt`)
+- Russisch (`ru`)
+- Arabisch (`ar`)
+- Hindi (`hi`)
+
+Für die vollständige Liste siehe [Unterstützte Sprachen](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html).
+
+## Beitragen
+
+Wir freuen uns über Beiträge! Bitte lesen Sie unseren [Beitragsleitfaden](CONTRIBUTING.md) für Details.
+
+## Lizenz
+
+Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe die [LICENSE](LICENSE)-Datei für Details.
+
+## Danksagungen
+
+- [math-translator](https://github.com/SongXueZhi/math-translator) für die Übersetzung mathematischer Formeln.
+- [pdfplumber](https://github.com/jsvine/pdfplumber) für die PDF-Text-Extraktion.
+- [pymupdf](https://github.com/pymupdf/PyMuPDF) für die PDF-Manipulation.
+- [streamlit](https://streamlit.io/) für die WebUI.
+
+## Gemeinschaft
+
+- **Discord**: [Treten Sie unserer Discord-Community bei](https://discord.gg/4j6mkjNsCd)
+- **QQ-Gruppe**: 948306460 (Verifizierungscode: pdf2zh)
+
+---
+
+## FAQ
+
+### Wie werden mathematische Formeln übersetzt?
+
+pdf2zh-next verwendet [math-translator](https://github.com/SongXueZhi/math-translator) zum Übersetzen mathematischer Formeln. Es unterstützt die Übersetzung von Formeln zwischen verschiedenen Sprachen unter Beibehaltung ihrer mathematischen Bedeutung.
+
+### Kann ich meinen eigenen Übersetzungsdienst verwenden?
+
+Ja, Sie können benutzerdefinierte Übersetzungsdienste konfigurieren. Siehe [Dokumentation der Übersetzungsdienste](https://pdf2zh-next.com/advanced/TRANSLATION_SERVICES.html) für Details.
+
+### Wie kann ich Übersetzungen beitragen?
+
+Wir freuen uns über Beiträge zur Verbesserung von Übersetzungen. Bitte lesen Sie unseren [Guide de contribution des traductions](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html) für Details.
+
+---
+
+Wenn Sie dieses Projekt hilfreich finden, geben Sie ihm bitte einen Stern ⭐!
+
+---
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +388,18 @@ Weitere Informationen zur Mitwirkung finden Sie im [Contribution Guide](https://
 
 Sie können unsere Anwendung mit einer der folgenden Demos ausprobieren:
 
-- [v1.x Öffentlicher kostenloser Dienst](https://pdf2zh.com/) online ohne Installation _(empfohlen)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 kostenlose Seiten pro Monat. _(empfohlen)_
+.
+- [PDFMathTranslate](https://pdfmathtranslate.com/) offers free usage quota; please refer to the FAQ section on the page for details.
+- [OpenAI Assistants API](https://platform.openai.com/docs/assistants/overview) (requires OpenAI API key).
+
+---
+
+### OUTPUT
+
+- [v1.x Public free service](https://pdf2zh.com/) online ohne Installation _(empfohlen)_.
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Kostenloses Nutzungskontingent verfügbar; Einzelheiten finden Sie im FAQ-Bereich der Seite. _(empfohlen)_.
+- [PDFMathTranslate](https://pdfmathtranslate.com/) bietet kostenloses Nutzungskontingent; Einzelheiten finden Sie im FAQ-Bereich der Seite.
+- [OpenAI Assistants API](https://platform.openai.com/docs/assistants/overview) (erfordert OpenAI API-Schlüssel).
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

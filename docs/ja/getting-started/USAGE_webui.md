@@ -47,9 +47,5 @@ WebUI インターフェースを開く方法はいくつかあります。**Win
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## メンテナンス
-
-GUI は [Rongxin](https://github.com/reycn) によってメンテナンスされています
-
 <div align="right"> 
 <h6><small>このページの一部のコンテンツは GPT によって翻訳されており、エラーが含まれている可能性があります。</small></h6>

@@ -24,6 +24,81 @@
 >
 > 문서에 기여하고 싶다면 **문서의 영어 버전만 수정해 주세요**. 다른 언어 버전은 기여자들이 직접 번역합니다.
 
+- [ ] Adding new translation services.
+- [ ] Adding new features.
+- [ ] Adding new dependencies.
+
+## PRs that are welcome to submit directly
+- [ ] Fix typo.
+- [ ] Fix grammatical errors.
+- [ ] Fix broken links.
+- [ ] Fix incorrect translation.
+- [ ] Add missing translation.
+- [ ] Improve translation quality.
+- [ ] Add new language.
+
+---
+
+### OUTPUT
+
+## 유지 관리자와 이슈를 통해 사전 논의가 권장되는 PR
+- [ ] 새로운 번역 서비스 추가.
+- [ ] 새로운 기능 추가.
+- [ ] 새로운 의존성 추가.
+
+## 직접 제출이 권장되는 PR
+- [ ] 오타 수정.
+- [ ] 문법 오류 수정.
+- [ ] 깨진 링크 수정.
+- [ ] 잘못된 번역 수정.
+- [ ] 누락된 번역 추가.
+- [ ] 번역 품질 향상.
+- [ ] 새로운 언어 추가.
+
+- Adding new translation services.
+- Adding new features.
+- Adding new dependencies.
+
+For the following types of PRs, you are welcome to submit directly:
+- Fix typo.
+- Fix grammatical errors.
+- Fix broken links.
+- Fix incorrect translation.
+- Add missing translation.
+- Improve translation quality.
+- Add new language.
+
+---
+
+### OUTPUT
+
+다음 유형의 PR 은 제출 전에 유지 관리자와 먼저 논의하는 것이 권장됩니다:
+- 새로운 번역 서비스 추가.
+- 새로운 기능 추가.
+- 새로운 의존성 추가.
+
+다음 유형의 PR 은 직접 제출해 주셔도 좋습니다:
+- 오타 수정.
+- 문법 오류 수정.
+- 깨진 링크 수정.
+- 잘못된 번역 수정.
+- 누락된 번역 추가.
+- 번역 품질 향상.
+- 새로운 언어 추가.
+
+2. PRs related to adding new dependencies. (This project aims to maintain minimal dependencies).
+3. PRs related to adding new translation services. (Translation services require extensive testing and maintenance, and we currently do not plan to add new ones).
+4. PRs related to adding new features. (This project is currently in maintenance mode and does not plan to add new features).
+
+---
+
+### OUTPUT
+
+1. 다중 사용자 공유 기능과 관련된 PR. (이 프로젝트는 주로 단일 사용자 사용을 위해 설계되었으며, 포괄적인 다중 사용자 시스템을 도입할 계획이 없습니다).
+2. 새로운 의존성 추가와 관련된 PR. (이 프로젝트는 최소한의 의존성을 유지하는 것을 목표로 합니다).
+3. 새로운 번역 서비스 추가와 관련된 PR. (번역 서비스는 광범위한 테스트와 유지보수가 필요하며, 현재 새로운 서비스를 추가할 계획이 없습니다).
+4. 새로운 기능 추가와 관련된 PR. (이 프로젝트는 현재 유지보수 모드이며, 새로운 기능을 추가할 계획이 없습니다).
+
 ## 기여 프로세스
 
 1. 이 저장소를 포크하고 로컬에 클론합니다.
@@ -117,6 +192,7 @@
 - **main.py**: 명령줄 도구를 제공.
 - **high_level.py**: BabelDOC 기반의 고수준 인터페이스.
 - **http_api.py**: HTTP API 를 제공 (시작되지 않음).
+
 
 ## 문의하기
 

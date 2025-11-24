@@ -28,7 +28,105 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    <p align="center">
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/ci.yml"><img src="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/release.yml"><img src="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/release.yml/badge.svg?branch=main" alt="Release"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/releases/latest"><img src="https://img.shields.io/github/v/release/DeepWiki/PDFMathTranslate" alt="GitHub release (latest by date)"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DeepWiki/PDFMathTranslate" alt="License"></a>
 </p>
+
+# PDFMathTranslate
+
+PDFMathTranslate is a tool that can translate PDF files while preserving their layout and mathematical formulas. It supports translating from any language to any language, and can be used for free.
+
+- **Preserve Layout**: The translated PDF maintains the original layout, including text, images, mathematical formulas, and code blocks.
+- **Translate Math**: Mathematical formulas are translated from LaTeX to the target language, and can be rendered as images or preserved as LaTeX.
+- **Translate Code**: Code blocks are translated by preserving the code structure and only translating the comments.
+- **Free to Use**: The translation service is completely free, with no usage limits.
+
+## Quick Start
+
+To get started with PDFMathTranslate, you can use the following methods:
+
+- [Using **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Using **Command Line**](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+
+## Documentation
+
+For more detailed documentation, please refer to the following sections:
+
+- [Installation](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+- [Usage](https://pdf2zh-next.com/getting-started/USAGE.html)
+- [Language Code](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
+- [Documentation of Translation Services](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICES.html)
+- [Getting Started](https://pdf2zh-next.com/getting-started/)
+- [Advanced](https://pdf2zh-next.com/advanced/)
+- [Supported Languages](https://pdf2zh-next.com/getting-started/SUPPORTED_LANGUAGES.html)
+- [Community](https://pdf2zh-next.com/community/)
+- [FAQ](https://pdf2zh-next.com/community/FAQ.html)
+- [For Translators](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](https://pdf2zh-next.com/community/CONTRIBUTING.html) for more details.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/DeepWiki/PDFMathTranslate/blob/main/LICENSE) file for details.
+
+---
+
+### TRANSLATION RESULT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+<p align="center">
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/ci.yml"><img src="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/release.yml"><img src="https://github.com/DeepWiki/PDFMathTranslate/actions/workflows/release.yml/badge.svg?branch=main" alt="Release"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/releases/latest"><img src="https://img.shields.io/github/v/release/DeepWiki/PDFMathTranslate" alt="GitHub release (latest by date)"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DeepWiki/PDFMathTranslate" alt="License"></a>
+</p>
+
+# PDFMathTranslate
+
+PDFMathTranslate — это инструмент, который может переводить файлы `PDF` с сохранением их макета и математических формул. Он поддерживает перевод с любого языка на любой язык и может использоваться бесплатно.
+
+- **Сохранение макета**: Переведённый `PDF` сохраняет исходный макет, включая текст, изображения, математические формулы и блоки кода.
+- **Перевод математики**: Математические формулы переводятся из `LaTeX` на целевой язык и могут быть отображены как изображения или сохранены как `LaTeX`.
+- **Перевод кода**: Блоки кода переводятся путём сохранения структуры кода и перевода только комментариев.
+- **Бесплатное использование**: Служба перевода полностью бесплатна, без ограничений по использованию.
+
+## Быстрый старт
+
+Чтобы начать работу с PDFMathTranslate, вы можете использовать следующие методы:
+
+- [Использование **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Использование **Командной строки**](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+
+## Документация
+
+Для получения более подробной документации обратитесь к следующим разделам:
+
+- [Установка](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+- [Использование](https://pdf2zh-next.com/getting-started/USAGE.html)
+- [Код языка](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
+- [Документация служб перевода](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICES.html)
+- [Начало работы](https://pdf2zh-next.com/getting-started/)
+- [Расширенные параметры](https://pdf2zh-next.com/advanced/)
+- [Поддерживаемые языки](https://pdf2zh-next.com/getting-started/SUPPORTED_LANGUAGES.html)
+- [Сообщество](https://pdf2zh-next.com/community/)
+- [Часто задаваемые вопросы](https://pdf2zh-next.com/community/FAQ.html)
+- [Руководство по внесению вклада в переводы](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+
+## Вклад
+
+Мы приветствуем вклад! Пожалуйста, ознакомьтесь с нашими [Руководящими принципами по внесению вклада](https://pdf2zh-next.com/community/CONTRIBUTING.html) для получения более подробной информации.
+
+## Лицензия
+
+Этот проект лицензирован по лицензии `MIT`. Подробности смотрите в файле [LICENSE](https://github.com/DeepWiki/PDFMathTranslate/blob/main/LICENSE).
+
+---
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +174,17 @@
 
 Вы можете попробовать наше приложение, используя любую из следующих демонстрационных версий:
 
-- [v1.x Бесплатный публичный сервис](https://pdf2zh.com/) доступен онлайн без установки _(рекомендуется)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 бесплатных страниц в месяц. _(рекомендуется)_
+- [**PDFMathTranslate**](https://github.com/SupervisorJ/PdfMathTranslate) (Free, open-source, supports command-line and web UI, supports custom API keys)
+- [**pdf2zh**](https://pdf2zh.com/) (Free, open-source, supports command-line and web UI, supports custom API keys)
+
+---
+
+### TRANSLATION
+
+- [v1.x Публичный бесплатный сервис](https://pdf2zh.com/) работает онлайн без установки _(рекомендуется)_.
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Доступна бесплатная квота использования; подробности смотрите в разделе FAQ на странице. _(рекомендуется)_
+- [**PDFMathTranslate**](https://github.com/SupervisorJ/PdfMathTranslate) (Бесплатный, с открытым исходным кодом, поддерживает командную строку и веб-интерфейс, поддерживает пользовательские API-ключи)
+- [**pdf2zh**](https://pdf2zh.com/) (Бесплатный, с открытым исходным кодом, поддерживает командную строку и веб-интерфейс, поддерживает пользовательские API-ключи)
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

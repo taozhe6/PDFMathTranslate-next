@@ -47,9 +47,5 @@
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## Обслуживание
-
-GUI поддерживается [Rongxin](https://github.com/reycn)
-
 <div align="right"> 
 <h6><small>Часть содержимого этой страницы была переведена GPT и может содержать ошибки.</small></h6>

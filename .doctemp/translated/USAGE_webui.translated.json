@@ -21,7 +21,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_cd8270c0",
+      "chunk_id": "h_rule_f240cb96",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 3,
@@ -252,42 +252,6 @@
         "de": "<img src=\"./../../images/after.png\" width=\"500\"/>\n",
         "it": "<img src=\"./../../images/after.png\" width=\"500\"/>\n",
         "pt": "<img src=\"./../../images/after.png\" width=\"500\"/>\n"
-      }
-    },
-    {
-      "chunk_id": "chunk_742C5FE6",
-      "chunk_type": "header",
-      "original_content": "## Maintainance\n",
-      "start_line_no": 50,
-      "translations": {
-        "ko": "## 유지 관리\n",
-        "es": "## Mantenimiento\n",
-        "it": "## Manutenzione\n",
-        "pt": "## Manutenção\n",
-        "fr": "## Maintenance\n",
-        "ru": "## Обслуживание\n",
-        "zh_TW": "## 維護\n",
-        "de": "## Wartung\n",
-        "zh": "## 维护\n",
-        "ja": "## メンテナンス\n"
-      }
-    },
-    {
-      "chunk_id": "chunk_7E834869",
-      "chunk_type": "paragraph",
-      "original_content": "GUI maintained by [Rongxin](https://github.com/reycn)\n",
-      "start_line_no": 52,
-      "translations": {
-        "fr": "GUI maintenu par [Rongxin](https://github.com/reycn)\n",
-        "de": "GUI wird von [Rongxin](https://github.com/reycn) gepflegt\n",
-        "es": "GUI mantenida por [Rongxin](https://github.com/reycn)\n",
-        "zh": "由 [Rongxin](https://github.com/reycn) 维护的 GUI\n",
-        "pt": "GUI mantido por [Rongxin](https://github.com/reycn)\n",
-        "zh_TW": "由 [Rongxin](https://github.com/reycn) 維護的 GUI\n",
-        "ko": "[Rongxin](https://github.com/reycn) 이 유지 관리하는 GUI\n",
-        "it": "GUI mantenuta da [Rongxin](https://github.com/reycn)\n",
-        "ru": "GUI поддерживается [Rongxin](https://github.com/reycn)\n",
-        "ja": "GUI は [Rongxin](https://github.com/reycn) によってメンテナンスされています\n"
       }
     }
   ]

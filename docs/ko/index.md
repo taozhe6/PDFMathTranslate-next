@@ -28,7 +28,194 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    The next generation of `PDFMathTranslate` - `pdf2zh-next` is a powerful tool designed to extract text and mathematical formulas from PDF files and translate them into the desired language. It supports a variety of translation services, including OpenAI, Azure, Google, DeepSeek, and DeepL, ensuring high-quality translations for academic and technical documents.
+
+## Features
+
+- **Accurate Text Extraction**: Utilize `pdfplumber` and `pymupdf` to extract text and mathematical formulas from PDF files with high precision.
+- **Multi-Translation Service Support**: Choose from OpenAI, Azure, Google, DeepSeek, and DeepL for translations.
+- **Flexible Output Options**: Generate translated documents in Markdown, LaTeX, or PDF format.
+- **Customizable Translation**: Select specific pages or page ranges for translation, and customize the output language.
+- **Batch Processing**: Translate multiple PDF files in one go with batch processing capabilities.
+
+## Installation
+
+You can install `pdf2zh-next` using pip:
+
+```bash
+pip install pdf2zh-next
+```
+
+For more detailed installation instructions, including how to set up the necessary API keys, please refer to the [Installation](./getting-started/INSTALLATION.md) guide.
+
+## Quick Start
+
+To get started with `pdf2zh-next`, you can use the Command Line Interface (CLI) or the WebUI.
+
+### Using Command Line
+
+1. **Set your API key** (required for translation services):
+
+    ```bash
+    pdf2zh config --api-key <your-api-key> --service <service-name>
+    ```
+
+    Replace `<your-api-key>` with your actual API key and `<service-name>` with the desired translation service (e.g., `openai`, `azure`, `google`, `deepseek`, `deepl`).
+
+2. **Translate a PDF file**:
+
+    ```bash
+    pdf2zh translate --input <path-to-pdf> --output <path-to-output> --target-lang <language-code>
+    ```
+
+    Replace `<path-to-pdf>` with the path to your PDF file, `<path-to-output>` with the desired output path, and `<language-code>` with the target language code (e.g., `zh` for Chinese, `ja` for Japanese).
+
+For more examples and advanced usage, check out the [Command Line](./getting-started/USAGE_cli.md) documentation.
+
+### Using WebUI
+
+For a more interactive experience, you can use the WebUI:
+
+1. **Start the WebUI server**:
+
+    ```bash
+    pdf2zh webui
+    ```
+
+2. **Open your browser** and navigate to `http://localhost:7860` to access the WebUI.
+
+3. **Upload your PDF file**, configure the translation settings, and start the translation process.
+
+For detailed instructions on using the WebUI, visit the [WebUI](./getting-started/USAGE_webui.md) guide.
+
+## Documentation
+
+For comprehensive documentation, including detailed guides and advanced configuration options, please visit our [documentation site](https://pdf2zh-next.com).
+
+- [Getting Started](https://pdf2zh-next.com/getting-started/)
+- [Advanced](https://pdf2zh-next.com/advanced/)
+- [Supported Languages](https://pdf2zh-next.com/supported-languages/)
+- [Community](https://pdf2zh-next.com/community/)
+- [FAQ](https://pdf2zh-next.com/faq/)
+- [For Translators](https://pdf2zh-next.com/for-translators/)
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to `pdf2zh-next`, please check out our [Contributing Guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- This project is built upon the original [PDFMathTranslate](https://github.com/Z-Y-X-1/PDFMathTranslate) by Z-Y-X-1.
+- Special thanks to all the contributors and the open-source community for their support.
+
+---
+
+<p align="center">
+    Made with  ❤️ by the PDFMathTranslate team
 </p>
+
+---
+
+### OUTPUT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+
+`PDFMathTranslate` 의 차세대 버전인 `pdf2zh-next` 는 PDF 파일에서  텍스트와 수학 공식을 추출하여 원하는 언어로 번역하는 강력한 도구입니다. OpenAI, Azure, Google, DeepSeek, DeepL 등 다양한 번역 서비스를 지원하여 학술 및 기술 문서의 고품질 번역을 보장합니다.
+
+## 기능
+
+- **정확한  텍스트 추출**: `pdfplumber` 와 `pymupdf` 를 활용하여 PDF 파일에서  텍스트와 수학 공식을 높은 정밀도로 추출합니다.
+- **다중 번역 서비스 지원**: OpenAI, Azure, Google, DeepSeek, DeepL 중에서 번역 서비스를 선택할 수 있습니다.
+- **유연한 출력 옵션**: 번역된 문서를 Markdown, LaTeX 또는 PDF 형식으로 생성합니다.
+- **맞춤형 번역**: 특정 페이지나 페이지 범위를 선택하여 번역하고, 출력 언어를 사용자 정의할 수 있습니다.
+- **일괄 처리**: 일괄 처리 기능으로 여러 PDF 파일을 한 번에 번역할 수 있습니다.
+
+## 설치
+
+pip 를 사용하여 `pdf2zh-next` 를 설치할 수 있습니다:
+
+```bash
+pip install pdf2zh-next
+```
+
+필요한 API 키를 설정하는 방법을 포함한 더 자세한 설치 지침은 [설치](./getting-started/INSTALLATION.md) 가이드를 참조하세요.
+
+## 빠른 시작
+
+`pdf2zh-next` 를 시작하려면 명령줄 인터페이스 (CLI) 나 WebUI 를 사용할 수 있습니다.
+
+### 명령줄 사용
+
+1. **API 키 설정** (번역 서비스에 필요):
+
+    ```bash
+    pdf2zh config --api-key <your-api-key> --service <service-name>
+    ```
+
+    `<your-api-key>`  를 실제 API 키로, `<service-name>` 을 원하는 번역 서비스 (예: `openai`, `azure`, `google`, `deepseek`, `deepl`) 로 바꾸세요.
+
+2. **PDF 파일 번역**:
+
+    ```bash
+    pdf2zh translate --input <path-to-pdf> --output <path-to-output> --target-lang <language-code>
+    ```
+
+    `<path-to-pdf>` 를 PDF 파일 경로로, `<path-to-output>`  을 원하는 출력 경로로, `<language-code>` 를 대상 언어 코드 (예: 중국어는 `zh`, 일본어는 `ja`) 로 바꾸세요.
+
+더 많은 예제와 고급 사용법은 [명령줄](./getting-started/USAGE_cli.md) 문서를 확인하세요.
+
+### WebUI 사용
+
+보다 대화형 경험을 원한다면 WebUI 를 사용할 수 있습니다:
+
+1. **WebUI 서버 시작**:
+
+    ```bash
+    pdf2zh webui
+    ```
+
+2. **브라우저를 열고** `http://localhost:7860`  으로 이동하여 WebUI 에 접속합니다.
+
+3. **PDF 파일을 업로드**하고, 번역 설정을 구성한 후 번역 프로세스를 시작합니다.
+
+WebUI 사용에 대한 자세한 지침은 [WebUI](./getting-started/USAGE_webui.md) 가이드를 방문하세요.
+
+## 문서
+
+자세한 가이드와 고급 구성  옵션을 포함한 포괄적인 문서는 [문서 사이트](https://pdf2zh-next.com) 를 방문하세요.
+
+- [시작하기](https://pdf2zh-next.com/getting-started/)
+- [고급 옵션](https://pdf2zh-next.com/advanced/)
+- [지원 언어](https://pdf2zh-next.com/supported-languages/)
+- [커뮤니티](https://pdf2zh-next.com/community/)
+- [자주 묻는 질문](https://pdf2zh-next.com/faq/)
+- [문서 번역 기여 가이드](https://pdf2zh-next.com/for-translators/)
+
+## 기여
+
+기여를 환영합니다! `pdf2zh-next` 에 기여하고 싶으시다면 [기여 지침](CONTRIBUTING.md) 을 확인해 주세요.
+
+## 라이선스
+
+이 프로젝트는 MIT 라이선스에 따라 라이선스가 부여됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+## 감사의 말
+
+- 이 프로젝트는 Z-Y-X-1 의 원본 [PDFMathTranslate](https://github.com/Z-Y-X-1/PDFMathTranslate)  를 기반으로 구축되었습니다.
+- 모든 기여자와 오픈소스 커뮤니티의 지원에 특별한 감사를 드립니다.
+
+---
+
+<p align="center">
+    PDFMathTranslate  팀이 ❤️  을 담아 만들었습니다.
+</p>
+
+---
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +263,19 @@ PDF 과학 논문 번역 및 이중 언어 비교.
 
 다음 데모 중 하나를 사용하여 저희 애플리케이션을 시험해 볼 수 있습니다:
 
-- [v1.x 공개 무료 서비스](https://pdf2zh.com/) 설치 없이 온라인에서 이용 가능 _(권장)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 매월 1000 페이지 무료 이용 가능 _(권장)_
+- [Using **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html) (requires installation)
+- [Using **Command Line**](https://pdf2zh-next.com/getting-started/USAGE_command_line.html) (requires installation)
+- [Using **API**](https://pdf2zh-next.com/getting-started/USAGE_api.html) (requires installation)
+
+---
+
+### OUTPUT
+
+- [v1.x 공개 무료 서비스](https://pdf2zh.com/) 설치 없이 온라인 사용 가능 _(권장)_
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 무료 사용량 제공; 자세한 내용은 페이지 내 FAQ 섹션 참조 _(권장)_
+- [**WebUI** 사용](https://pdf2zh-next.com/getting-started/USAGE_webui.html) (설치 필요)
+- [**명령줄** 사용](https://pdf2zh-next.com/getting-started/USAGE_command_line.html) (설치 필요)
+- [**API** 사용](https://pdf2zh-next.com/getting-started/USAGE_api.html) (설치 필요)
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

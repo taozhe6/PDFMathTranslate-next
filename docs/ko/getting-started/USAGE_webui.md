@@ -47,9 +47,5 @@ WebUI 인터페이스를 여는 방법에는 여러 가지가 있습니다. **Wi
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## 유지 관리
-
-[Rongxin](https://github.com/reycn) 이 유지 관리하는 GUI
-
 <div align="right"> 
 <h6><small>이 페이지의 일부 내용은 GPT 에 의해 번역되었으며 오류가 포함될 수 있습니다.</small></h6>

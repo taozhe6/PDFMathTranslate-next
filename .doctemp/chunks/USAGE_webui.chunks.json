@@ -12,7 +12,7 @@
       "start_line_no": 1
     },
     {
-      "id": "h_rule_cd8270c0",
+      "id": "h_rule_f240cb96",
       "raw_content": "---\n",
       "metadata": {
         "chunk_type": "h_rule",
@@ -140,26 +140,6 @@
         "language": null
       },
       "start_line_no": 48
-    },
-    {
-      "id": "chunk_742C5FE6",
-      "raw_content": "## Maintainance\n",
-      "metadata": {
-        "chunk_type": "header",
-        "level": 2,
-        "language": null
-      },
-      "start_line_no": 50
-    },
-    {
-      "id": "chunk_7E834869",
-      "raw_content": "GUI maintained by [Rongxin](https://github.com/reycn)\n",
-      "metadata": {
-        "chunk_type": "paragraph",
-        "level": null,
-        "language": null
-      },
-      "start_line_no": 52
     }
   ]
 }

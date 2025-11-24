@@ -28,7 +28,170 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    ## PDFMathTranslate
+    
+    [English](README.md) | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](README_ko.md)
+    
+    `PDFMathTranslate` is a tool that converts PDF files containing mathematical formulas into translations in any language, preserving the original formatting and formulas. It supports both command-line and web interface usage.
+    
+    ## Features
+    
+    - **Accurate Translation**: Accurately translates text and mathematical formulas in PDF files.
+    - **Format Preservation**: Maintains the original layout and format of the PDF.
+    - **Multiple Translation Services**: Supports various translation services including DeepL, Google, OpenAI, and more.
+    - **Command Line and Web Interface**: Provides both command-line tools and a web interface for easy use.
+    - **Batch Processing**: Supports batch processing of multiple PDF files.
+    
+    ## Installation
+    
+    ### Using pip
+    
+    ```bash
+    pip install pdf2zh
+    ```
+    
+    ### Using Docker
+    
+    ```bash
+    docker pull nabenabe0928/pdf2zh:latest
+    ```
+    
+    For more installation methods, please refer to the [Installation Guide](https://pdf2zh-next.com/getting-started/INSTALLATION.html).
+    
+    ## Usage
+    
+    ### Command Line
+    
+    ```bash
+    pdf2zh --input input.pdf --output output.pdf --to ja
+    ```
+    
+    For more command-line options, please refer to the [Command Line Usage Guide](https://pdf2zh-next.com/getting-started/USAGE_cli.html).
+    
+    ### Web Interface
+    
+    Start the web interface with the following command:
+    
+    ```bash
+    pdf2zh --web
+    ```
+    
+    Then open your browser and visit `http://localhost:7860`.
+    
+    For more details on using the web interface, please refer to the [Web Interface Usage Guide](https://pdf2zh-next.com/getting-started/USAGE_webui.html).
+    
+    ## Supported Languages
+    
+    `PDFMathTranslate` supports translation into multiple languages. For the list of supported languages and their corresponding language codes, please refer to the [Supported Languages](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html) documentation.
+    
+    ## Documentation
+    
+    For detailed documentation, please visit [PDFMathTranslate Documentation](https://pdf2zh-next.com).
+    
+    ## Community and Support
+    
+    - **FAQ**: For common questions and solutions, please refer to the [FAQ](https://pdf2zh-next.com/community/FAQ.html).
+    - **Discord**: Join our [Discord community](https://discord.gg/Gm8P5gvTz8) for discussions and support.
+    - **GitHub Issues**: If you encounter any issues, please submit them on [GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues).
+    
+    ## Contributing
+    
+    We welcome contributions! If you are interested in contributing, please refer to our [Contribution Guide](https://pdf2zh-next.com/community/CONTRIBUTING.html).
+    
+    ## License
+    
+    This project is licensed under the MIT License. For more details, please see the [LICENSE](LICENSE) file.
+    
+    ## Acknowledgments
+    
+    - This project is inspired by [Immersive Translate](https://immersivetranslate.com/).
+    - Thanks to all contributors and users for their support and feedback.
+
+---
+
+### TRANSLATED TEXT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
+
+## PDFMathTranslate
+
+[English](README.md) | [中文](README_zh.md) | [日本語](README_ja.md) | [한국어](README_ko.md)
+
+`PDFMathTranslate` は、数学的な数式を含む `PDF` ファイルを任意の言語に翻訳し、元の書式と数式を保持するツールです。コマンドラインとウェブインターフェースの両方の使用方法をサポートしています。
+
+## 特徴
+
+- **正確な翻訳**：`PDF` ファイル内のテキストと数学的式を正確に翻訳します。
+- **書式の保持**：`PDF` の元のレイアウトと書式を維持します。
+- **複数の翻訳サービス**：DeepL、Google、OpenAI など、さまざまな翻訳サービスをサポートします。
+- **コマンドラインとウェブインターフェース**：使いやすいコマンドラインツールとウェブインターフェースの両方を提供します。
+- **バッチ処理**：複数の `PDF` ファイルのバッチ処理をサポートします。
+
+## インストール
+
+### pip を使用する
+
+```bash
+pip install pdf2zh
+```
+
+### Docker を使用する
+
+```bash
+docker pull nabenabe0928/pdf2zh:latest
+```
+
+その他のインストール方法については、[インストールガイド](https://pdf2zh-next.com/getting-started/INSTALLATION.html) を参照してください。
+
+## 使い方
+
+### コマンドライン
+
+```bash
+pdf2zh --input input.pdf --output output.pdf --to ja
+```
+
+コマンドラインオプションの詳細については、[コマンドライン使用ガイド](https://pdf2zh-next.com/getting-started/USAGE_cli.html) を参照してください。
+
+### ウェブインターフェース
+
+以下のコマンドでウェブインターフェースを起動します：
+
+```bash
+pdf2zh --web
+```
+
+その後、ブラウザを開き `http://localhost:7860` にアクセスしてください。
+
+ウェブインターフェースの使用に関する詳細は、[ウェブインターフェース使用ガイド](https://pdf2zh-next.com/getting-started/USAGE_webui.html) を参照してください。
+
+## サポート言語
+
+`PDFMathTranslate` は、複数の言語への翻訳をサポートしています。サポートされている言語とそれに対応する言語コードのリストについては、[サポート言語](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html) ドキュメントを参照してください。
+
+## ドキュメント
+
+詳細なドキュメントについては、[PDFMathTranslate ドキュメント](https://pdf2zh-next.com) をご覧ください。
+
+## コミュニティとサポート
+
+- **よくある質問**：よくある質問と解決策については、[よくある質問](https://pdf2zh-next.com/community/FAQ.html) を参照してください。
+- **Discord**：[Discord コミュニティ](https://discord.gg/Gm8P5gvTz8) に参加して、ディスカッションとサポートを受けられます。
+- **GitHub Issues**：問題が発生した場合は、[GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues) に提出してください。
+
+## 貢献
+
+貢献を歓迎します！貢献に興味がある場合は、[貢献ガイド](https://pdf2zh-next.com/community/CONTRIBUTING.html) を参照してください。
+
+## ライセンス
+
+このプロジェクトは MIT ライセンスの下でライセンスされています。詳細については、[LICENSE](LICENSE) ファイルを参照してください。
+
+## 謝辞
+
+- このプロジェクトは [Immersive Translate](https://immersivetranslate.com/) に触発されています。
+- すべての貢献者とユーザーのサポートとフィードバックに感謝します。
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +239,15 @@ PDF 科学論文の翻訳とバイリンガル比較。
 
 以下のデモのいずれかを使用して、私たちのアプリケーションをお試しいただけます：
 
-- [v1.x パブリック無料サービス](https://pdf2zh.com/) インストール不要でオンライン利用可能 _(推奨)_。
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 毎月 1000 ページ無料 _(推奨)_
+- [Download the latest release](https://github.com/StardustSky/pdf2zh-next/releases) for offline use.
+
+---
+
+### OUTPUT
+
+- [v1.x パブリック無料サービス](https://pdf2zh.com/) はインストール不要でオンライン利用可能 _(推奨)_。
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 無料利用枠あり。詳細はページの FAQ セクションを参照 _(推奨)_
+- オフライン利用のためには [最新リリースをダウンロード](https://github.com/StardustSky/pdf2zh-next/releases)
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

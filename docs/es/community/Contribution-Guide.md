@@ -24,6 +24,43 @@ Por favor, NO envíes PRs relacionados con los tipos mencionados anteriormente.
 >
 > Si deseas contribuir con la documentación, por favor **solo modifiques la versión en inglés de la documentación**. Las versiones en otros idiomas son traducidas por los propios colaboradores.
 
+- [ ] Add new translation services
+- [ ] Add new features
+- [ ] Modify the project structure
+
+---
+
+### TRANSLATION RESULT
+
+## PR que se recomienda discutir con los mantenedores mediante un Issue antes de enviarlo
+- [ ] Agregar nuevos servicios de traducción
+- [ ] Agregar nuevas características
+- [ ] Modificar la estructura del proyecto
+
+- [ ] Add new translation services
+- [ ] Add new features
+- [ ] Modify the project structure
+
+---
+
+### TRANSLATION RESULT
+
+Para los siguientes tipos de PR, se recomienda discutir primero con los mantenedores antes de enviarlos:
+- [ ] Agregar nuevos servicios de traducción
+- [ ] Agregar nuevas características
+- [ ] Modificar la estructura del proyecto
+
+2. PRs that involve modifying the project's core architecture. (We welcome improvements, but please discuss them first).
+3. PRs that add new dependencies. (We aim to keep the project lightweight).
+
+---
+
+### TRANSLATION RESULT
+
+1. PR relacionados con la funcionalidad de uso compartido para múltiples usuarios. (Este proyecto está diseñado principalmente para uso de un solo usuario y no tiene la intención de introducir un sistema completo para múltiples usuarios).
+2. PR que impliquen modificar la arquitectura central del proyecto. (Damos la bienvenida a las mejoras, pero por favor discútelas primero).
+3. PR que agreguen nuevas dependencias. (Nuestro objetivo es mantener el proyecto liviano).
+
 ## Proceso de contribución
 
 1. Haz un fork de este repositorio y clónalo localmente.
@@ -117,6 +154,7 @@ Por favor, NO envíes PRs relacionados con los tipos mencionados anteriormente.
 - **main.py**: Proporciona la herramienta de línea de comandos.  
 - **high_level.py**: Interfaces de alto nivel basadas en BabelDOC.  
 - **http_api.py**: Proporciona API HTTP (no iniciado).
+
 
 ## Contáctanos
 

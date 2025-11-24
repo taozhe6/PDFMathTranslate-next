@@ -24,6 +24,51 @@ Per favore NON inviare PR relativi ai tipi sopra menzionati.
 >
 > Se vuoi contribuire alla documentazione, **modifica solo la versione inglese della documentazione**. Le altre versioni linguistiche sono tradotte dai contributori stessi.
 
+- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
+- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
+- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
+- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
+- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
+- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
+
+---
+
+### OUTPUT LANGUAGE
+
+it
+
+- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
+- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
+- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
+- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
+- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
+- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
+
+---
+
+### TRANSLATION
+
+Per i seguenti tipi di PR, si consiglia di discutere prima con i maintainer prima dell' invio:
+- **Nuove funzionalità o modifiche importanti** (ad esempio, aggiungere un nuovo servizio di traduzione, modificare l' architettura core, ecc.)
+- **Modifiche che potrebbero influenzare l' esperienza utente** (ad esempio, modificare la configurazione predefinita, cambiare l' UI/UX, ecc.)
+- **Modifiche che potrebbero influenzare le prestazioni** (ad esempio, modificare gli algoritmi core, cambiare la strategia di caching, ecc.)
+- **Modifiche che potrebbero influenzare la sicurezza** (ad esempio, modificare il meccanismo di autenticazione, cambiare il metodo di archiviazione dei dati, ecc.)
+- **Modifiche che potrebbero influenzare la compatibilità** (ad esempio, modificare l' API, cambiare il formato dei dati, ecc.)
+- **Modifiche che potrebbero influenzare la manutenzione a lungo termine del progetto** (ad esempio, modificare la struttura del progetto, cambiare il metodo di gestione delle dipendenze, ecc.)
+
+2. PRs that involve modifying the project's core architecture or introducing new dependencies without sufficient justification.
+3. PRs that involve modifying the project's license or introducing new license restrictions.
+4. PRs that involve modifying the project's core functionality without sufficient testing or documentation.
+
+---
+
+### TRANSLATED TEXT
+
+1. PR relativi alla funzionalità di condivisione multi-utente. (Questo progetto è progettato principalmente per l'uso da parte di un singolo utente e non intende introdurre un sistema multi-utente completo).
+2. PR che coinvolgono la modifica dell'architettura core del progetto o l'introduzione di nuove dipendenze senza una giustificazione sufficiente.
+3. PR che coinvolgono la modifica della licenza del progetto o l'introduzione di nuove restrizioni di licenza.
+4. PR che coinvolgono la modifica della funzionalità core del progetto senza test o documentazione sufficienti.
+
 ## Processo di Contribuzione
 
 1. Forka questo repository e clonalo localmente.
@@ -117,6 +162,55 @@ Per favore NON inviare PR relativi ai tipi sopra menzionati.
 - **main.py**: Fornisce lo strumento da riga di comando.
 - **high_level.py**: Interfacce di alto livello basate su BabelDOC.
 - **http_api.py**: Fornisce API HTTP (non avviato).
+
+- [Home](https://pdf2zh-next.com/)
+- [Getting Start](https://pdf2zh-next.com/getting-started/)
+- [Installation](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+- [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+- [Usage](https://pdf2zh-next.com/getting-started/USAGE.html)
+- [Language Code](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
+- [Documentation of Translation Services](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICE.html)
+- [Getting Started](https://pdf2zh-next.com/getting-started/)
+- [Advanced](https://pdf2zh-next.com/advanced/)
+- [Supported Languages](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html)
+- [Community](https://pdf2zh-next.com/community/)
+- [FAQ](https://pdf2zh-next.com/community/FAQ.html)
+- [For Translators](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+
+## PRs that are recommended to discuss with maintainers via Issue before submission:
+- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
+- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
+- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
+- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
+- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
+- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
+
+---
+
+### TRANSLATION
+
+Chiedi all'AI di comprendere il progetto: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+- [Home](https://pdf2zh-next.com/)
+- [Iniziare](https://pdf2zh-next.com/getting-started/)
+- [Installazione](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+- [Riga di comando](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+- [Utilizzo](https://pdf2zh-next.com/getting-started/USAGE.html)
+- [Codice lingua](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
+- [Documentazione dei servizi di traduzione](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICE.html)
+- [Iniziare](https://pdf2zh-next.com/getting-started/)
+- [Opzioni avanzate](https://pdf2zh-next.com/advanced/)
+- [Lingue supportate](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html)
+- [Comunità](https://pdf2zh-next.com/community/)
+- [Domande frequenti](https://pdf2zh-next.com/community/FAQ.html)
+- [Guida alla contribuzione per le traduzioni](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+
+## PRs che è consigliato discutere con i maintainer tramite Issue prima della presentazione:
+- **Nuove funzionalità o modifiche sostanziali** (ad esempio, aggiungere un nuovo servizio di traduzione, modificare l'architettura core, ecc.)
+- **Modifiche che potrebbero influenzare l'esperienza utente** (ad esempio, modificare la configurazione predefinita, cambiare l'UI/UX, ecc.)
+- **Modifiche che potrebbero influenzare le prestazioni** (ad esempio, modificare gli algoritmi core, cambiare la strategia di caching, ecc.)
+- **Modifiche che potrebbero influenzare la sicurezza** (ad esempio, modificare il meccanismo di autenticazione, cambiare il metodo di archiviazione dei dati, ecc.)
+- **Modifiche che potrebbero influenzare la compatibilità** (ad esempio, modificare l'API, cambiare il formato dei dati, ecc.)
+- **Modifiche che potrebbero influenzare la manutenzione a lungo termine del progetto** (ad esempio, modificare la struttura del progetto, cambiare il metodo di gestione delle dipendenze, ecc.)
 
 ## Contattaci
 

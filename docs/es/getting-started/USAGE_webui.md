@@ -47,9 +47,5 @@ Puedes configurar los idiomas de origen y destino utilizando variables de entorn
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## Mantenimiento
-
-GUI mantenida por [Rongxin](https://github.com/reycn)
-
 <div align="right"> 
 <h6><small>Parte del contenido de esta página ha sido traducido por GPT y puede contener errores.</small></h6>

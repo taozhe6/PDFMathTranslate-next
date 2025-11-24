@@ -47,9 +47,5 @@ Vous pouvez définir les langues source et cible en utilisant des variables d'en
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## Maintenance
-
-GUI maintenu par [Rongxin](https://github.com/reycn)
-
 <div align="right"> 
 <h6><small>Une partie du contenu de cette page a été traduite par GPT et peut contenir des erreurs.</small></h6>

@@ -28,7 +28,97 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    </div>
+
+# Welcome to PDFMathTranslate Documentation
+
+Welcome to the documentation for PDFMathTranslate, a tool designed to translate academic papers and technical documents from English to Chinese while preserving the original layout and mathematical formulas.
+
+## Key Features
+
+- **Accurate Translation**: Utilizes advanced AI models for precise translations.
+- **Layout Preservation**: Maintains the original document structure, including mathematical formulas, tables, and figures.
+- **Multi-Platform Support**: Available as a command-line tool and web application.
+- **Extensible**: Supports custom translation services and plugins.
+
+## Quick Links
+
+- [Getting Started](https://pdf2zh-next.com/getting-started/)
+- [Installation](https://pdf2zh-next.com/getting-started/installation/)
+- [Usage](https://pdf2zh-next.com/getting-started/usage/)
+- [Supported Languages](https://pdf2zh-next.com/getting-started/supported-languages/)
+- [FAQ](https://pdf2zh-next.com/faq/)
+
+## Getting Help
+
+If you encounter any issues or have questions, feel free to:
+
+- Check our [FAQ](https://pdf2zh-next.com/faq/) for common solutions.
+- Ask a question on [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next).
+- Report bugs or request features on [GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues).
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/CONTRIBUTING.md) for details on how to get involved.
+
+## License
+
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/LICENSE) file for details.
+
+---
+
+    <a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
+</div>
+
+---
+
+### TRANSLATION RESULT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+</div>
+
+# 歡迎來到 PDFMathTranslate 文檔
+
+歡迎來到 PDFMathTranslate 的文檔，這是一個專為將學術論文和技術文檔從英文翻譯成中文而設計的工具，同時保留原始佈局和數學公式。
+
+## 主要功能
+
+- **準確翻譯**：利用先進的 AI 模型進行精確翻譯。
+- **佈局保留**：保留原始文檔結構，包括數學公式、表格和圖形。
+- **多平台支持**：提供命令行工具和 Web 應用程序。
+- **可擴展性**：支持自定義翻譯服務和插件。
+
+## 快速鏈接
+
+- [快速開始](https://pdf2zh-next.com/getting-started/)
+- [如何安裝](https://pdf2zh-next.com/getting-started/installation/)
+- [如何使用](https://pdf2zh-next.com/getting-started/usage/)
+- [支持的語言](https://pdf2zh-next.com/getting-started/supported-languages/)
+- [常見問題](https://pdf2zh-next.com/faq/)
+
+## 獲取幫助
+
+如果您遇到任何問題或有疑問，請隨時：
+
+- 查看我們的 [常見問題](https://pdf2zh-next.com/faq/) 以獲取常見解決方案。
+- 在 [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next) 上提問。
+- 在 [GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues) 上報告錯誤或請求功能。
+
+## 貢獻
+
+我們歡迎貢獻！請參閱我們的 [貢獻指南](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/CONTRIBUTING.md) 以了解如何參與。
+
+## 許可證
+
+本項目根據 Apache License 2.0 許可。詳情請參閱 [LICENSE](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/LICENSE) 文件。
+
+---
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+</div>
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +166,41 @@ PDF 科學論文翻譯與雙語對照。
 
 您可以使用以下任一示範來試用我們的應用程式：
 
-- [v1.x 公開免費服務](https://pdf2zh.com/) 無需安裝即可在線使用 _(推薦)_。
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 每月 1000 頁免費額度 _(推薦)_
+- [Using **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Using **Command Line**](https://pdf2zh-next.com/getting-started/USAGE_command_line.html)
+- [Using **API**](https://pdf2zh-next.com/getting-started/USAGE_api.html)
+- [Using **Docker**](https://pdf2zh-next.com/getting-started/USAGE_docker.html)
+- [Advanced **Settings**](https://pdf2zh-next.com/advanced/SETTINGS.html)
+- [Advanced **Translation Services**](https://pdf2zh-next.com/advanced/TRANSLATION_SERVICES.html)
+- [Advanced **Prompt**](https://pdf2zh-next.com/advanced/PROMPT.html)
+- [Advanced **Cache**](https://pdf2zh-next.com/advanced/CACHE.html)
+- [Advanced **Logging**](https://pdf2zh-next.com/advanced/LOGGING.html)
+- [Supported **Languages**](https://pdf2zh-next.com/supported_languages/LANGUAGES.html)
+- [Supported **Models**](https://pdf2zh-next.com/supported_languages/MODELS.html)
+- [FAQ](https://pdf2zh-next.com/community/FAQ.html)
+- [For Translators](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+- [Community](https://pdf2zh-next.com/community/COMMUNITY.html)
+
+---
+
+### OUTPUT
+
+- [v1.x 公共免費服務](https://pdf2zh.com/) 無需安裝即可在線使用 _(推薦)_。
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 提供免費使用額度；詳情請參閱頁面上的常見問題部分。_(推薦)_
+- [使用 **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [使用 **命令行**](https://pdf2zh-next.com/getting-started/USAGE_command_line.html)
+- [使用 **API**](https://pdf2zh-next.com/getting-started/USAGE_api.html)
+- [使用 **Docker**](https://pdf2zh-next.com/getting-started/USAGE_docker.html)
+- [高級 **設置**](https://pdf2zh-next.com/advanced/SETTINGS.html)
+- [高級 **翻譯服務**](https://pdf2zh-next.com/advanced/TRANSLATION_SERVICES.html)
+- [高級 **提示詞**](https://pdf2zh-next.com/advanced/PROMPT.html)
+- [高級 **緩存**](https://pdf2zh-next.com/advanced/CACHE.html)
+- [高級 **日誌**](https://pdf2zh-next.com/advanced/LOGGING.html)
+- [支持的 **語言**](https://pdf2zh-next.com/supported_languages/LANGUAGES.html)
+- [支持的 **模型**](https://pdf2zh-next.com/supported_languages/MODELS.html)
+- [常見問題](https://pdf2zh-next.com/community/FAQ.html)
+- [文檔翻譯貢獻指南](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
+- [社區](https://pdf2zh-next.com/community/COMMUNITY.html)
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

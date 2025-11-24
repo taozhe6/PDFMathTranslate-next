@@ -28,6 +28,158 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    <p align="center">
+    <a href="https://pdf2zh-next.com/">
+        <img src="https://pdf2zh-next.com/logo.png" alt="PDFMathTranslate Logo" width="200">
+    </a>
+</p>
+<h1 align="center">PDFMathTranslate</h1>
+<p align="center">
+    Translate PDFs and scientific documents with LaTeX and math support.
+</p>
+<p align="center">
+    <a href="https://pdf2zh-next.com/getting-started/README.html">Getting Started</a> · <a href="https://pdf2zh-next.com/advanced/README.html">Advanced</a> · <a href="https://pdf2zh-next.com/supported-languages/README.html">Supported Languages</a> · <a href="https://pdf2zh-next.com/community/README.html">Community</a> · <a href="https://pdf2zh-next.com/faq/README.html">FAQ</a>
+</p>
+<p align="center">
+    <a href="https://pdf2zh-next.com/getting-started/README.html"><img src="https://img.shields.io/badge/Documentation-Online-blue?style=flat-square" alt="Documentation"></a>
+    <a href="https://pdf2zh-next.com/getting-started/USAGE_webui.html"><img src="https://img.shields.io/badge/WebUI-Ready-green?style=flat-square" alt="WebUI"></a>
+    <a href="https://pdf2zh-next.com/getting-started/USAGE_cli.html"><img src="https://img.shields.io/badge/CLI-Ready-green?style=flat-square" alt="CLI"></a>
+    <a href="https://pdf2zh-next.com/advanced/API.html"><img src="https://img.shields.io/badge/API-Ready-green?style=flat-square" alt="API"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate-next"><img src="https://img.shields.io/github/stars/DeepWiki/PDFMathTranslate-next?style=social" alt="GitHub stars"></a>
+</p>
+
+---
+
+## Features
+
+- **Accurate Translation**: Preserves original layout, formatting, images, and **math formulas** (LaTeX).
+- **Multiple Modes**: Supports **WebUI**, **Command Line**, and **API**.
+- **Multi-language Support**: Supports translation between multiple languages.
+- **High Quality**: Utilizes advanced AI models for high-quality translations.
+
+## Quick Start
+
+### Installation
+
+You can choose one of the following methods to install:
+
+- **Using pip**:
+    ```bash
+    pip install pdf2zh
+    ```
+
+- **Using Docker**:
+    ```bash
+    docker run -p 8501:8501 deepwiki/pdf2zh
+    ```
+
+### Usage
+
+- **Using WebUI**: Open [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html) for an interactive experience.
+- **Using Command Line**: Refer to [Command Line Usage](https://pdf2zh-next.com/getting-started/USAGE_cli.html).
+- **Using API**: Refer to [API Documentation](https://pdf2zh-next.com/advanced/API.html).
+
+## Documentation
+
+For detailed documentation, please visit: [Documentation of Translation Services](https://pdf2zh-next.com/)
+
+## Community
+
+- **Discord**: Join our [Discord community](https://discord.gg/5nDDCzvp) for discussions and support.
+- **GitHub Issues**: Report bugs or request features via [GitHub Issues](https://github.com/DeepWiki/PDFMathTranslate-next/issues).
+
+## FAQ
+
+Common questions and answers can be found in the [FAQ](https://pdf2zh-next.com/faq/README.html).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/DeepWiki/PDFMathTranslate-next/blob/main/LICENSE) file for details.
+
+---
+
+<p align="center">
+    Made with ❤️ by <a href="https://deepwiki.com/">DeepWiki</a>
+</p>
+
+---
+
+### TRANSLATION RESULT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
+<p align="center">
+    <a href="https://pdf2zh-next.com/">
+        <img src="https://pdf2zh-next.com/logo.png" alt="PDFMathTranslate Logo" width="200">
+    </a>
+</p>
+<h1 align="center">PDFMathTranslate</h1>
+<p align="center">
+    Traduisez des PDF et des documents scientifiques avec la prise en charge de LaTeX et des formules mathématiques.
+</p>
+<p align="center">
+    <a href="https://pdf2zh-next.com/getting-started/README.html">Commencer</a> · <a href="https://pdf2zh-next.com/advanced/README.html">Options avancées</a> · <a href="https://pdf2zh-next.com/supported-languages/README.html">Langues supportées</a> · <a href="https://pdf2zh-next.com/community/README.html">Communauté</a> · <a href="https://pdf2zh-next.com/faq/README.html">FAQ</a>
+</p>
+<p align="center">
+    <a href="https://pdf2zh-next.com/getting-started/README.html"><img src="https://img.shields.io/badge/Documentation-En ligne-blue?style=flat-square" alt="Documentation"></a>
+    <a href="https://pdf2zh-next.com/getting-started/USAGE_webui.html"><img src="https://img.shields.io/badge/WebUI-Prêt-green?style=flat-square" alt="WebUI"></a>
+    <a href="https://pdf2zh-next.com/getting-started/USAGE_cli.html"><img src="https://img.shields.io/badge/CLI-Prêt-green?style=flat-square" alt="CLI"></a>
+    <a href="https://pdf2zh-next.com/advanced/API.html"><img src="https://img.shields.io/badge/API-Prêt-green?style=flat-square" alt="API"></a>
+    <a href="https://github.com/DeepWiki/PDFMathTranslate-next"><img src="https://img.shields.io/github/stars/DeepWiki/PDFMathTranslate-next?style=social" alt="GitHub stars"></a>
+</p>
+
+---
+
+## Fonctionnalités
+
+- **Traduction précise** : Préserve la mise en page, le formatage, les images et les **formules mathématiques** (LaTeX) d'origine.
+- **Multiples modes** : Prend en charge **WebUI**, **Ligne de commande** et **API**.
+- **Support multilingue** : Prend en charge la traduction entre plusieurs langues.
+- **Haute qualité** : Utilise des modèles d'IA avancés pour des traductions de haute qualité.
+
+## Commencer
+
+### Installation
+
+Vous pouvez choisir l'une des méthodes suivantes pour installer :
+
+- **Utilisation de pip** :
+    ```bash
+    pip install pdf2zh
+    ```
+
+- **Utilisation de Docker** :
+    ```bash
+    docker run -p 8501:8501 deepwiki/pdf2zh
+    ```
+
+### Utilisation
+
+- **Utilisation de WebUI** : Ouvrez [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html) pour une expérience interactive.
+- **Utilisation de la ligne de commande** : Référez-vous à [Utilisation de la ligne de commande](https://pdf2zh-next.com/getting-started/USAGE_cli.html).
+- **Utilisation de l'API** : Référez-vous à [Documentation de l'API](https://pdf2zh-next.com/advanced/API.html).
+
+## Documentation
+
+Pour une documentation détaillée, veuillez visiter : [Documentation des services de traduction](https://pdf2zh-next.com/)
+
+## Communauté
+
+- **Discord** : Rejoignez notre [communauté Discord](https://discord.gg/5nDDCzvp) pour des discussions et du support.
+- **Problèmes GitHub** : Signalez des bugs ou demandez des fonctionnalités via [Problèmes GitHub](https://github.com/DeepWiki/PDFMathTranslate-next/issues).
+
+## FAQ
+
+Les questions et réponses courantes se trouvent dans la [FAQ](https://pdf2zh-next.com/faq/README.html).
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier [LICENCE](https://github.com/DeepWiki/PDFMathTranslate-next/blob/main/LICENSE) pour plus de détails.
+
+---
+
+<p align="center">
+    Fait avec ❤️ par <a href="https://deepwiki.com/">DeepWiki</a>
 </p>
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
@@ -76,8 +228,23 @@ Pour plus de détails sur la manière de contribuer, veuillez consulter le [Guid
 
 Vous pouvez essayer notre application en utilisant l'une des démonstrations suivantes :
 
+- [Using WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html) (local installation required)
+- [Using Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html) (local installation required)
+
+---
+
+### OUTPUT LANGUAGE
+
+fr
+
+---
+
+### OUTPUT
+
 - [v1.x Service public gratuit](https://pdf2zh.com/) en ligne sans installation _(recommandé)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 pages gratuites par mois. _(recommandé)_
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Un quota d'utilisation gratuit est disponible ; veuillez consulter la section FAQ de la page pour plus de détails. _(recommandé)_
+- [Utilisation de l'interface Web](https://pdf2zh-next.com/getting-started/USAGE_webui.html) (installation locale requise)
+- [Utilisation de la ligne de commande](https://pdf2zh-next.com/getting-started/USAGE_cli.html) (installation locale requise)
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

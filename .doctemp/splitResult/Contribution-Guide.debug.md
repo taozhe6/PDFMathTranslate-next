@@ -31,10 +31,19 @@ Please do NOT submit PRs related to the above types.
 >
 > If you want to contribute documentation, please **only modify the English version of the documentation**. Other language versions are translated by contributors themselves.
 
-<!-- CHUNK ID: chunk_485712CB  CHUNK TYPE: header START_LINE:27 -->
+<!-- CHUNK ID: chunk_82B30F3F  CHUNK TYPE: header START_LINE:27 -->
+## PRs that are recommended to discuss with maintainers via Issue before submission
+
+<!-- CHUNK ID: chunk_FED1157F  CHUNK TYPE: paragraph START_LINE:29 -->
+For the following types of PRs, it is recommended to discuss with maintainers first before submission:
+
+<!-- CHUNK ID: chunk_11EC28E1  CHUNK TYPE: list START_LINE:31 -->
+1. PRs related to multi-user sharing functionality. (This project is primarily designed for single-user use and does not intend to introduce a comprehensive multi-user system).
+
+<!-- CHUNK ID: chunk_485712CB  CHUNK TYPE: header START_LINE:33 -->
 ## Contribution Process
 
-<!-- CHUNK ID: chunk_4D698FBF  CHUNK TYPE: list START_LINE:29 -->
+<!-- CHUNK ID: chunk_4D698FBF  CHUNK TYPE: list START_LINE:35 -->
 1. Fork this repository and clone it locally.
 2. Create a new branch: `git checkout -b feature/<feature-name>`.
 3. Develop and ensure your code meets the requirements.
@@ -47,7 +56,7 @@ Please do NOT submit PRs related to the above types.
 6. Create a PR on GitHub, provide a detailed description, and request a review from [@awwaawwa](https://github.com/awwaawwa).
 7. Ensure all automated checks pass.
 
-<!-- CHUNK ID: chunk_89A6F55A  CHUNK TYPE: blockquote START_LINE:41 -->
+<!-- CHUNK ID: chunk_89A6F55A  CHUNK TYPE: blockquote START_LINE:47 -->
 > [!TIP]
 >
 > You do not need to wait until your development is fully complete to create a PR. Creating one early allows us to review your implementation and provide suggestions.
@@ -56,77 +65,77 @@ Please do NOT submit PRs related to the above types.
 >
 > Resource files for version 2.0 are shared with [BabelDOC](https://github.com/funstory-ai/BabelDOC). The code for downloading related resources is in BabelDOC. If you want to add new resource files, please contact the BabelDOC maintainer at aw@funstory.ai.
 
-<!-- CHUNK ID: chunk_E7638696  CHUNK TYPE: header START_LINE:49 -->
+<!-- CHUNK ID: chunk_E7638696  CHUNK TYPE: header START_LINE:55 -->
 ## Basic Requirements
 
-<!-- CHUNK ID: chunk_4D251FB3  CHUNK TYPE: paragraph START_LINE:51 -->
+<!-- CHUNK ID: chunk_4D251FB3  CHUNK TYPE: paragraph START_LINE:57 -->
 <h4 id="sop">1. Workflow</h4>
 
-<!-- CHUNK ID: chunk_8FDDA473  CHUNK TYPE: list START_LINE:53 -->
+<!-- CHUNK ID: chunk_8FDDA473  CHUNK TYPE: list START_LINE:59 -->
    - Please fork from the `main` branch and develop on your forked branch.
    - When submitting a Pull Request (PR), provide a detailed description of your changes.
    - If your PR does not pass automated checks (indicated by `checks failed` and a red cross), please review the corresponding `details` and modify your submission to ensure the new PR passes all checks.
 
 
-<!-- CHUNK ID: chunk_19D447DF  CHUNK TYPE: paragraph START_LINE:58 -->
+<!-- CHUNK ID: chunk_19D447DF  CHUNK TYPE: paragraph START_LINE:64 -->
 <h4 id="dev&test">2. Development and Testing</h4>
 
-<!-- CHUNK ID: chunk_65AB8932  CHUNK TYPE: list START_LINE:60 -->
+<!-- CHUNK ID: chunk_65AB8932  CHUNK TYPE: list START_LINE:66 -->
    - Use the command `pip install -e .` for development and testing.
 
 
-<!-- CHUNK ID: chunk_B4865580  CHUNK TYPE: paragraph START_LINE:63 -->
+<!-- CHUNK ID: chunk_B4865580  CHUNK TYPE: paragraph START_LINE:69 -->
 <h4 id="format">3. Code Formatting</h4>
 
-<!-- CHUNK ID: chunk_E8324FFA  CHUNK TYPE: list START_LINE:65 -->
+<!-- CHUNK ID: chunk_E8324FFA  CHUNK TYPE: list START_LINE:71 -->
    - Configure the `pre-commit` tool and enable `black` and `flake8` for code formatting.
 
 
-<!-- CHUNK ID: chunk_7A584B10  CHUNK TYPE: paragraph START_LINE:68 -->
+<!-- CHUNK ID: chunk_7A584B10  CHUNK TYPE: paragraph START_LINE:74 -->
 <h4 id="requpdate">4. Dependency Updates</h4>
 
-<!-- CHUNK ID: chunk_BE2E8298  CHUNK TYPE: list START_LINE:70 -->
+<!-- CHUNK ID: chunk_BE2E8298  CHUNK TYPE: list START_LINE:76 -->
    - If you introduce new dependencies, please update the dependency list in the `pyproject.toml` file in a timely manner.
 
 
-<!-- CHUNK ID: chunk_1615D8D8  CHUNK TYPE: paragraph START_LINE:73 -->
+<!-- CHUNK ID: chunk_1615D8D8  CHUNK TYPE: paragraph START_LINE:79 -->
 <h4 id="docupdate">5. Documentation Updates</h4>
 
-<!-- CHUNK ID: chunk_725E4B8A  CHUNK TYPE: list START_LINE:75 -->
+<!-- CHUNK ID: chunk_725E4B8A  CHUNK TYPE: list START_LINE:81 -->
    - If you add new command-line options, please update the list of command-line options in all language versions of the `README.md` file accordingly.
 
 
-<!-- CHUNK ID: chunk_09178615  CHUNK TYPE: paragraph START_LINE:78 -->
+<!-- CHUNK ID: chunk_09178615  CHUNK TYPE: paragraph START_LINE:84 -->
 <h4 id="commitmsg">6. Commit Messages</h4>
 
-<!-- CHUNK ID: chunk_8007BC97  CHUNK TYPE: list START_LINE:80 -->
+<!-- CHUNK ID: chunk_8007BC97  CHUNK TYPE: list START_LINE:86 -->
    - Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), for example: `feat(translator): add openai`.
 
 
-<!-- CHUNK ID: chunk_F5439516  CHUNK TYPE: paragraph START_LINE:83 -->
+<!-- CHUNK ID: chunk_F5439516  CHUNK TYPE: paragraph START_LINE:89 -->
 <h4 id="codestyle">7. Coding Style</h4>
 
-<!-- CHUNK ID: chunk_22ECCE1D  CHUNK TYPE: list START_LINE:85 -->
+<!-- CHUNK ID: chunk_22ECCE1D  CHUNK TYPE: list START_LINE:91 -->
    - Ensure your submitted code adheres to basic coding style standards.
    - Use either snake_case or camelCase for variable naming.
 
 
-<!-- CHUNK ID: chunk_2F60B8EB  CHUNK TYPE: paragraph START_LINE:89 -->
+<!-- CHUNK ID: chunk_2F60B8EB  CHUNK TYPE: paragraph START_LINE:95 -->
 <h4 id="doctypo">8. Documentation Formatting</h4>
 
-<!-- CHUNK ID: chunk_320F91BE  CHUNK TYPE: list START_LINE:91 -->
+<!-- CHUNK ID: chunk_320F91BE  CHUNK TYPE: list START_LINE:97 -->
    - For `README.md` formatting, please follow the [Chinese Copywriting Guidelines](https://github.com/sparanoid/chinese-copywriting-guidelines).
    - Ensure that both English and Chinese documentation are always up to date; other language documentation updates are optional.
 
-<!-- CHUNK ID: chunk_126AF33C  CHUNK TYPE: header START_LINE:94 -->
+<!-- CHUNK ID: chunk_126AF33C  CHUNK TYPE: header START_LINE:100 -->
 ## Adding a Translation Engine
 
-<!-- CHUNK ID: chunk_38A36DFF  CHUNK TYPE: list START_LINE:96 -->
+<!-- CHUNK ID: chunk_38A36DFF  CHUNK TYPE: list START_LINE:102 -->
 1. Add a new translator configuration class in the `pdf2zh/config/translate_engine_model.py` file.
 2. Add an instance of the new translator configuration class to the `TRANSLATION_ENGINE_SETTING_TYPE` type alias in the same file.
 3. Add the new translator implementation class in the `pdf2zh/translator/translator_impl` folder.
 
-<!-- CHUNK ID: chunk_D3058459  CHUNK TYPE: blockquote START_LINE:100 -->
+<!-- CHUNK ID: chunk_D3058459  CHUNK TYPE: blockquote START_LINE:106 -->
 > [!NOTE]
 >
 > This project does not intend to support any translation engines with an RPS (requests per second) lower than 4. Please do not submit support for such engines.
@@ -138,10 +147,10 @@ Please do NOT submit PRs related to the above types.
 >
 > When you are unsure whether a translator meets the requirements, you can send an issue to discuss with the maintainers.
 
-<!-- CHUNK ID: chunk_7ED6230D  CHUNK TYPE: header START_LINE:111 -->
+<!-- CHUNK ID: chunk_7ED6230D  CHUNK TYPE: header START_LINE:117 -->
 ## Project Structure
 
-<!-- CHUNK ID: chunk_9004E6A3  CHUNK TYPE: list START_LINE:113 -->
+<!-- CHUNK ID: chunk_9004E6A3  CHUNK TYPE: list START_LINE:119 -->
 - **config folder**: Configuration system.
 - **translator folder**: Translator-related implementations.
 - **gui.py**: Provides the GUI interface.
@@ -150,13 +159,16 @@ Please do NOT submit PRs related to the above types.
 - **high_level.py**: High-level interfaces based on BabelDOC.
 - **http_api.py**: Provides HTTP API (not started).
 
-<!-- CHUNK ID: chunk_0C087ADF  CHUNK TYPE: header START_LINE:121 -->
+<!-- CHUNK ID: chunk_7B1CB228  CHUNK TYPE: paragraph START_LINE:127 -->
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+
+<!-- CHUNK ID: chunk_0C087ADF  CHUNK TYPE: header START_LINE:129 -->
 ## Contact Us
 
-<!-- CHUNK ID: chunk_2FB8F835  CHUNK TYPE: paragraph START_LINE:123 -->
+<!-- CHUNK ID: chunk_2FB8F835  CHUNK TYPE: paragraph START_LINE:131 -->
 If you have any questions, please submit feedback via Issue or join our Telegram Group. Thank you for your contribution!
 
-<!-- CHUNK ID: chunk_C2A414AC  CHUNK TYPE: blockquote START_LINE:125 -->
+<!-- CHUNK ID: chunk_C2A414AC  CHUNK TYPE: blockquote START_LINE:133 -->
 > [!TIP]
 >
 > [Immersive Translate](https://immersivetranslate.com) sponsors monthly Pro membership codes for active contributors to this project. For details, please see: [BabelDOC/PDFMathTranslate Contributor Reward Rules](https://funstory-ai.github.io/BabelDOC/CONTRIBUTOR_REWARD/)

@@ -47,9 +47,5 @@
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## 维护
-
-由 [Rongxin](https://github.com/reycn) 维护的 GUI
-
 <div align="right"> 
 <h6><small>本页面的部分内容由 GPT 翻译，可能包含错误。</small></h6>

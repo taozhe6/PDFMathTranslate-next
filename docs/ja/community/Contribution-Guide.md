@@ -24,6 +24,83 @@
 >
 > ドキュメントに貢献したい場合は、**英語版のドキュメントのみを修正してください**。他の言語バージョンは貢献者自身によって翻訳されます。
 
+To ensure the quality of the code and the maintainability of the project, we recommend that you discuss with the maintainers via Issue before submitting the following types of PRs:
+
+- **Large-scale refactoring**: If you plan to refactor a large amount of code, it is recommended that you discuss it with the maintainers via Issue first to ensure that the refactoring direction is consistent with the project's goals.
+- **New features**: If you plan to add new features, it is recommended that you discuss it with the maintainers via Issue first to ensure that the new features are consistent with the project's goals.
+- **Performance optimization**: If you plan to optimize the performance of the project, it is recommended that you discuss it with the maintainers via Issue first to ensure that the optimization direction is consistent with the project's goals.
+- **Architecture changes**: If you plan to change the architecture of the project, it is recommended that you discuss it with the maintainers via Issue first to ensure that the architecture changes are consistent with the project's goals.
+
+## PRs that are not recommended to be submitted
+To ensure the quality of the code and the maintainability of the project, we do not recommend submitting the following types of PRs:
+
+- **Code that does not follow the project's coding standards**: If your code does not follow the project's coding standards, it is recommended that you modify it to follow the project's coding standards before submitting a PR.
+- **Code that does not have tests**: If your code does not have tests, it is recommended that you add tests before submitting a PR.
+- **Code that does not have documentation**: If your code does not have documentation, it is recommended that you add documentation before submitting a PR.
+- **Code that does not have a clear purpose**: If your code does not have a clear purpose, it is recommended that you clarify the purpose before submitting a PR.
+
+---
+
+### OUTPUT
+
+## メンテナーと Issue を通じて事前に議論することを推奨する PR
+コードの品質とプロジェクトの保守性を確保するため、以下の種類の PR を提出する前に、メンテナーと Issue を通じて議論することを推奨します：
+
+- **大規模なリファクタリング**：大量のコードをリファクタリングする計画がある場合は、まず Issue を通じてメンテナーと議論し、リファクタリングの方向性がプロジェクトの目標と一致していることを確認することをお勧めします。
+- **新機能の追加**：新機能を追加する計画がある場合は、まず Issue を通じてメンテナーと議論し、新機能がプロジェクトの目標と一致していることを確認することをお勧めします。
+- **パフォーマンスの最適化**：プロジェクトのパフォーマンスを最適化する計画がある場合は、まず Issue を通じてメンテナーと議論し、最適化の方向性がプロジェクトの目標と一致していることを確認することをお勧めします。
+- **アーキテクチャの変更**：プロジェクトのアーキテクチャを変更する計画がある場合は、まず Issue を通じてメンテナーと議論し、アーキテクチャの変更がプロジェクトの目標と一致していることを確認することをお勧めします。
+
+## 提出を推奨しない PR
+コードの品質とプロジェクトの保守性を確保するため、以下の種類の PR の提出は推奨しません：
+
+- **プロジェクトのコーディング標準に従っていないコード**：コードがプロジェクトのコーディング標準に従っていない場合は、PR を提出する前に、プロジェクトのコーディング標準に従うように修正することをお勧めします。
+- **テストがないコード**：コードにテストがない場合は、PR を提出する前にテストを追加することをお勧めします。
+- **ドキュメントがないコード**：コードにドキュメントがない場合は、PR を提出する前にドキュメントを追加することをお勧めします。
+- **明確な目的がないコード**：コードに明確な目的がない場合は、PR を提出する前に目的を明確にすることをお勧めします。
+
+- Large-scale code refactoring
+- Adding new features
+- Performance optimization
+- Architecture changes
+
+The following types of PRs are not recommended for submission:
+- Code that does not follow the project's coding standards
+- Code without tests
+- Code without documentation
+- Code without a clear purpose
+
+---
+
+### OUTPUT
+
+以下の種類の PR については、提出前にまずメンテナーと議論することを推奨します：
+- 大規模なコードリファクタリング
+- 新機能の追加
+- パフォーマンスの最適化
+- アーキテクチャの変更
+
+以下の種類の PR は提出を推奨しません：
+- プロジェクトのコーディング標準に従っていないコード
+- テストがないコード
+- ドキュメントがないコード
+- 明確な目的がないコード
+
+2. PRs related to implementing a user login system. (This project does not require a user login system).
+3. PRs that involve integrating with third-party services beyond the scope of the project's current architecture. (Such as adding support for a new translation service that requires significant changes to the core architecture).
+4. PRs that change the core functionality of the project without a clear and agreed-upon roadmap. (Such as changing the way the project handles PDF parsing without prior discussion).
+5. PRs that add features that are not aligned with the project's goals. (Such as adding a social media sharing feature).
+
+---
+
+### OUTPUT
+
+1. マルチユーザー共有機能に関連する PR（このプロジェクトは主にシングルユーザー向けに設計されており、包括的なマルチユーザーシステムを導入する予定はありません）。
+2. ユーザーログインシステムの実装に関連する PR（このプロジェクトはユーザーログインシステムを必要としません）。
+3. プロジェクトの現在のアーキテクチャの範囲を超えるサードパーティサービスとの統合を含む PR（例えば、コアアーキテクチャに大幅な変更を必要とする新しい翻訳サービスのサポートを追加するなど）。
+4. 明確かつ合意されたロードマップなしにプロジェクトのコア機能を変更する PR（例えば、事前の議論なしにプロジェクトが PDF 解析を処理する方法を変更するなど）。
+5. プロジェクトの目標に沿わない機能を追加する PR（例えば、ソーシャルメディア共有機能を追加するなど）。
+
 ## 貢献プロセス
 
 1. このリポジトリをフォークし、ローカルにクローンします。
@@ -117,6 +194,43 @@
 - **main.py**：コマンドラインツールを提供。
 - **high_level.py**：BabelDOC ベースの高レベルインターフェース。
 - **http_api.py**：HTTP API を提供（未開始）。
+
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+
+---
+- [Home](https://pdf2zh-next.com/)
+- [Getting Started](https://pdf2zh-next.com/getting-started/)
+  - [Installation](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+  - [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+  - [Usage](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Language Code](https://pdf2zh-next.com/reference/LANGUAGE_CODE.html)
+- [Documentation of Translation Services](https://pdf2zh-next.com/reference/TRANSLATION_SERVICES.html)
+- [Advanced](https://pdf2zh-next.com/advanced/)
+- [Supported Languages](https://pdf2zh-next.com/reference/SUPPORTED_LANGUAGES.html)
+- [Community](https://pdf2zh-next.com/community/)
+- [FAQ](https://pdf2zh-next.com/community/FAQ.html)
+- [For Translators](https://pdf2zh-next.com/community/FOR_CONTRIBUTORS.html)
+- [Immersive Translate](https://pdf2zh-next.com/community/IMMERSIVE_TRANSLATE.html)
+
+---
+
+プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+
+---
+- [ホーム](https://pdf2zh-next.com/)
+- [始め方](https://pdf2zh-next.com/getting-started/)
+  - [インストール](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
+  - [コマンドライン](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
+  - [使い方](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [言語コード](https://pdf2zh-next.com/reference/LANGUAGE_CODE.html)
+- [翻訳サービスドキュメント](https://pdf2zh-next.com/reference/TRANSLATION_SERVICES.html)
+- [高度な設定](https://pdf2zh-next.com/advanced/)
+- [サポート言語](https://pdf2zh-next.com/reference/SUPPORTED_LANGUAGES.html)
+- [コミュニティ](https://pdf2zh-next.com/community/)
+- [よくある質問](https://pdf2zh-next.com/community/FAQ.html)
+- [文書翻訳貢献ガイド](https://pdf2zh-next.com/community/FOR_CONTRIBUTORS.html)
+- [没入型翻訳](https://pdf2zh-next.com/community/IMMERSIVE_TRANSLATE.html)
 
 ## お問い合わせ
 

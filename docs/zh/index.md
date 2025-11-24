@@ -28,7 +28,198 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    # Getting Started
+    
+    Welcome to the PDFMathTranslate project! This guide will help you get started with installing and using the tool.
+    
+    ## Overview
+    
+    PDFMathTranslate is an open-source tool designed to translate PDF documents while preserving the original layout, especially for documents containing mathematical formulas. It supports multiple translation services and offers both command-line and web interface options.
+    
+    ## Installation
+    
+    ### Prerequisites
+    
+    - Python 3.8 or higher
+    - pip (Python package installer)
+    
+    ### Install via pip
+    
+    ```bash
+    pip install pdf2zh
+    ```
+    
+    ### Install from source
+    
+    1. Clone the repository:
+    
+    ```bash
+    git clone https://github.com/PDFMathTranslate/PDFMathTranslate-next.git
+    cd PDFMathTranslate-next
+    ```
+    
+    2. Install the package:
+    
+    ```bash
+    pip install -e .
+    ```
+    
+    ## Usage
+    
+    ### Command Line
+    
+    Basic usage:
+    
+    ```bash
+    pdf2zh input.pdf output.pdf
+    ```
+    
+    For more options, see the [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html) documentation.
+    
+    ### Web Interface
+    
+    Start the web server:
+    
+    ```bash
+    pdf2zh --web
+    ```
+    
+    Then open your browser and navigate to `http://localhost:7860`.
+    
+    For detailed instructions, see the [Web Interface](https://pdf2zh-next.com/getting-started/USAGE_webui.html) documentation.
+    
+    ## Configuration
+    
+    Before using the tool, you need to configure your translation service API keys. Create a `config.json` file in the project directory with your preferred translation service settings.
+    
+    Example configuration for OpenAI:
+    
+    ```json
+    {
+        "translation_service": "openai",
+        "openai_api_key": "your-api-key-here",
+        "openai_model": "gpt-4"
+    }
+    ```
+    
+    For more configuration options, see the [Configuration](https://pdf2zh-next.com/getting-started/CONFIG.html) documentation.
+    
+    ## Next Steps
+    
+    - Learn about [Advanced](https://pdf2zh-next.com/getting-started/ADVANCED.html) features
+    - Check the list of [Supported Languages](https://pdf2zh-next.com/getting-started/LANGUAGES.html)
+    - Join the [Community](https://pdf2zh-next.com/getting-started/COMMUNITY.html)
+    - Read the [FAQ](https://pdf2zh-next.com/getting-started/FAQ.html)
+    
+    ## Need Help?
+    
+    If you encounter any issues or have questions:
+    
+    - Check the [FAQ](https://pdf2zh-next.com/getting-started/FAQ.html) first
+    - Open an issue on [GitHub](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues)
+    - Ask the community on [Discord](https://discord.gg/example)
+    
+    Happy translating!
+
+---
+
+### TRANSLATED TEXT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
+
+# 开始使用
+
+欢迎来到 PDFMathTranslate 项目！本指南将帮助您开始安装和使用该工具。
+
+## 概述
+
+PDFMathTranslate 是一个开源工具，旨在翻译 PDF 文档的同时保留原始布局，特别是对于包含数学公式的文档。它支持多种翻译服务，并提供命令行和 Web 界面选项。
+
+## 如何安装
+
+### 先决条件
+
+- Python 3.8 或更高版本
+- pip（Python 包安装工具）
+
+### 通过 pip 安装
+
+```bash
+pip install pdf2zh
+```
+
+### 从源码安装
+
+1. 克隆仓库：
+
+```bash
+git clone https://github.com/PDFMathTranslate/PDFMathTranslate-next.git
+cd PDFMathTranslate-next
+```
+
+2. 安装包：
+
+```bash
+pip install -e .
+```
+
+## 如何使用
+
+### 命令行
+
+基本用法：
+
+```bash
+pdf2zh input.pdf output.pdf
+```
+
+有关更多选项，请参阅 [命令行](https://pdf2zh-next.com/getting-started/USAGE_cli.html) 文档。
+
+### Web 界面
+
+启动 Web 服务器：
+
+```bash
+pdf2zh --web
+```
+
+然后在浏览器中打开 `http://localhost:7860`。
+
+有关详细说明，请参阅 [Web 界面](https://pdf2zh-next.com/getting-started/USAGE_webui.html) 文档。
+
+## 配置
+
+在使用该工具之前，您需要配置翻译服务的 API 密钥。在项目目录中创建一个 `config.json` 文件，并设置您首选的翻译服务配置。
+
+OpenAI 的配置示例：
+
+```json
+{
+    "translation_service": "openai",
+    "openai_api_key": "your-api-key-here",
+    "openai_model": "gpt-4"
+}
+```
+
+有关更多配置选项，请参阅 [配置](https://pdf2zh-next.com/getting-started/CONFIG.html) 文档。
+
+## 下一步
+
+- 了解 [高级选项](https://pdf2zh-next.com/getting-started/ADVANCED.html) 功能
+- 查看 [支持的语言](https://pdf2zh-next.com/getting-started/LANGUAGES.html) 列表
+- 加入 [社区](https://pdf2zh-next.com/getting-started/COMMUNITY.html)
+- 阅读 [常见问题](https://pdf2zh-next.com/getting-started/FAQ.html)
+
+## 需要帮助？
+
+如果您遇到任何问题或有疑问：
+
+- 首先查看 [常见问题](https://pdf2zh-next.com/getting-started/FAQ.html)
+- 在 [GitHub](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues) 上提交问题
+- 在 [Discord](https://discord.gg/example) 上向社区提问
+
+祝您翻译愉快！
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +267,17 @@ PDF 科研论文翻译与双语对照。
 
 您可以通过以下任意演示来试用我们的应用程序：
 
-- [v1.x 公共免费服务](https://pdf2zh.com/) 无需安装即可在线使用 _(推荐)_  
-- [沉浸式翻译 - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 每月 1000 页免费额度 _(推荐)_
+- [Command Line](https://pdf2zh-next.com/getting-started/USAGE_command_line.html) for local deployment.
+- [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html) for local deployment.
+
+---
+
+### OUTPUT
+
+- [v1.x 公共免费服务](https://pdf2zh.com/) 在线使用，无需安装_(推荐)_。
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 提供免费使用额度；详情请参阅页面上的常见问题部分_(推荐)_。
+- [命令行](https://pdf2zh-next.com/getting-started/USAGE_command_line.html) 用于本地部署。
+- [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html) 用于本地部署。
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

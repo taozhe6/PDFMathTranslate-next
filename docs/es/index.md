@@ -28,7 +28,49 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    </div>
+
+## Getting Start
+
+- [Installation](INSTALLATION.md)
+- [Command Line](USAGE_cli.md)
+- [Using **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Language Code](LANGUAGE_CODE.md)
+- [Documentation of Translation Services](TRANSLATION_SERVICES.md)
+
+## Advanced
+
+- [Supported Languages](SUPPORTED_LANGUAGES.md)
+- [Community](COMMUNITY.md)
+- [FAQ](FAQ.md)
+- [For Translators](TRANSLATORS.md)
+
+---
+
+---
+
+### OUTPUT
+
+<a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
+</div>
+
+## Empezar
+
+- [Instalación](INSTALLATION.md)
+- [Línea de comandos](USAGE_cli.md)
+- [Uso de **WebUI**](https://pdf2zh-next.com/getting-started/USAGE_webui.html)
+- [Código de idioma](LANGUAGE_CODE.md)
+- [Documentación de servicios de traducción](TRANSLATION_SERVICES.md)
+
+## Opciones avanzadas
+
+- [Idiomas soportados](SUPPORTED_LANGUAGES.md)
+- [Comunidad](COMMUNITY.md)
+- [Preguntas frecuentes](FAQ.md)
+- [Guía de contribución de traducciones](TRANSLATORS.md)
+
+---
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -76,8 +118,18 @@ Para más detalles sobre cómo contribuir, por favor consulta la [Guía de Contr
 
 Puedes probar nuestra aplicación utilizando cualquiera de las siguientes demostraciones:
 
-- [Servicio público gratuito v1.x](https://pdf2zh.com/) en línea sin instalación _(recomendado)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 páginas gratuitas al mes. _(recomendado)_
+.
+- [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html): Local deployment, requires installation, with better privacy protection.
+- [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html): For users who prefer command-line operations.
+
+---
+
+### OUTPUT
+
+- [v1.x Servicio público gratuito](https://pdf2zh.com/) en línea sin instalación _(recomendado)_.
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Cuota de uso gratuita disponible; consulte la sección de preguntas frecuentes en la página para más detalles. _(recomendado)_.
+- [WebUI](https://pdf2zh-next.com/getting-started/USAGE_webui.html): Implementación local, requiere instalación, con mejor protección de privacidad.
+- [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html): Para usuarios que prefieren operaciones de línea de comandos.
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

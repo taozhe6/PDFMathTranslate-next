@@ -1,7 +1,7 @@
 <!-- CHUNK ID: chunk_03FD0E12  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Getting Started**](./getting-started.md) > **Installation** > **WebUI** _(current)_
 
-<!-- CHUNK ID: h_rule_cd8270c0  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_f240cb96  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_EDC72645  CHUNK TYPE: header START_LINE:5 -->
@@ -60,9 +60,3 @@ You can set the source and target languages using environment variables:
 <img src="./../../images/before.png" width="500"/>
 <!-- CHUNK ID: chunk_64A11402  CHUNK TYPE: image START_LINE:48 -->
 <img src="./../../images/after.png" width="500"/>
-
-<!-- CHUNK ID: chunk_742C5FE6  CHUNK TYPE: header START_LINE:50 -->
-## Maintainance
-
-<!-- CHUNK ID: chunk_7E834869  CHUNK TYPE: paragraph START_LINE:52 -->
-GUI maintained by [Rongxin](https://github.com/reycn)

@@ -1,0 +1,295 @@
+{
+  "source_file": "/Users/pppppop/Documents/PDFMathTranslate-next/docs/en/advanced/API/python.md",
+  "chunks": [
+    {
+      "id": "chunk_F076772C",
+      "raw_content": "> [!NOTE]\n> This documentation may contain AI-generated content. While we strive for accuracy, there might be inaccuracies. Please report any issues via:\n>\n> - [GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues)\n> - Community contribution (PRs welcome!)\n",
+      "metadata": {
+        "chunk_type": "blockquote",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 1
+    },
+    {
+      "id": "chunk_0B12F3B2",
+      "raw_content": "## Python API: do_translate_async_stream\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 2,
+        "language": null
+      },
+      "start_line_no": 7
+    },
+    {
+      "id": "chunk_56087045",
+      "raw_content": "### Overview",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 9
+    },
+    {
+      "id": "chunk_A750D06F",
+      "raw_content": "- do_translate_async_stream is the low-level async entrypoint that translates a single PDF and yields a stream of events (progress/error/finish).\n- It is suitable for building your own UI or CLI where you want real-time progress and full control over results.\n- It accepts a validated SettingsModel and a file path and returns an async generator of dict events.\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 10
+    },
+    {
+      "id": "chunk_F43C15FB",
+      "raw_content": "### Signature",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 14
+    },
+    {
+      "id": "chunk_2BC73677",
+      "raw_content": "- Import: `from pdf2zh_next.high_level import do_translate_async_stream`\n- Call: `async for event in do_translate_async_stream(settings, file): ...`\n- Parameters:\n  - settings: SettingsModel. Must be valid; the function will call `settings.validate_settings()`.\n  - file: str | pathlib.Path. The single PDF to translate. Must exist.\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 15
+    },
+    {
+      "id": "chunk_CFDA70BC",
+      "raw_content": "Note:",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 21
+    },
+    {
+      "id": "chunk_80F8D6A6",
+      "raw_content": "- settings.basic.input_files is ignored by this function; only the given `file` is translated.\n- If `settings.basic.debug` is True, translation runs in the main process; otherwise it runs in a subprocess. Event schema is identical for both.\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 22
+    },
+    {
+      "id": "chunk_EB0CE4AC",
+      "raw_content": "### Event Stream Contract",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 25
+    },
+    {
+      "id": "chunk_3036F1F2",
+      "raw_content": "The async generator yields JSON-like dict events with the following types:\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 26
+    },
+    {
+      "id": "chunk_675B6F86",
+      "raw_content": "- Stage summary event: `stage_summary` (optional, may appear first)\n  - Fields\n    - `type`: \"stage_summary\"\n    - `stages`: list of objects `{ \"name\": str, \"percent\": float }` describing the estimated work distribution\n    - `part_index`: may be 0 for this summary event\n    - `total_parts`: total number of parts (>= 1)\n\n- Progress events: `progress_start`, `progress_update`, `progress_end`\n  - Common fields\n    - `type`: one of the above\n    - `stage`: human-readable stage name (e.g., \"Parse PDF and Create Intermediate Representation\", \"Translate Paragraphs\", \"Save PDF\")\n    - `stage_progress`: float in [0, 100] indicating progress within the current stage\n    - `overall_progress`: float in [0, 100] indicating overall progress\n    - `part_index`: current part index (typically 1-based for progress events)\n    - `total_parts`: total number of parts (>= 1). Large documents may be split automatically.\n    - `stage_current`: current step within the stage\n    - `stage_total`: total steps within the stage\n\n- Finish event: `finish`\n  - Fields\n    - `type`: \"finish\"\n    - `translate_result`: an **object** providing final outputs (NOTE: not a dictionary, but a class instance)\n      - `original_pdf_path`: Path to the input PDF\n      - `mono_pdf_path`: Path to the monolingual translated PDF (or None)\n      - `dual_pdf_path`: Path to the bilingual translated PDF (or None)\n      - `no_watermark_mono_pdf_path`: Path to monolingual output without watermark (if produced), otherwise None\n      - `no_watermark_dual_pdf_path`: Path to bilingual output without watermark (if produced), otherwise None\n      - `auto_extracted_glossary_path`: Path to auto-extracted glossary CSV (or None)\n      - `total_seconds`: elapsed seconds (float)\n      - `peak_memory_usage`: approximate peak memory usage during translation (float; implementation-dependent units)\n\n- Error event: `error`\n  - Fields\n    - `type`: \"error\"\n    - `error`: human-readable error message\n    - `error_type`: one of `BabeldocError`, `SubprocessError`, `IPCError`, `SubprocessCrashError`, etc.\n    - `details`: optional details (e.g., original error or traceback)\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 28
+    },
+    {
+      "id": "chunk_F9D8685D",
+      "raw_content": "Important behavior:",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 66
+    },
+    {
+      "id": "chunk_C8ABE7AA",
+      "raw_content": "- An optional `stage_summary` may be emitted before progress begins.\n- On certain failures, the generator will first yield an `error` event and then raise an exception derived from `TranslationError`. You should both check for error events and be prepared to catch exceptions.\n- `progress_update` events may repeat with identical values; consumers should debounce if necessary.\n- Stop consuming the stream when you receive a `finish` event.\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 67
+    },
+    {
+      "id": "chunk_FB4E5C3D",
+      "raw_content": "### Minimal Usage Example (Async)",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 72
+    },
+    {
+      "id": "chunk_21C5563D",
+      "raw_content": "```python\nimport asyncio\nfrom pathlib import Path\nfrom pdf2zh_next.high_level import do_translate_async_stream\n\n# Assume you already have a valid SettingsModel instance named `settings`\n# and a PDF file path\n\nasync def translate_one(settings, pdf_path: str | Path):\n    try:\n        async for event in do_translate_async_stream(settings, pdf_path):\n            etype = event.get(\"type\")\n\n            if etype == \"stage_summary\":\n                # Optional pre-flight summary of stages\n                stages = event.get(\"stages\", [])\n                print(\"Stage summary:\", \", \".join(f\"{s['name']}:{s['percent']:.2f}\" for s in stages))\n\n            elif etype in {\"progress_start\", \"progress_update\", \"progress_end\"}:\n                stage = event.get(\"stage\")\n                stage_prog = event.get(\"stage_progress\")  # 0..100\n                overall = event.get(\"overall_progress\")  # 0..100\n                part_i = event.get(\"part_index\")\n                part_n = event.get(\"total_parts\")\n                print(f\"[{etype}] {stage} | stage {stage_prog:.1f}% | overall {overall:.1f}% (part {part_i}/{part_n})\")\n\n            elif etype == \"error\":\n                # You will also get a raised exception after this yield\n                print(\"[error]\", event.get(\"error\"), event.get(\"error_type\"))\n\n            elif etype == \"finish\":\n                result = event[\"translate_result\"]\n                print(\"Done in\", getattr(result, \"total_seconds\", None), \"s\")\n                print(\"Mono:\", getattr(result, \"mono_pdf_path\", None))\n                print(\"Dual:\", getattr(result, \"dual_pdf_path\", None))\n                print(\"No-watermark Mono:\", getattr(result, \"no_watermark_mono_pdf_path\", None))\n                print(\"No-watermark Dual:\", getattr(result, \"no_watermark_dual_pdf_path\", None))\n                print(\"Glossary:\", getattr(result, \"auto_extracted_glossary_path\", None))\n                print(\"Peak memory:\", getattr(result, \"peak_memory_usage\", None))\n                break\n\n    except Exception as exc:\n        # Catch exceptions raised by the stream after an error event\n        print(\"Translation failed:\", exc)\n\n# asyncio.run(translate_one(settings, \"/path/to/file.pdf\"))\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "python"
+      },
+      "start_line_no": 73
+    },
+    {
+      "id": "chunk_D1A58650",
+      "raw_content": "### Cancellation",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 121
+    },
+    {
+      "id": "chunk_08070A6A",
+      "raw_content": "You can cancel the task consuming the stream. Cancellation is propagated to the underlying translation process.\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 122
+    },
+    {
+      "id": "chunk_0AF5D8DE",
+      "raw_content": "```python\nimport asyncio\nfrom pdf2zh_next.high_level import do_translate_async_stream\n\nasync def cancellable(settings, pdf):\n    task = asyncio.create_task(_consume(settings, pdf))\n    await asyncio.sleep(1.0)  # let it start\n    task.cancel()\n    try:\n        await task\n    except asyncio.CancelledError:\n        print(\"Cancelled\")\n\nasync def _consume(settings, pdf):\n    async for event in do_translate_async_stream(settings, pdf):\n        if event[\"type\"] == \"finish\":\n            break\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "python"
+      },
+      "start_line_no": 124
+    },
+    {
+      "id": "chunk_ED7E6B17",
+      "raw_content": "### Example Event Shapes",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 143
+    },
+    {
+      "id": "chunk_6F13A489",
+      "raw_content": "Stage summary event (example):",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 144
+    },
+    {
+      "id": "chunk_A8D3C870",
+      "raw_content": "```json\n{\n  \"type\": \"stage_summary\",\n  \"stages\": [\n    {\"name\": \"Parse PDF and Create Intermediate Representation\", \"percent\": 0.1086},\n    {\"name\": \"DetectScannedFile\", \"percent\": 0.0188},\n    {\"name\": \"Parse Page Layout\", \"percent\": 0.1079}\n    // ... more stages ...\n  ],\n  \"part_index\": 0,\n  \"total_parts\": 1\n}\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "json"
+      },
+      "start_line_no": 145
+    },
+    {
+      "id": "chunk_EECBAE94",
+      "raw_content": "Progress event (example):",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 159
+    },
+    {
+      "id": "chunk_37B241CB",
+      "raw_content": "```json\n{\n  \"type\": \"progress_update\",\n  \"stage\": \"Translate Paragraphs\",\n  \"stage_progress\": 2.04,\n  \"stage_current\": 1,\n  \"stage_total\": 49,\n  \"overall_progress\": 53.44,\n  \"part_index\": 1,\n  \"total_parts\": 1\n}\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "json"
+      },
+      "start_line_no": 160
+    },
+    {
+      "id": "chunk_C6F45B63",
+      "raw_content": "Finish event (example):",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 173
+    },
+    {
+      "id": "chunk_6A7D099B",
+      "raw_content": "```json\n{\n  \"type\": \"finish\",\n  \"translate_result\": {\n    \"original_pdf_path\": \"pdf2zh_files/<session>/table.pdf\",\n    \"mono_pdf_path\": \"pdf2zh_files/<session>/table.zh-CN.mono.pdf\",\n    \"dual_pdf_path\": \"pdf2zh_files/<session>/table.zh-CN.dual.pdf\",\n    \"no_watermark_mono_pdf_path\": \"pdf2zh_files/<session>/table.no_watermark.zh-CN.mono.pdf\",\n    \"no_watermark_dual_pdf_path\": \"pdf2zh_files/<session>/table.no_watermark.zh-CN.dual.pdf\",\n    \"auto_extracted_glossary_path\": \"pdf2zh_files/<session>/table.zh-CN.glossary.csv\",\n    \"total_seconds\": 42.83,\n    \"peak_memory_usage\": 4651.55\n  }\n}\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "json"
+      },
+      "start_line_no": 174
+    },
+    {
+      "id": "chunk_F8F61FC8",
+      "raw_content": "Error event (example):",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 190
+    },
+    {
+      "id": "chunk_D4934FF8",
+      "raw_content": "```json\n{\n  \"type\": \"error\",\n  \"error\": \"Babeldoc translation error: <message>\",\n  \"error_type\": \"BabeldocError\",\n  \"details\": \"<optional original error or traceback>\"\n}\n```\n",
+      "metadata": {
+        "chunk_type": "code_block",
+        "level": null,
+        "language": "json"
+      },
+      "start_line_no": 191
+    },
+    {
+      "id": "chunk_C7DBFA5F",
+      "raw_content": "### Notes & Best Practices",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 200
+    },
+    {
+      "id": "chunk_F18B5199",
+      "raw_content": "- Always handle both error events and exceptions from the generator.\n- Break the loop on `finish` to avoid unnecessary work.\n- Ensure the `file` exists and `settings.validate_settings()` passes before calling.\n- Large documents may be split; use `part_index/total_parts` and `overall_progress` to drive your UI.\n- Debounce `progress_update` if your UI is sensitive to repeated, identical updates.\n- `report_interval` (SettingsModel): controls only the emission rate of `progress_update` events. It does not affect `stage_summary`, `progress_start`, `progress_end`, or `finish`. Default is 0.1s and the minimum allowed is 0.05s. As per the progress monitor logic, when `stage_total <= 3`, updates are not throttled by `report_interval`.\n\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 201
+    }
+  ]
+}

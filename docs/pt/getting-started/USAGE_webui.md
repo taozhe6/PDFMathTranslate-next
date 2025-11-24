@@ -47,9 +47,5 @@ Você pode definir os idiomas de origem e destino usando variáveis de ambiente:
 <img src="./../../images/before.png" width="500"/>
 <img src="./../../images/after.png" width="500"/>
 
-## Manutenção
-
-GUI mantido por [Rongxin](https://github.com/reycn)
-
 <div align="right"> 
 <h6><small>Parte do conteúdo desta página foi traduzida pelo GPT e pode conter erros.</small></h6>

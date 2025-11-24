@@ -232,8 +232,8 @@
       "start_line_no": 30
     },
     {
-      "id": "chunk_AF4387C1",
-      "raw_content": "</p>\n",
+      "id": "chunk_948C7C2A",
+      "raw_content": "    <a href=\"https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next\"><img src=\"https://deepwiki.com/badge.svg\" alt=\"Ask DeepWiki\"></a>\n</p>\n",
       "metadata": {
         "chunk_type": "paragraph",
         "level": null,
@@ -249,7 +249,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 33
+      "start_line_no": 34
     },
     {
       "id": "chunk_90458E01",
@@ -259,7 +259,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 35
+      "start_line_no": 36
     },
     {
       "id": "chunk_3BE38B9A",
@@ -269,7 +269,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 39
+      "start_line_no": 40
     },
     {
       "id": "chunk_5CDAD0A6",
@@ -279,7 +279,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 43
+      "start_line_no": 44
     },
     {
       "id": "chunk_66808EE3",
@@ -289,7 +289,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 45
+      "start_line_no": 46
     },
     {
       "id": "chunk_E0B1FBFE",
@@ -299,7 +299,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 52
+      "start_line_no": 53
     },
     {
       "id": "chunk_5E68D02E",
@@ -309,7 +309,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 56
+      "start_line_no": 57
     },
     {
       "id": "chunk_2B22A264",
@@ -319,7 +319,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 64
+      "start_line_no": 65
     },
     {
       "id": "chunk_FF589225",
@@ -329,7 +329,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 67
+      "start_line_no": 68
     },
     {
       "id": "chunk_CF255FF9",
@@ -339,7 +339,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 68
+      "start_line_no": 69
     },
     {
       "id": "chunk_EBDB9E88",
@@ -349,7 +349,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 69
+      "start_line_no": 70
     },
     {
       "id": "chunk_3723C881",
@@ -359,7 +359,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 73
+      "start_line_no": 74
     },
     {
       "id": "chunk_1F3D6D5D",
@@ -369,17 +369,17 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 77
+      "start_line_no": 78
     },
     {
-      "id": "chunk_B617543E",
-      "raw_content": "- [v1.x Public free service](https://pdf2zh.com/) online without installation _(recommended)_.\n- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 free pages per month. _(recommended)_",
+      "id": "chunk_E48CA9B7",
+      "raw_content": "- [v1.x Public free service](https://pdf2zh.com/) online without installation _(recommended)_.\n- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Free usage quota is available; please refer to the FAQ section on the page for details. _(recommended)_",
       "metadata": {
         "chunk_type": "list",
         "level": null,
         "language": null
       },
-      "start_line_no": 79
+      "start_line_no": 80
     },
     {
       "id": "chunk_ECCF6BC0",
@@ -389,7 +389,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 81
+      "start_line_no": 82
     },
     {
       "id": "chunk_FDDD972D",
@@ -399,7 +399,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 84
+      "start_line_no": 85
     },
     {
       "id": "chunk_36D1B1ED",
@@ -409,7 +409,7 @@
         "level": 3,
         "language": null
       },
-      "start_line_no": 88
+      "start_line_no": 89
     },
     {
       "id": "chunk_545A02FF",
@@ -419,17 +419,17 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 90
+      "start_line_no": 91
     },
     {
-      "id": "h_rule_0c0b4bc7",
+      "id": "h_rule_dbde899d",
       "raw_content": "---\n",
       "metadata": {
         "chunk_type": "h_rule",
         "level": null,
         "language": null
       },
-      "start_line_no": 94
+      "start_line_no": 95
     },
     {
       "id": "chunk_047D6F23",
@@ -439,7 +439,7 @@
         "level": 3,
         "language": null
       },
-      "start_line_no": 96
+      "start_line_no": 97
     },
     {
       "id": "chunk_A49D7830",
@@ -449,7 +449,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 98
+      "start_line_no": 99
     },
     {
       "id": "chunk_F57A3EE5",
@@ -459,7 +459,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 102
+      "start_line_no": 103
     },
     {
       "id": "chunk_DF45699B",
@@ -469,7 +469,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 110
+      "start_line_no": 111
     },
     {
       "id": "chunk_AC02EE07",
@@ -479,7 +479,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 115
+      "start_line_no": 116
     },
     {
       "id": "chunk_FAB5C5B4",
@@ -489,7 +489,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 120
+      "start_line_no": 121
     },
     {
       "id": "chunk_8652D374",
@@ -499,7 +499,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 124
+      "start_line_no": 125
     },
     {
       "id": "chunk_AD3429B4",
@@ -509,7 +509,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 141
+      "start_line_no": 142
     },
     {
       "id": "chunk_C0AB99E6",
@@ -519,7 +519,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 143
+      "start_line_no": 144
     },
     {
       "id": "chunk_5DD24D41",
@@ -529,7 +529,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 171
+      "start_line_no": 172
     },
     {
       "id": "chunk_21C4CCC3",
@@ -539,7 +539,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 178
+      "start_line_no": 179
     },
     {
       "id": "chunk_B2A74E86",
@@ -549,7 +549,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 179
+      "start_line_no": 180
     },
     {
       "id": "chunk_F1A772A0",
@@ -559,7 +559,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 181
+      "start_line_no": 182
     },
     {
       "id": "chunk_61BE03EB",
@@ -569,7 +569,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 183
+      "start_line_no": 184
     },
     {
       "id": "chunk_ACF347AF",
@@ -579,7 +579,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 189
+      "start_line_no": 190
     },
     {
       "id": "chunk_64791BB7",
@@ -589,7 +589,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 190
+      "start_line_no": 191
     }
   ]
 }
