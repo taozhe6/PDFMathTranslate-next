@@ -171,7 +171,7 @@ pdf2zh --web
 <a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
 
-# PDFMathTranslate：Tradurre documenti PDF contenenti formule matematiche
+# PDFMathTranslate: Tradurre documenti PDF contenenti formule matematiche
 
 <p align="center">
       <a href="https://github.com/SUSYUSTC/PDFMathTranslate">
@@ -217,7 +217,7 @@ Questo strumento è stato inizialmente progettato per tradurre articoli accademi
 
 ## Indice
 
-- [PDFMathTranslate：Tradurre documenti PDF contenenti formule matematiche](#pdfmathtranslate-tradurre-documenti-pdf-contenenti-formule-matematiche)
+- [PDFMathTranslate: Tradurre documenti PDF contenenti formule matematiche](#pdfmathtranslate-tradurre-documenti-pdf-contenenti-formule-matematiche)
   - [Indice](#indice)
   - [Iniziare](#iniziare)
     - [Installazione](#installazione)

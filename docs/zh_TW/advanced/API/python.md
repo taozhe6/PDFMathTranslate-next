@@ -419,7 +419,7 @@ source_language: en
 target_language: zh
 ```
 
-**命令行:**
+**命令行：**
 
 ```bash
 pdf2zh --source-language en --target-language zh input.pdf
