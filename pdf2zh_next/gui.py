@@ -218,12 +218,22 @@ lang_map = {
 rev_lang_map = {v: k for k, v in lang_map.items()}
 
 # The following variable associate strings with page ranges
+# Page map with fixed internal keys
 page_map = {
     "All": None,
     "First": [0],
     "First 5 pages": list(range(0, 5)),
     "Range": None,  # User-defined range
 }
+
+def get_page_choices():
+    """Get page range choices with translated labels"""
+    return [
+        (_("All"), "All"),
+        (_("First"), "First"),
+        (_("First 5 pages"), "First 5 pages"),
+        (_("Range"), "Range"),
+    ]
 
 # Load configuration
 config_manager = ConfigManager()
@@ -599,10 +609,9 @@ def _build_translate_settings(
             setattr(translate_settings, term_flag_name, False)
 
     # Configure term extraction engine settings from UI when not following main engine
-    follow_main_label = _("Follow main translation engine")
     if (
         term_service
-        and term_service != follow_main_label
+        and term_service != "Follow main translation engine"
         and not translate_settings.translation.no_auto_extract_glossary
         and term_service in TERM_EXTRACTION_ENGINE_METADATA_MAP
     ):
@@ -959,7 +968,7 @@ async def _run_translation_task(
                 dual_path = result.dual_pdf_path
                 glossary_path = result.auto_extracted_glossary_path
                 token_usage = event.get("token_usage", {})
-                progress(1.0, desc="Translation complete!")
+                progress(1.0, desc=_("Translation complete!"))
                 break
             elif event["type"] == "error":
                 # Handle error event
@@ -1055,7 +1064,7 @@ async def translate_file(
     state["session_id"] = session_id
 
     # Track progress
-    progress(0, desc="Starting translation...")
+    progress(0, desc=_("Starting translation..."))
 
     # Prepare output directory
     output_dir = Path("pdf2zh_files") / session_id
@@ -1133,7 +1142,7 @@ async def translate_file(
             ),  # Show output title if any output
         )
     except asyncio.CancelledError:
-        gr.Info("Translation cancelled")
+        gr.Info(_("Translation cancelled"))
         # Return None for all outputs if cancelled
         return (
             None,
@@ -1174,7 +1183,7 @@ def save_config(
     ui_inputs = build_ui_inputs(*ui_args)
 
     # Track progress
-    progress(0, desc="Saving configuration...")
+    progress(0, desc=_("Saving configuration..."))
 
     # Prepare output directory
     output_dir = Path("pdf2zh_files")
@@ -1184,7 +1193,7 @@ def save_config(
     )
 
     # Show success message
-    gr.Info(f"Configuration saved to: {DEFAULT_CONFIG_FILE}")
+    gr.Info(_("Configuration saved to: {path}").format(path=DEFAULT_CONFIG_FILE))
 
 
 # Custom theme definition
@@ -1283,8 +1292,8 @@ with gr.Blocks(
                 lang_selector.render()
                 gr.Markdown(_("## File"))
                 file_type = gr.Radio(
-                    choices=["File", "Link"],
-                    label="Type",
+                    choices=[(_("File"), "File"), (_("Link"), "Link")],
+                    label=_("Type"),
                     value="File",
                 )
                 file_input = gr.File(
@@ -1411,11 +1420,11 @@ with gr.Blocks(
                     with gr.Group() as rate_limit_settings:
                         rate_limit_mode = gr.Radio(
                             choices=[
-                                ("RPM (Requests Per Minute)", "RPM"),
-                                ("Concurrent Requests", "Concurrent Threads"),
-                                ("Custom", "Custom"),
+                                (_("RPM (Requests Per Minute)"), "RPM"),
+                                (_("Concurrent Requests"), "Concurrent Threads"),
+                                (_("Custom"), "Custom"),
                             ],
-                            label="Rate Limit Mode",
+                            label=_("Rate Limit Mode"),
                             value="Custom",
                             interactive=True,
                             visible=False,
@@ -1492,12 +1501,12 @@ with gr.Blocks(
                     with gr.Group(visible=True) as term_settings_group:
                         term_service = gr.Dropdown(
                             label=_("Term extraction engine"),
-                            choices=[_("Follow main translation engine")]
+                            choices=[(_("Follow main translation engine"), "Follow main translation engine")]
                             + [
                                 metadata.translate_engine_type
                                 for metadata in TERM_EXTRACTION_ENGINE_METADATA
                             ],
-                            value=_("Follow main translation engine"),
+                            value="Follow main translation engine",
                         )
 
                         # Term engine detail settings
@@ -1590,9 +1599,9 @@ with gr.Blocks(
 
                         term_rate_limit_mode = gr.Radio(
                             choices=[
-                                ("RPM (Requests Per Minute)", "RPM"),
-                                ("Concurrent Requests", "Concurrent Threads"),
-                                ("Custom", "Custom"),
+                                (_("RPM (Requests Per Minute)"), "RPM"),
+                                (_("Concurrent Requests"), "Concurrent Threads"),
+                                (_("Custom"), "Custom"),
                             ],
                             label=_("Term rate limit mode"),
                             value="Custom",
@@ -1644,9 +1653,9 @@ with gr.Blocks(
                         )
 
                 page_range = gr.Radio(
-                    choices=list(page_map.keys()),
-                    label="Pages",
-                    value=list(page_map.keys())[0],
+                    choices=get_page_choices(),
+                    label=_("Pages"),
+                    value="All",
                 )
 
                 page_input = gr.Textbox(
@@ -1690,8 +1699,8 @@ with gr.Blocks(
                     )
 
                 watermark_output_mode = gr.Radio(
-                    choices=["Watermarked", "No Watermark"],
-                    label="Watermark mode",
+                    choices=[(_("Watermarked"), "Watermarked"), (_("No Watermark"), "No Watermark")],
+                    label=_("Watermark mode"),
                     value="Watermarked"
                     if settings.pdf.watermark_output_mode == "watermarked"
                     else "No Watermark",
@@ -2460,7 +2469,7 @@ with gr.Blocks(
                 term_engine_enabled = (
                     not fresh_settings.translation.no_auto_extract_glossary
                 )
-                selected_term_service = _("Follow main translation engine")
+                selected_term_service = "Follow main translation engine"
                 for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
                     term_flag_name = f"term_{term_metadata.cli_flag_name}"
                     if getattr(fresh_settings, term_flag_name, False):
