@@ -1188,7 +1188,7 @@ def save_config(
     # Prepare output directory
     output_dir = Path("pdf2zh_files")
 
-    _ = _build_translate_settings(
+    _build_translate_settings(
         settings.clone(), config_fake_pdf_path, output_dir, SaveMode.always, ui_inputs
     )
 
