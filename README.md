@@ -28,6 +28,7 @@
     <img src="https://img.shields.io/github/license/PDFMathTranslate/PDFMathTranslate-next"></a>
   <a href="https://hosted.weblate.org/engage/pdfmathtranslate-next/">
     <img src="https://hosted.weblate.org/widget/pdfmathtranslate-next/svg-badge.svg" alt="translation status" /></a>
+    <a href="https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </p>
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
@@ -77,7 +78,7 @@ For details on how to contribute, please consult the [Contribution Guide](https:
 You can try our application out using either of the following demos:
 
 - [v1.x Public free service](https://pdf2zh.com/) online without installation _(recommended)_.
-- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 free pages per month. _(recommended)_
+- [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) Free usage quota is available; please refer to the FAQ section on the page for details. _(recommended)_
 <!-- - [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation. -->
 

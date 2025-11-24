@@ -7,6 +7,7 @@ import shutil
 import tempfile
 import typing
 import uuid
+from enum import Enum
 from pathlib import Path
 from string import Template
 
@@ -24,14 +25,29 @@ from pdf2zh_next.config.cli_env_model import CLIEnvSettingsModel
 from pdf2zh_next.config.model import SettingsModel
 from pdf2zh_next.config.translate_engine_model import GUI_PASSWORD_FIELDS
 from pdf2zh_next.config.translate_engine_model import GUI_SENSITIVE_FIELDS
+from pdf2zh_next.config.translate_engine_model import TERM_EXTRACTION_ENGINE_METADATA
+from pdf2zh_next.config.translate_engine_model import (
+    TERM_EXTRACTION_ENGINE_METADATA_MAP,
+)
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA
 from pdf2zh_next.config.translate_engine_model import TRANSLATION_ENGINE_METADATA_MAP
+from pdf2zh_next.const import DEFAULT_CONFIG_DIR
+from pdf2zh_next.const import DEFAULT_CONFIG_FILE
 from pdf2zh_next.high_level import TranslationError
 from pdf2zh_next.high_level import do_translate_async_stream
 from pdf2zh_next.i18n import LANGUAGES
 from pdf2zh_next.i18n import gettext as _
+from pdf2zh_next.i18n import update_current_languages
 
 logger = logging.getLogger(__name__)
+
+
+class SaveMode(Enum):
+    """Enum for configuration save behavior."""
+
+    follow_settings = "follow_settings"  # Follow disable_config_auto_save setting
+    never = "never"  # Never save
+    always = "always"  # Always save regardless of disable_config_auto_save
 
 
 def get_translation_dic(file_path: Path):
@@ -40,6 +56,8 @@ def get_translation_dic(file_path: Path):
 
 
 __gui_service_arg_names = []
+__gui_term_service_arg_names = []
+LLM_support_index_map = {}
 # The following variables associate strings with specific languages
 lang_map = {
     "English": "en",
@@ -415,6 +433,7 @@ def _build_translate_settings(
     base_settings: CLIEnvSettingsModel,
     file_path: Path,
     output_dir: Path,
+    save_mode: SaveMode,
     ui_inputs: dict,
 ) -> SettingsModel:
     """
@@ -424,6 +443,7 @@ def _build_translate_settings(
         - base_settings: The base settings model to build upon
         - file_path: The path to the input file
         - output_dir: The output directory
+        - save_mode: SaveMode enum indicating when to save config
         - ui_inputs: A dictionary of UI inputs
 
     Returns:
@@ -457,7 +477,7 @@ def _build_translate_settings(
     # Advanced Translation Options
     min_text_length = ui_inputs.get("min_text_length")
     rpc_doclayout = ui_inputs.get("rpc_doclayout")
-    no_auto_extract_glossary = ui_inputs.get("no_auto_extract_glossary")
+    enable_auto_term_extraction = ui_inputs.get("enable_auto_term_extraction")
     primary_font_family = ui_inputs.get("primary_font_family")
 
     # Advanced PDF Options
@@ -483,6 +503,14 @@ def _build_translate_settings(
         "figure_table_protection_threshold"
     )
     skip_formula_offset_calculation = ui_inputs.get("skip_formula_offset_calculation")
+
+    # Term extraction options
+    term_service = ui_inputs.get("term_service")
+    term_rate_limit_mode = ui_inputs.get("term_rate_limit_mode")
+    term_rpm_input = ui_inputs.get("term_rpm_input")
+    term_concurrent_threads = ui_inputs.get("term_concurrent_threads")
+    term_custom_qps = ui_inputs.get("term_custom_qps")
+    term_custom_pool_workers = ui_inputs.get("term_custom_pool_workers")
 
     # New input for custom_system_prompt
     custom_system_prompt_input = ui_inputs.get("custom_system_prompt_input")
@@ -520,7 +548,12 @@ def _build_translate_settings(
         translate_settings.translation.min_text_length = int(min_text_length)
     if rpc_doclayout:
         translate_settings.translation.rpc_doclayout = rpc_doclayout
-    translate_settings.translation.no_auto_extract_glossary = no_auto_extract_glossary
+
+    # UI uses positive switch, config uses negative flag, so we invert here
+    if enable_auto_term_extraction is not None:
+        translate_settings.translation.no_auto_extract_glossary = (
+            not enable_auto_term_extraction
+        )
     if primary_font_family:
         if primary_font_family == "Auto":
             translate_settings.translation.primary_font_family = None
@@ -538,6 +571,78 @@ def _build_translate_settings(
         translate_settings.translation.pool_max_workers = (
             int(pool_workers) if pool_workers is not None else None
         )
+
+    # Calculate and update term extraction rate limit settings
+    if term_rate_limit_mode:
+        term_rate_inputs = {
+            "rpm_input": term_rpm_input,
+            "concurrent_threads": term_concurrent_threads,
+            "custom_qps": term_custom_qps,
+            "custom_pool_workers": term_custom_pool_workers,
+        }
+        term_qps, term_pool_workers = _calculate_rate_limit_params(
+            term_rate_limit_mode,
+            term_rate_inputs,
+            translate_settings.translation.term_qps
+            or translate_settings.translation.qps
+            or 4,
+        )
+        translate_settings.translation.term_qps = int(term_qps)
+        translate_settings.translation.term_pool_max_workers = (
+            int(term_pool_workers) if term_pool_workers is not None else None
+        )
+
+    # Reset all term extraction engine flags
+    for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+        term_flag_name = f"term_{term_metadata.cli_flag_name}"
+        if hasattr(translate_settings, term_flag_name):
+            setattr(translate_settings, term_flag_name, False)
+
+    # Configure term extraction engine settings from UI when not following main engine
+    follow_main_label = _("Follow main translation engine")
+    if (
+        term_service
+        and term_service != follow_main_label
+        and not translate_settings.translation.no_auto_extract_glossary
+        and term_service in TERM_EXTRACTION_ENGINE_METADATA_MAP
+    ):
+        term_metadata = TERM_EXTRACTION_ENGINE_METADATA_MAP[term_service]
+
+        # Enable selected term extraction engine flag
+        term_flag_name = f"term_{term_metadata.cli_flag_name}"
+        if hasattr(translate_settings, term_flag_name):
+            setattr(translate_settings, term_flag_name, True)
+
+        # Update term extraction engine detail settings
+        if term_metadata.cli_detail_field_name:
+            term_detail_field_name = f"term_{term_metadata.cli_detail_field_name}"
+            term_detail_settings = getattr(translate_settings, term_detail_field_name)
+            term_model_type = term_metadata.term_setting_model_type
+
+            for field_name, field in term_model_type.model_fields.items():
+                if field_name in ("translate_engine_type", "support_llm"):
+                    continue
+
+                value = ui_inputs.get(field_name)
+                if value is None:
+                    continue
+
+                type_hint = field.annotation
+                original_type = typing.get_origin(type_hint)
+                type_args = typing.get_args(type_hint)
+
+                if type_hint is str or str in type_args:
+                    pass
+                elif type_hint is int or int in type_args:
+                    value = int(value)
+                elif type_hint is bool or bool in type_args:
+                    value = bool(value)
+                else:
+                    raise Exception(
+                        f"Unsupported type {type_hint} for field {field_name} in gui term extraction engine settings"
+                    )
+
+                setattr(term_detail_settings, field_name, value)
 
     # Update PDF Settings
     translate_settings.pdf.pages = pages
@@ -650,17 +755,28 @@ def _build_translate_settings(
     # Validate settings before proceeding
     try:
         translate_settings.validate_settings()
-        settings = translate_settings.to_settings_model()
+        temp_settings = translate_settings.to_settings_model()
         translate_settings.translation.output = original_output
         translate_settings.pdf.pages = original_pages
         translate_settings.gui_settings = original_gui_settings
         translate_settings.basic.gui = False
         translate_settings.basic.debug = False
         translate_settings.translation.glossaries = None
-        if not settings.gui_settings.disable_config_auto_save:
+
+        # Determine if config should be saved based on save_mode
+        should_save = False
+        if save_mode == SaveMode.always:
+            should_save = True
+        elif save_mode == SaveMode.follow_settings:
+            should_save = not temp_settings.gui_settings.disable_config_auto_save
+        # SaveMode.never: should_save remains False
+
+        if should_save:
             config_manager.write_user_default_config_file(settings=translate_settings)
-        settings.validate_settings()
-        return settings
+            global settings
+            settings = translate_settings
+        temp_settings.validate_settings()
+        return temp_settings
     except ValueError as e:
         raise gr.Error(f"Invalid settings: {e}") from e
 
@@ -686,9 +802,121 @@ def _build_glossary_list(glossary_file, service_name=None):
     return ",".join(glossary_list)
 
 
+def build_ui_inputs(*args):
+    """
+    Build ui_inputs dictionary from *args.
+
+    Args:
+        *args: UI setting controls in the following order:
+            service, lang_from, lang_to, page_range, page_input,
+            no_mono, no_dual, dual_translate_first, use_alternating_pages_dual, watermark_output_mode,
+            rate_limit_mode, rpm_input, concurrent_threads_input, custom_qps_input, custom_pool_max_workers_input,
+            prompt, min_text_length, rpc_doclayout, custom_system_prompt_input, glossary_file,
+            save_auto_extracted_glossary, enable_auto_term_extraction, primary_font_family, skip_clean,
+            disable_rich_text_translate, enhance_compatibility, split_short_lines, short_line_split_factor,
+            translate_table_text, skip_scanned_detection, max_pages_per_part, formular_font_pattern,
+            formular_char_pattern, ignore_cache, state, ocr_workaround, auto_enable_ocr_workaround,
+            only_include_translated_page, merge_alternating_line_numbers, remove_non_formula_lines,
+            non_formula_line_iou_threshold, figure_table_protection_threshold, skip_formula_offset_calculation,
+            term_service, term_rate_limit_mode, term_rpm_input, term_concurrent_threads_input,
+            term_custom_qps_input, term_custom_pool_max_workers_input, *translation_engine_arg_inputs
+
+    Returns:
+        dict: ui_inputs dictionary with all UI settings
+    """
+    # Fixed parameter names in order (excluding translation_engine_arg_inputs)
+    fixed_param_names = [
+        "service",
+        "lang_from",
+        "lang_to",
+        "page_range",
+        "page_input",
+        "no_mono",
+        "no_dual",
+        "dual_translate_first",
+        "use_alternating_pages_dual",
+        "watermark_output_mode",
+        "rate_limit_mode",
+        "rpm_input",
+        "concurrent_threads",  # mapped from concurrent_threads_input
+        "custom_qps",  # mapped from custom_qps_input
+        "custom_pool_workers",  # mapped from custom_pool_max_workers_input
+        "prompt",
+        "min_text_length",
+        "rpc_doclayout",
+        "custom_system_prompt_input",
+        "glossary_file",  # will be converted to glossaries
+        "save_auto_extracted_glossary",
+        "enable_auto_term_extraction",
+        "primary_font_family",
+        "skip_clean",
+        "disable_rich_text_translate",
+        "enhance_compatibility",
+        "split_short_lines",
+        "short_line_split_factor",
+        "translate_table_text",
+        "skip_scanned_detection",
+        "max_pages_per_part",
+        "formular_font_pattern",
+        "formular_char_pattern",
+        "ignore_cache",
+        "state",
+        "ocr_workaround",
+        "auto_enable_ocr_workaround",
+        "only_include_translated_page",
+        "merge_alternating_line_numbers",
+        "remove_non_formula_lines",
+        "non_formula_line_iou_threshold",
+        "figure_table_protection_threshold",
+        "skip_formula_offset_calculation",
+        "term_service",
+        "term_rate_limit_mode",
+        "term_rpm_input",
+        "term_concurrent_threads",
+        "term_custom_qps",
+        "term_custom_pool_workers",
+    ]
+
+    # Split args into fixed params and translation_engine_arg_inputs
+    num_fixed = len(fixed_param_names)
+    fixed_args = args[:num_fixed]
+    translation_engine_arg_inputs = args[num_fixed:]
+
+    # Build ui_inputs dictionary
+    ui_inputs = {}
+    for param_name, arg_value in zip(fixed_param_names, fixed_args, strict=False):
+        ui_inputs[param_name] = arg_value
+
+    # Convert glossary_file to glossaries
+    service = ui_inputs["service"]
+    glossary_file = ui_inputs["glossary_file"]
+    ui_inputs["glossaries"] = _build_glossary_list(glossary_file, service)
+
+    # Add translation engine args (main translator + term translator detail settings)
+    main_detail_count = len(__gui_service_arg_names)
+    term_detail_count = len(__gui_term_service_arg_names)
+
+    main_detail_inputs = translation_engine_arg_inputs[:main_detail_count]
+    term_detail_inputs = translation_engine_arg_inputs[
+        main_detail_count : main_detail_count + term_detail_count
+    ]
+
+    for arg_name, arg_input in zip(
+        __gui_service_arg_names, main_detail_inputs, strict=False
+    ):
+        ui_inputs[arg_name] = arg_input
+
+    for arg_name, arg_input in zip(
+        __gui_term_service_arg_names, term_detail_inputs, strict=False
+    ):
+        ui_inputs[arg_name] = arg_input
+
+    return ui_inputs
+
+
 async def _run_translation_task(
     settings: SettingsModel, file_path: Path, state: dict, progress: gr.Progress
-) -> tuple[Path | None, Path | None, Path | None]:
+) -> tuple[Path | None, Path | None, Path | None, dict | None]:
     """
     This function runs the translation task and handles progress updates.
 
@@ -699,11 +927,12 @@ async def _run_translation_task(
         - progress: The Gradio progress bar
 
     Returns:
-        - A tuple of (mono_pdf_path, dual_pdf_path)
+        - A tuple of (mono_pdf_path, dual_pdf_path, glossary_path, token_usage)
     """
     mono_path = None
     dual_path = None
     glossary_path = None
+    token_usage = None
 
     try:
         settings.basic.input_files = set()
@@ -729,6 +958,7 @@ async def _run_translation_task(
                 mono_path = result.mono_pdf_path
                 dual_path = result.dual_pdf_path
                 glossary_path = result.auto_extracted_glossary_path
+                token_usage = event.get("token_usage", {})
                 progress(1.0, desc="Translation complete!")
                 break
             elif event["type"] == "error":
@@ -758,7 +988,7 @@ async def _run_translation_task(
         logger.error(f"Error in _run_translation_task: {e}", exc_info=True)
         raise gr.Error(f"Translation failed: {e}") from e
 
-    return mono_path, dual_path, glossary_path
+    return mono_path, dual_path, glossary_path, token_usage
 
 
 async def stop_translate_file(state: dict) -> None:
@@ -791,56 +1021,7 @@ async def translate_file(
     file_type,
     file_input,
     link_input,
-    service,
-    lang_from,
-    lang_to,
-    page_range,
-    page_input,
-    # PDF Output Options
-    no_mono,
-    no_dual,
-    dual_translate_first,
-    use_alternating_pages_dual,
-    watermark_output_mode,
-    # Rate Limit Mode
-    rate_limit_mode,
-    rpm_input,
-    concurrent_threads,
-    custom_qps,
-    custom_pool_workers,
-    # Advanced Options
-    prompt,
-    min_text_length,
-    rpc_doclayout,
-    # New input for custom_system_prompt
-    custom_system_prompt_input,
-    glossary_file,
-    save_auto_extracted_glossary,
-    # New advanced translation options
-    no_auto_extract_glossary,
-    primary_font_family,
-    skip_clean,
-    disable_rich_text_translate,
-    enhance_compatibility,
-    split_short_lines,
-    short_line_split_factor,
-    translate_table_text,
-    skip_scanned_detection,
-    max_pages_per_part,
-    formular_font_pattern,
-    formular_char_pattern,
-    ignore_cache,
-    state,
-    ocr_workaround,
-    auto_enable_ocr_workaround,
-    only_include_translated_page,
-    # BabelDOC v0.5.1 new options
-    merge_alternating_line_numbers,
-    remove_non_formula_lines,
-    non_formula_line_iou_threshold,
-    figure_table_protection_threshold,
-    skip_formula_offset_calculation,
-    *translation_engine_arg_inputs,
+    *ui_args,
     progress=None,
 ):
     """
@@ -850,17 +1031,7 @@ async def translate_file(
         - file_type: The type of file to translate
         - file_input: The file to translate
         - link_input: The link to the file to translate
-        - service: The translation service to use
-        - lang_from: The language to translate from
-        - lang_to: The language to translate to
-        - page_range: The range of pages to translate
-        - page_input: The input for the page range
-        - prompt: The custom prompt for the llm
-        - threads: The number of threads to use
-        - skip_clean: Whether to skip subsetting fonts
-        - ignore_cache: Whether to ignore the translation cache
-        - state: The state of the translation process
-        - translation_engine_arg_inputs: The translator engine args
+        - *ui_args: UI setting controls (see build_ui_inputs for details)
         - progress: The progress bar
 
     Returns:
@@ -875,6 +1046,10 @@ async def translate_file(
     if progress is None:
         progress = gr.Progress()
 
+    # Build ui_inputs from *args
+    ui_inputs = build_ui_inputs(*ui_args)
+    state = ui_inputs["state"]
+
     # Initialize session and output directory
     session_id = str(uuid.uuid4())
     state["session_id"] = session_id
@@ -885,68 +1060,13 @@ async def translate_file(
     # Prepare output directory
     output_dir = Path("pdf2zh_files") / session_id
     output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Collection of UI inputs for config building
-    ui_inputs = {
-        "service": service,
-        "lang_from": lang_from,
-        "lang_to": lang_to,
-        "page_range": page_range,
-        "page_input": page_input,
-        # PDF Output Options
-        "no_mono": no_mono,
-        "no_dual": no_dual,
-        "dual_translate_first": dual_translate_first,
-        "use_alternating_pages_dual": use_alternating_pages_dual,
-        "watermark_output_mode": watermark_output_mode,
-        # Rate Limit Options
-        "rate_limit_mode": rate_limit_mode,
-        "rpm_input": rpm_input,
-        "concurrent_threads": concurrent_threads,
-        "custom_qps": custom_qps,
-        "custom_pool_workers": custom_pool_workers,
-        # Advanced Options
-        "prompt": prompt,
-        "min_text_length": min_text_length,
-        "rpc_doclayout": rpc_doclayout,
-        "custom_system_prompt_input": custom_system_prompt_input,
-        "glossaries": _build_glossary_list(glossary_file, service),
-        "save_auto_extracted_glossary": save_auto_extracted_glossary,
-        # New advanced translation options
-        "no_auto_extract_glossary": no_auto_extract_glossary,
-        "primary_font_family": primary_font_family,
-        "skip_clean": skip_clean,
-        "disable_rich_text_translate": disable_rich_text_translate,
-        "enhance_compatibility": enhance_compatibility,
-        "split_short_lines": split_short_lines,
-        "short_line_split_factor": short_line_split_factor,
-        "translate_table_text": translate_table_text,
-        "skip_scanned_detection": skip_scanned_detection,
-        "max_pages_per_part": max_pages_per_part,
-        "formular_font_pattern": formular_font_pattern,
-        "formular_char_pattern": formular_char_pattern,
-        "ignore_cache": ignore_cache,
-        "ocr_workaround": ocr_workaround,
-        "auto_enable_ocr_workaround": auto_enable_ocr_workaround,
-        "only_include_translated_page": only_include_translated_page,
-        # BabelDOC v0.5.1 new options
-        "merge_alternating_line_numbers": merge_alternating_line_numbers,
-        "remove_non_formula_lines": remove_non_formula_lines,
-        "non_formula_line_iou_threshold": non_formula_line_iou_threshold,
-        "figure_table_protection_threshold": figure_table_protection_threshold,
-        "skip_formula_offset_calculation": skip_formula_offset_calculation,
-    }
-    for arg_name, arg_input in zip(
-        __gui_service_arg_names, translation_engine_arg_inputs, strict=False
-    ):
-        ui_inputs[arg_name] = arg_input
     try:
         # Step 1: Prepare input file
         file_path = _prepare_input_file(file_type, file_input, link_input, output_dir)
 
         # Step 2: Build translation settings
         translate_settings = _build_translate_settings(
-            settings.clone(), file_path, output_dir, ui_inputs
+            settings.clone(), file_path, output_dir, SaveMode.follow_settings, ui_inputs
         )
 
         # Step 3: Create and run the translation task
@@ -956,7 +1076,7 @@ async def translate_file(
         state["current_task"] = task
 
         # Wait for the translation to complete
-        mono_path, dual_path, glossary_path = await task
+        mono_path, dual_path, glossary_path, token_usage = await task
         if not mono_path or not mono_path.exists():
             mono_path = None
         else:
@@ -970,6 +1090,32 @@ async def translate_file(
             glossary_path = None
         else:
             glossary_path = glossary_path.as_posix()
+
+        token_info = ""
+        if token_usage:
+            token_info = "\n\n**Token Usage:**\n"  # noqa: S105, this is not a hardcoded password
+            total_usage = {
+                "total": 0,
+                "prompt": 0,
+                "cache_hit_prompt": 0,
+                "completion": 0,
+            }
+            if "main" in token_usage:
+                m = token_usage["main"]
+                token_info += f"- Main: Total {m['total']} (Prompt {m['prompt']}, Cache Hit Prompt {m['cache_hit_prompt']}, Completion {m['completion']})\n"
+                total_usage["total"] += m["total"]
+                total_usage["prompt"] += m["prompt"]
+                total_usage["cache_hit_prompt"] += m["cache_hit_prompt"]
+                total_usage["completion"] += m["completion"]
+            if "term" in token_usage:
+                t = token_usage["term"]
+                token_info += f"- Term: Total {t['total']} (Prompt {t['prompt']}, Cache Hit Prompt {t['cache_hit_prompt']}, Completion {t['completion']})\n"
+                total_usage["total"] += t["total"]
+                total_usage["prompt"] += t["prompt"]
+                total_usage["cache_hit_prompt"] += t["cache_hit_prompt"]
+                total_usage["completion"] += t["completion"]
+            token_info += f"- Total: Total {total_usage['total']} (Prompt {total_usage['prompt']}, Cache Hit Prompt {total_usage['cache_hit_prompt']}, Completion {total_usage['completion']})\n"
+            logger.info(f"Token usage: {token_info}")
         # Build success UI updates
         return (
             str(mono_path) if mono_path else None,  # Output mono file
@@ -982,7 +1128,8 @@ async def translate_file(
                 visible=bool(glossary_path)
             ),  # Show glossary download if available
             gr.update(
-                visible=bool(mono_path or dual_path)
+                value=f"{_('## Translated')}{token_info}",
+                visible=bool(mono_path or dual_path),
             ),  # Show output title if any output
         )
     except asyncio.CancelledError:
@@ -1006,6 +1153,38 @@ async def translate_file(
     finally:
         # Clear task reference
         state["current_task"] = None
+
+
+def save_config(
+    *ui_args,
+    progress=None,
+):
+    """
+    This function saves the translation configuration.
+
+    Inputs:
+        - *ui_args: UI setting controls (see build_ui_inputs for details)
+        - progress: The progress bar
+    """
+    # Setup progress tracking
+    if progress is None:
+        progress = gr.Progress()
+
+    # Build ui_inputs from *args
+    ui_inputs = build_ui_inputs(*ui_args)
+
+    # Track progress
+    progress(0, desc="Saving configuration...")
+
+    # Prepare output directory
+    output_dir = Path("pdf2zh_files")
+
+    _ = _build_translate_settings(
+        settings.clone(), config_fake_pdf_path, output_dir, SaveMode.always, ui_inputs
+    )
+
+    # Show success message
+    gr.Info(f"Configuration saved to: {DEFAULT_CONFIG_FILE}")
 
 
 # Custom theme definition
@@ -1053,6 +1232,13 @@ current_dir = Path(__file__).parent
 assets_dir = current_dir / "assets"
 logo_path = assets_dir / "powered_by_siliconflow_light.png"
 translation_file_path = current_dir / "gui_translation.yaml"
+config_fake_pdf_path = DEFAULT_CONFIG_DIR / "config.fake.pdf"
+
+if not config_fake_pdf_path.exists():
+    with config_fake_pdf_path.open("w") as f:
+        f.write("This is a fake PDF file for configuration saving.")
+        f.flush()
+
 
 tech_details_string = f"""
                     <summary>Technical details</summary>
@@ -1067,7 +1253,7 @@ tech_details_string = f"""
                     </a>
                     <br>
                 """
-
+update_current_languages(settings.gui_settings.ui_lang)
 # The following code creates the GUI
 with gr.Blocks(
     title="PDFMathTranslate - PDF Translation with preserved formats",
@@ -1089,15 +1275,17 @@ with gr.Blocks(
         detail_text_inputs = []
         require_llm_translator_inputs = []
         detail_text_input_index_map = {}
-        LLM_support_index_map = {}
+        term_detail_text_inputs = []
+        term_detail_text_input_index_map = {}
+        LLM_support_index_map.clear()
         with gr.Row():
             with gr.Column(scale=1):
                 lang_selector.render()
                 gr.Markdown(_("## File"))
                 file_type = gr.Radio(
-                    choices=[_("File"), _("Link")],
-                    label=_("Type"),
-                    value=_("File"),
+                    choices=["File", "Link"],
+                    label="Type",
+                    value="File",
                 )
                 file_input = gr.File(
                     label=_("File"),
@@ -1114,6 +1302,18 @@ with gr.Blocks(
 
                 gr.Markdown(_("## Translation Options"))
 
+                with gr.Row():
+                    lang_from = gr.Dropdown(
+                        label=_("Translate from"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_from,
+                    )
+                    lang_to = gr.Dropdown(
+                        label=_("Translate to"),
+                        choices=list(lang_map.keys()),
+                        value=default_lang_to,
+                    )
+
                 siliconflow_free_acknowledgement = gr.Markdown(
                     _(
                         "Free translation service provided by [SiliconFlow](https://siliconflow.cn)"
@@ -1122,6 +1322,7 @@ with gr.Blocks(
                 )
 
                 detail_index = 0
+                term_detail_index = 0
                 with gr.Group() as translation_engine_settings:
                     service = gr.Dropdown(
                         label=_("Service"),
@@ -1207,22 +1408,244 @@ with gr.Blocks(
                                 detail_text_inputs.append(field_input)
                                 __gui_service_arg_names.append(field_name)
                                 translation_engine_arg_inputs.append(field_input)
+                    with gr.Group() as rate_limit_settings:
+                        rate_limit_mode = gr.Radio(
+                            choices=[
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
+                            ],
+                            label="Rate Limit Mode",
+                            value="Custom",
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button"
+                            ),
+                        )
 
-                with gr.Row():
-                    lang_from = gr.Dropdown(
-                        label=_("Translate from"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_from,
+                        rpm_input = gr.Number(
+                            label=_("RPM (Requests Per Minute)"),
+                            value=240,  # More conservative default value
+                            precision=0,
+                            minimum=1,
+                            maximum=60000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Most API providers provide this parameter, such as OpenAI GPT-4: 500 RPM"
+                            ),
+                        )
+
+                        concurrent_threads_input = gr.Number(
+                            label=_("Concurrent Threads"),
+                            value=20,  # More conservative default value
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "Maximum number of requests processed simultaneously"
+                            ),
+                        )
+
+                        custom_qps_input = gr.Number(
+                            label=_("QPS (Queries Per Second)"),
+                            value=settings.translation.qps or 4,
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_("Number of requests sent per second"),
+                        )
+
+                        custom_pool_max_workers_input = gr.Number(
+                            label=_("Pool Max Workers"),
+                            value=settings.translation.pool_max_workers,
+                            precision=0,
+                            minimum=0,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                            info=_(
+                                "If not set or set to 0, QPS will be used as the number of workers"
+                            ),
+                        )
+
+                # Term extraction options (engine + rate limit + detail settings)
+                with gr.Accordion(_("Auto Term Extraction"), open=True):
+                    enable_auto_term_extraction = gr.Checkbox(
+                        label=_("Enable auto term extraction"),
+                        value=not settings.translation.no_auto_extract_glossary,
+                        interactive=True,
                     )
-                    lang_to = gr.Dropdown(
-                        label=_("Translate to"),
-                        choices=list(lang_map.keys()),
-                        value=default_lang_to,
+
+                    term_disabled_info = gr.Markdown(
+                        _(
+                            "Auto term extraction is disabled. Term extraction settings below will not take effect until it is enabled."
+                        ),
+                        visible=settings.translation.no_auto_extract_glossary,
                     )
+
+                    with gr.Group(visible=True) as term_settings_group:
+                        term_service = gr.Dropdown(
+                            label=_("Term extraction engine"),
+                            choices=[_("Follow main translation engine")]
+                            + [
+                                metadata.translate_engine_type
+                                for metadata in TERM_EXTRACTION_ENGINE_METADATA
+                            ],
+                            value=_("Follow main translation engine"),
+                        )
+
+                        # Term engine detail settings
+                        __gui_term_service_arg_names = []
+                        for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                            if not term_metadata.cli_detail_field_name:
+                                continue
+                            term_detail_field_name = (
+                                f"term_{term_metadata.cli_detail_field_name}"
+                            )
+                            term_detail_settings = getattr(
+                                settings, term_detail_field_name
+                            )
+
+                            # Term engine settings group should stay visible;
+                            # visibility is controlled by each field input.
+                            with gr.Group() as term_service_detail:
+                                term_detail_text_input_index_map[
+                                    term_metadata.translate_engine_type
+                                ] = []
+                                for (
+                                    field_name,
+                                    field,
+                                ) in term_metadata.term_setting_model_type.model_fields.items():
+                                    if field_name in (
+                                        "translate_engine_type",
+                                        "support_llm",
+                                    ):
+                                        continue
+                                    if field.default_factory:
+                                        continue
+
+                                    base_field_name = field_name
+                                    if base_field_name.startswith("term_"):
+                                        base_name = base_field_name[len("term_") :]
+                                    else:
+                                        base_name = base_field_name
+
+                                    if disable_gui_sensitive_input:
+                                        if base_name in GUI_SENSITIVE_FIELDS:
+                                            continue
+                                        if base_name in GUI_PASSWORD_FIELDS:
+                                            continue
+
+                                    type_hint = field.annotation
+                                    original_type = typing.get_origin(type_hint)
+                                    type_args = typing.get_args(type_hint)
+                                    value = getattr(term_detail_settings, field_name)
+
+                                    if (
+                                        type_hint is str
+                                        or str in type_args
+                                        or type_hint is int
+                                        or int in type_args
+                                    ):
+                                        if base_name in GUI_PASSWORD_FIELDS:
+                                            field_input = gr.Textbox(
+                                                label=field.description,
+                                                value=value,
+                                                interactive=True,
+                                                type="password",
+                                                visible=False,
+                                            )
+                                        else:
+                                            field_input = gr.Textbox(
+                                                label=field.description,
+                                                value=value,
+                                                interactive=True,
+                                                visible=False,
+                                            )
+                                    elif type_hint is bool or bool in type_args:
+                                        field_input = gr.Checkbox(
+                                            label=field.description,
+                                            value=value,
+                                            interactive=True,
+                                            visible=False,
+                                        )
+                                    else:
+                                        raise Exception(
+                                            f"Unsupported type {type_hint} for field {field_name} in gui term extraction engine settings"
+                                        )
+
+                                    term_detail_text_input_index_map[
+                                        term_metadata.translate_engine_type
+                                    ].append(term_detail_index)
+                                    term_detail_index += 1
+                                    term_detail_text_inputs.append(field_input)
+                                    __gui_term_service_arg_names.append(field_name)
+                                    translation_engine_arg_inputs.append(field_input)
+
+                        term_rate_limit_mode = gr.Radio(
+                            choices=[
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
+                            ],
+                            label=_("Term rate limit mode"),
+                            value="Custom",
+                            interactive=True,
+                        )
+
+                        term_rpm_input = gr.Number(
+                            label=_("Term RPM (Requests Per Minute)"),
+                            value=240,
+                            precision=0,
+                            minimum=1,
+                            maximum=60000,
+                            interactive=True,
+                            visible=False,
+                        )
+
+                        term_concurrent_threads_input = gr.Number(
+                            label=_("Term concurrent threads"),
+                            value=20,
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=False,
+                        )
+
+                        term_custom_qps_input = gr.Number(
+                            label=_("Term QPS (Queries Per Second)"),
+                            value=(
+                                settings.translation.term_qps
+                                or settings.translation.qps
+                                or 4
+                            ),
+                            precision=0,
+                            minimum=1,
+                            maximum=1000,
+                            interactive=True,
+                            visible=True,
+                        )
+
+                        term_custom_pool_max_workers_input = gr.Number(
+                            label=_("Term pool max workers"),
+                            value=settings.translation.term_pool_max_workers,
+                            precision=0,
+                            minimum=0,
+                            maximum=1000,
+                            interactive=True,
+                            visible=True,
+                        )
 
                 page_range = gr.Radio(
                     choices=list(page_map.keys()),
-                    label=_("Pages"),
+                    label="Pages",
                     value=list(page_map.keys())[0],
                 )
 
@@ -1239,70 +1662,6 @@ with gr.Blocks(
                     value=settings.pdf.only_include_translated_page,
                     interactive=True,
                 )
-
-                with gr.Group() as rate_limit_settings:
-                    rate_limit_mode = gr.Radio(
-                        choices=[
-                            (_("RPM (Requests Per Minute)"), "RPM"),
-                            (_("Concurrent Requests"), "Concurrent Threads"),
-                            (_("Custom"), "Custom"),
-                        ],
-                        label=_("Rate Limit Mode"),
-                        value="Custom",
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button"
-                        ),
-                    )
-
-                    rpm_input = gr.Number(
-                        label=_("RPM (Requests Per Minute)"),
-                        value=240,  # More conservative default value
-                        precision=0,
-                        minimum=1,
-                        maximum=60000,
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "Most API providers provide this parameter, such as OpenAI GPT-4: 500 RPM"
-                        ),
-                    )
-
-                    concurrent_threads_input = gr.Number(
-                        label=_("Concurrent Threads"),
-                        value=20,  # More conservative default value
-                        precision=0,
-                        minimum=1,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_("Maximum number of requests processed simultaneously"),
-                    )
-
-                    custom_qps_input = gr.Number(
-                        label=_("QPS (Queries Per Second)"),
-                        value=settings.translation.qps or 4,
-                        precision=0,
-                        minimum=1,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_("Number of requests sent per second"),
-                    )
-
-                    custom_pool_max_workers_input = gr.Number(
-                        label=_("Pool Max Workers"),
-                        value=settings.translation.pool_max_workers,
-                        precision=0,
-                        minimum=0,
-                        maximum=1000,
-                        interactive=True,
-                        visible=False,
-                        info=_(
-                            "If not set or set to 0, QPS will be used as the number of workers"
-                        ),
-                    )
 
                 # PDF Output Options
                 gr.Markdown(_("## PDF Output Options"))
@@ -1331,11 +1690,11 @@ with gr.Blocks(
                     )
 
                 watermark_output_mode = gr.Radio(
-                    choices=[_("Watermarked"), _("No Watermark")],
-                    label=_("Watermark mode"),
-                    value=_("Watermarked")
+                    choices=["Watermarked", "No Watermark"],
+                    label="Watermark mode",
+                    value="Watermarked"
                     if settings.pdf.watermark_output_mode == "watermarked"
-                    else _("No Watermark"),
+                    else "No Watermark",
                 )
 
                 # Additional translation options
@@ -1354,7 +1713,7 @@ with gr.Blocks(
                         value=settings.translation.custom_system_prompt or "",
                         interactive=True,
                         placeholder=_(
-                            "e.g. /no_think You are a professional, authentic machine translation engine."
+                            "e.g. /no_think You are a professional zh-CN native translator who needs to fluently translate text into zh-CN."
                         ),
                     )
 
@@ -1372,13 +1731,6 @@ with gr.Blocks(
                         visible=False,
                         interactive=True,
                         placeholder="http://host:port",
-                    )
-
-                    # New advanced translation options
-                    no_auto_extract_glossary = gr.Checkbox(
-                        label=_("Disable auto extract glossary"),
-                        value=settings.translation.no_auto_extract_glossary,
-                        interactive=True,
                     )
 
                     save_auto_extracted_glossary = gr.Checkbox(
@@ -1577,6 +1929,7 @@ with gr.Blocks(
                 )
                 translate_btn = gr.Button(_("Translate"), variant="primary")
                 cancel_btn = gr.Button(_("Cancel"), variant="secondary")
+                save_btn = gr.Button(_("Save Settings"), variant="secondary")
 
                 tech_details = gr.Markdown(
                     tech_details_string,
@@ -1591,8 +1944,8 @@ with gr.Blocks(
         def on_select_filetype(file_type):
             """Update visibility based on selected file type"""
             return (
-                gr.update(visible=file_type == _("File")),
-                gr.update(visible=file_type == _("Link")),
+                gr.update(visible=file_type == "File"),
+                gr.update(visible=file_type == "Link"),
             )
 
         def on_select_page(choice):
@@ -1685,6 +2038,36 @@ with gr.Blocks(
                 gr.update(visible=custom_visible),
             ]
 
+        def on_enable_auto_term_extraction_change(enabled: bool):
+            """Update term disabled info visibility based on auto term extraction toggle"""
+            return gr.update(visible=not enabled)
+
+        def on_term_rate_limit_mode_change(mode: str):
+            """Update term rate-limit controls visibility based on mode"""
+            rpm_visible = mode == "RPM"
+            threads_visible = mode == "Concurrent Threads"
+            custom_visible = mode == "Custom"
+            return [
+                gr.update(visible=rpm_visible),
+                gr.update(visible=threads_visible),
+                gr.update(visible=custom_visible),
+                gr.update(visible=custom_visible),
+            ]
+
+        def on_term_service_change(term_service_name: str):
+            """Update term engine-specific settings visibility"""
+            if not term_detail_text_inputs:
+                return
+            detail_group_index = term_detail_text_input_index_map.get(
+                term_service_name, []
+            )
+            if len(term_detail_text_inputs) == 1:
+                return [gr.update(visible=(0 in detail_group_index))]
+            return [
+                gr.update(visible=(i in detail_group_index))
+                for i in range(len(term_detail_text_inputs))
+            ]
+
         def on_service_change_with_rate_limit(mode, service_name):
             """Expand original on_select_service with rate-limit-UI updated"""
             original_updates = on_select_service(service_name)
@@ -1705,6 +2088,7 @@ with gr.Blocks(
 
         def on_lang_selector_change(lang):
             settings.gui_settings.ui_lang = lang
+            update_current_languages(lang)
             config_manager.write_user_default_config_file(settings=settings.clone())
             return
 
@@ -1786,8 +2170,101 @@ with gr.Blocks(
             short_line_split_factor,
         )
 
+        # Auto term extraction toggle handlers
+        enable_auto_term_extraction.change(
+            on_enable_auto_term_extraction_change,
+            enable_auto_term_extraction,
+            term_disabled_info,
+        )
+
+        # Term rate limit handlers
+        term_rate_limit_mode.change(
+            on_term_rate_limit_mode_change,
+            term_rate_limit_mode,
+            [
+                term_rpm_input,
+                term_concurrent_threads_input,
+                term_custom_qps_input,
+                term_custom_pool_max_workers_input,
+            ],
+        )
+
+        # Term service change handler
+        term_service.change(
+            on_term_service_change,
+            term_service,
+            outputs=(
+                term_detail_text_inputs if len(term_detail_text_inputs) > 0 else None
+            ),
+        )
+
         # State for managing translation tasks
         state = gr.State({"session_id": None, "current_task": None})
+
+        # UI setting controls list (shared by translate_btn and save_btn)
+        ui_setting_controls = [
+            service,
+            lang_from,
+            lang_to,
+            page_range,
+            page_input,
+            # PDF Output Options
+            no_mono,
+            no_dual,
+            dual_translate_first,
+            use_alternating_pages_dual,
+            watermark_output_mode,
+            # Rate Limit Options
+            rate_limit_mode,
+            rpm_input,
+            concurrent_threads_input,
+            custom_qps_input,
+            custom_pool_max_workers_input,
+            # Advanced Options
+            prompt,
+            min_text_length,
+            rpc_doclayout,
+            custom_system_prompt_input,
+            glossary_file,
+            save_auto_extracted_glossary,
+            # New advanced translation options
+            enable_auto_term_extraction,
+            primary_font_family,
+            skip_clean,
+            disable_rich_text_translate,
+            enhance_compatibility,
+            split_short_lines,
+            short_line_split_factor,
+            translate_table_text,
+            skip_scanned_detection,
+            max_pages_per_part,
+            formular_font_pattern,
+            formular_char_pattern,
+            ignore_cache,
+            state,
+            ocr_workaround,
+            auto_enable_ocr_workaround,
+            only_include_translated_page,
+            # BabelDOC v0.5.1 new options
+            merge_alternating_line_numbers,
+            remove_non_formula_lines,
+            non_formula_line_iou_threshold,
+            figure_table_protection_threshold,
+            skip_formula_offset_calculation,
+            # Term extraction engine options
+            term_service,
+            term_rate_limit_mode,
+            term_rpm_input,
+            term_concurrent_threads_input,
+            term_custom_qps_input,
+            term_custom_pool_max_workers_input,
+            *translation_engine_arg_inputs,
+            # any UI components that are used by translate/save should be listed above!
+            # Extra UI components to be updated on load (not used by translate/save)
+            siliconflow_free_acknowledgement,
+            glossary_table,
+            term_disabled_info,
+        ]
 
         # Translation button click handler
         translate_btn.click(
@@ -1796,55 +2273,7 @@ with gr.Blocks(
                 file_type,
                 file_input,
                 link_input,
-                service,
-                lang_from,
-                lang_to,
-                page_range,
-                page_input,
-                # PDF Output Options
-                no_mono,
-                no_dual,
-                dual_translate_first,
-                use_alternating_pages_dual,
-                watermark_output_mode,
-                # Rate Limit Options
-                rate_limit_mode,
-                rpm_input,
-                concurrent_threads_input,
-                custom_qps_input,
-                custom_pool_max_workers_input,
-                # Advanced Options
-                prompt,
-                min_text_length,
-                rpc_doclayout,
-                custom_system_prompt_input,
-                glossary_file,
-                save_auto_extracted_glossary,
-                # New advanced translation options
-                no_auto_extract_glossary,
-                primary_font_family,
-                skip_clean,
-                disable_rich_text_translate,
-                enhance_compatibility,
-                split_short_lines,
-                short_line_split_factor,
-                translate_table_text,
-                skip_scanned_detection,
-                max_pages_per_part,
-                formular_font_pattern,
-                formular_char_pattern,
-                ignore_cache,
-                state,
-                ocr_workaround,
-                auto_enable_ocr_workaround,
-                only_include_translated_page,
-                # BabelDOC v0.5.1 new options
-                merge_alternating_line_numbers,
-                remove_non_formula_lines,
-                non_formula_line_iou_threshold,
-                figure_table_protection_threshold,
-                skip_formula_offset_calculation,
-                *translation_engine_arg_inputs,
+                *ui_setting_controls,
             ],
             outputs=[
                 output_file_mono,  # Mono PDF file
@@ -1863,6 +2292,287 @@ with gr.Blocks(
             stop_translate_file,
             inputs=[state],
         )
+
+        # Save button click handler
+        save_btn.click(
+            save_config,
+            inputs=ui_setting_controls,
+        )
+
+        def load_saved_config_to_ui(state):
+            """Reload all settings from config and update UI components."""
+            try:
+                fresh_settings = settings
+                update_current_languages(settings.gui_settings.ui_lang)
+
+                updates: list = []
+
+                # Determine selected service by cli flag
+                selected_service = None
+                for metadata in TRANSLATION_ENGINE_METADATA:
+                    if getattr(fresh_settings, metadata.cli_flag_name, False):
+                        selected_service = metadata.translate_engine_type
+                        break
+                if not selected_service:
+                    selected_service = available_services[0]
+                llm_support = LLM_support_index_map.get(selected_service, False)
+
+                # Follow the EXACT order of ui_setting_controls
+                # service
+                updates.append(gr.update(value=selected_service))
+                # lang_from, lang_to
+                loaded_lang_from = rev_lang_map.get(
+                    fresh_settings.translation.lang_in, "English"
+                )
+                loaded_lang_to_code = fresh_settings.translation.lang_out
+                loaded_lang_to = next(
+                    (k for k, v in lang_map.items() if v == loaded_lang_to_code),
+                    "Simplified Chinese",
+                )
+                updates.append(gr.update(value=loaded_lang_from))
+                updates.append(gr.update(value=loaded_lang_to))
+                # page_range, page_input
+                pages_setting = fresh_settings.pdf.pages
+                if pages_setting is None or pages_setting == "":
+                    updates.append(gr.update(value="All"))
+                    updates.append(gr.update(value="", visible=False))
+                else:
+                    updates.append(gr.update(value="Range"))
+                    updates.append(gr.update(value=str(pages_setting), visible=True))
+                # PDF Output Options
+                updates.append(gr.update(value=fresh_settings.pdf.no_mono))
+                updates.append(gr.update(value=fresh_settings.pdf.no_dual))
+                updates.append(gr.update(value=fresh_settings.pdf.dual_translate_first))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.use_alternating_pages_dual)
+                )
+                watermark_value = (
+                    "Watermarked"
+                    if fresh_settings.pdf.watermark_output_mode == "watermarked"
+                    else "No Watermark"
+                )
+                updates.append(gr.update(value=watermark_value))
+                # Rate Limit Options
+                rate_limit_visible = selected_service != "SiliconFlowFree"
+                updates.append(gr.update(value="Custom", visible=rate_limit_visible))
+                updates.append(gr.update(visible=False))  # rpm_input
+                updates.append(gr.update(visible=False))  # concurrent_threads_input
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.qps or 4,
+                        visible=rate_limit_visible,
+                    )
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.pool_max_workers,
+                        visible=rate_limit_visible,
+                    )
+                )
+                # Advanced Options
+                updates.append(gr.update(value=""))  # prompt
+                updates.append(
+                    gr.update(value=fresh_settings.translation.min_text_length)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.translation.rpc_doclayout or "")
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.custom_system_prompt or ""
+                    )
+                )
+                updates.append(
+                    gr.update(visible=llm_support)
+                )  # glossary_file visibility
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.save_auto_extracted_glossary
+                    )
+                )
+                # enable_auto_term_extraction is the inverse of no_auto_extract_glossary
+                updates.append(
+                    gr.update(
+                        value=not fresh_settings.translation.no_auto_extract_glossary
+                    )
+                )
+                primary_font_display = (
+                    "Auto"
+                    if not fresh_settings.translation.primary_font_family
+                    else fresh_settings.translation.primary_font_family
+                )
+                updates.append(gr.update(value=primary_font_display))
+                updates.append(gr.update(value=fresh_settings.pdf.skip_clean))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.disable_rich_text_translate)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.enhance_compatibility)
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.split_short_lines))
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.pdf.short_line_split_factor,
+                        visible=fresh_settings.pdf.split_short_lines,
+                    )
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.translate_table_text))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.skip_scanned_detection)
+                )
+                updates.append(gr.update(value=fresh_settings.pdf.max_pages_per_part))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.formular_font_pattern or "")
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.formular_char_pattern or "")
+                )
+                updates.append(gr.update(value=fresh_settings.translation.ignore_cache))
+                updates.append(state)  # state, keep unchanged
+                updates.append(gr.update(value=fresh_settings.pdf.ocr_workaround))
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.auto_enable_ocr_workaround)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.only_include_translated_page)
+                )
+                # BabelDOC
+                updates.append(
+                    gr.update(
+                        value=not fresh_settings.pdf.no_merge_alternating_line_numbers
+                    )
+                )
+                updates.append(
+                    gr.update(value=not fresh_settings.pdf.no_remove_non_formula_lines)
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.non_formula_line_iou_threshold)
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.pdf.figure_table_protection_threshold
+                    )
+                )
+                updates.append(
+                    gr.update(value=fresh_settings.pdf.skip_formula_offset_calculation)
+                )
+                # Term extraction engine basic settings
+                term_engine_enabled = (
+                    not fresh_settings.translation.no_auto_extract_glossary
+                )
+                selected_term_service = _("Follow main translation engine")
+                for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                    term_flag_name = f"term_{term_metadata.cli_flag_name}"
+                    if getattr(fresh_settings, term_flag_name, False):
+                        selected_term_service = term_metadata.translate_engine_type
+                        break
+                updates.append(gr.update(value=selected_term_service))
+                # Term rate limit: use Custom mode by default
+                updates.append(gr.update(value="Custom"))
+                updates.append(gr.update(visible=False))  # term_rpm_input
+                updates.append(
+                    gr.update(visible=False)
+                )  # term_concurrent_threads_input
+                updates.append(
+                    gr.update(
+                        value=(
+                            fresh_settings.translation.term_qps
+                            or fresh_settings.translation.qps
+                            or 4
+                        ),
+                        visible=True,
+                    )
+                )
+                updates.append(
+                    gr.update(
+                        value=fresh_settings.translation.term_pool_max_workers,
+                        visible=True,
+                    )
+                )
+                # Translation engine detail fields (ordered)
+                disable_sensitive_gui = (
+                    fresh_settings.gui_settings.disable_gui_sensitive_input
+                )
+                for service_name in available_services:
+                    metadata = TRANSLATION_ENGINE_METADATA_MAP[service_name]
+                    if not metadata.cli_detail_field_name:
+                        continue
+                    detail_settings = getattr(
+                        fresh_settings, metadata.cli_detail_field_name
+                    )
+                    for (
+                        field_name,
+                        field,
+                    ) in metadata.setting_model_type.model_fields.items():
+                        if disable_sensitive_gui:
+                            if field_name in GUI_SENSITIVE_FIELDS:
+                                continue
+                            if field_name in GUI_PASSWORD_FIELDS:
+                                continue
+                        if field.default_factory:
+                            continue
+                        if (
+                            field_name == "translate_engine_type"
+                            or field_name == "support_llm"
+                        ):
+                            continue
+                        value = getattr(detail_settings, field_name)
+                        visible = metadata.translate_engine_type == selected_service
+                        updates.append(gr.update(value=value, visible=visible))
+
+                # Term extraction engine detail fields (ordered)
+                for term_metadata in TERM_EXTRACTION_ENGINE_METADATA:
+                    if not term_metadata.cli_detail_field_name:
+                        continue
+                    term_detail_field_name = (
+                        f"term_{term_metadata.cli_detail_field_name}"
+                    )
+                    term_detail_settings = getattr(
+                        fresh_settings, term_detail_field_name
+                    )
+                    for (
+                        field_name,
+                        field,
+                    ) in term_metadata.term_setting_model_type.model_fields.items():
+                        if field.default_factory:
+                            continue
+                        if field_name in ("translate_engine_type", "support_llm"):
+                            continue
+                        base_field_name = field_name
+                        if base_field_name.startswith("term_"):
+                            base_name = base_field_name[len("term_") :]
+                        else:
+                            base_name = base_field_name
+                        if disable_sensitive_gui:
+                            if base_name in GUI_SENSITIVE_FIELDS:
+                                continue
+                            if base_name in GUI_PASSWORD_FIELDS:
+                                continue
+                        value = getattr(term_detail_settings, field_name)
+                        visible = (
+                            term_metadata.translate_engine_type == selected_term_service
+                        )
+                        updates.append(gr.update(value=value, visible=visible))
+
+                # Extra UI components at the end of ui_setting_controls
+                siliconflow_free_ack_visible = selected_service == "SiliconFlowFree"
+                updates.append(gr.update(visible=siliconflow_free_ack_visible))
+                updates.append(
+                    gr.update(visible=llm_support)
+                )  # glossary_table visibility
+                updates.append(
+                    gr.update(
+                        visible=fresh_settings.translation.no_auto_extract_glossary
+                    )
+                )  # term_disabled_info visibility
+
+                return updates
+            except Exception as e:
+                logger.warning(f"Could not reload config on page load: {e}")
+                return [None] * len(ui_setting_controls)
+
+        # Use ui_setting_controls as outputs for page load
+        demo.load(load_saved_config_to_ui, inputs=[state], outputs=ui_setting_controls)
 
 
 def parse_user_passwd(file_path: str, welcome_page: str) -> tuple[list, str]:

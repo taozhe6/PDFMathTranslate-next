@@ -42,13 +42,21 @@ class SiliconFlowFreeTranslator(BaseTranslator):
     ):
         self.settings = settings
         super().__init__(settings, rate_limiter)
-        self.client = httpx.Client()
+
+        self.enable_json_mode = False
+        if settings.translate_engine_settings.siliconflow_free_enable_json_mode:
+            self.add_cache_impact_parameters("request_json_mode", True)
+            self.enable_json_mode = True
+        # CloudFlare has a timeout of 100 seconds
+        self.client = httpx.Client(timeout=100)
 
         self.url = AVAILABLE_SERVER_ENDPOINTS[0]
         self.get_fast_service()
-        self.fetch_setting_and_update()
+        self.pdf2zh_next_recommended_qps = 10
+        self.pdf2zh_next_recommended_pool_max_workers = 100
+        self.fetch_setting()
 
-    def fetch_setting_and_update(self):
+    def fetch_setting(self):
         try:
             response = self.client.get(f"{self.url}/config")
             if response.status_code == 200:
@@ -63,8 +71,8 @@ class SiliconFlowFreeTranslator(BaseTranslator):
                     assert qps > 0
                     assert max_pool_size > 0
 
-                    self.settings.translation.qps = qps
-                    self.settings.translation.pool_max_workers = max_pool_size
+                    self.pdf2zh_next_recommended_qps = qps
+                    self.pdf2zh_next_recommended_pool_max_workers = max_pool_size
 
                     if isinstance(self.rate_limiter, QPSRateLimiter):
                         self.rate_limiter.set_max_qps(qps)
@@ -172,6 +180,12 @@ class SiliconFlowFreeTranslator(BaseTranslator):
         )
 
     @retry(
+        retry=retry_if_exception_type(httpx.HTTPError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=30, max=60),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+    )
+    @retry(
         retry=retry_if_exception_type(RateLimitError),
         stop=stop_after_attempt(100),
         wait=wait_exponential(multiplier=1, min=4, max=120),
@@ -180,9 +194,20 @@ class SiliconFlowFreeTranslator(BaseTranslator):
     def do_llm_translate(self, text, rate_limit_params: dict = None):
         if text is None:
             return None
-        request = {
-            "text": text,
-        }
+
+        if (
+            self.enable_json_mode
+            and rate_limit_params
+            and rate_limit_params.get("request_json_mode", False)
+        ):
+            request = {
+                "text": text,
+                "requestJsonMode": True,
+            }
+        else:
+            request = {
+                "text": text,
+            }
 
         response = self.client.post(
             self.url,

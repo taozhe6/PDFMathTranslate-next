@@ -49,7 +49,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup uv with Python 3.13
-        uses: astral-sh/setup-uv@4959332f0f014c5280e7eac8b70c90cb574c9f9b # v6.6.0
+        uses: astral-sh/setup-uv@5a7eac68fb9809dea845d802897dc5c723910fa3 # v7.1.3
         with:
           python-version: "3.13"
           enable-cache: true
@@ -93,7 +93,7 @@ jobs:
         run: "uv build"
 
       - name: Store the distribution packages
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v5
         with:
           name: python-package-distributions
           path: dist/
@@ -115,13 +115,13 @@ jobs:
 
     steps:
       - name: Download all the dists
-        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660 # v4.1.8
+        uses: actions/download-artifact@f093f21ca4cfa7c75ccbbc2be54da76a0c7e1f05 # v4.1.8
         with:
           name: python-package-distributions
           path: dist/
 
       - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
@@ -140,13 +140,13 @@ jobs:
 
     steps:
       - name: Download all the dists
-        uses: actions/download-artifact@de96f4613b77ec03b5cf633e7c350c32bd3c5660 # v4.1.8
+        uses: actions/download-artifact@f093f21ca4cfa7c75ccbbc2be54da76a0c7e1f05 # v4.1.8
         with:
           name: python-package-distributions
           path: dist/
 
       - name: Publish distribution 📦 to TestPyPI
-        uses: pypa/gh-action-pypi-publish@76f52bc884231f62b9a034ebfe128415bbaabdfc # v1.12.4
+        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
         with:
           repository-url: https://test.pypi.org/legacy/
 
@@ -186,7 +186,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup uv with Python 3.13
-        uses: astral-sh/setup-uv@4959332f0f014c5280e7eac8b70c90cb574c9f9b # v6.6.0
+        uses: astral-sh/setup-uv@5a7eac68fb9809dea845d802897dc5c723910fa3 # v7.1.3
         with:
           python-version: "3.13"
           enable-cache: true
@@ -247,7 +247,7 @@ jobs:
           touch "${{ runner.temp }}/digests/${digest#sha256:}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: digests-${{ env.PLATFORM_PAIR }}
           path: ${{ runner.temp }}/digests/*
@@ -271,7 +271,7 @@ jobs:
           echo "GHCR_REPO_LOWER=$(echo ${{ env.GHCR_REPO }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Download digests
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           path: ${{ runner.temp }}/digests
           pattern: digests-*
@@ -346,7 +346,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup uv with Python ${{ env.WIN_EXE_PYTHON_VERSION }}
-        uses: astral-sh/setup-uv@4959332f0f014c5280e7eac8b70c90cb574c9f9b # v6.6.0
+        uses: astral-sh/setup-uv@5a7eac68fb9809dea845d802897dc5c723910fa3 # v7.1.3
         with:
           python-version: ${{ env.WIN_EXE_PYTHON_VERSION }}
           enable-cache: true
@@ -470,7 +470,7 @@ jobs:
           babeldoc --generate-offline-assets ./build
       
       - name: Upload build with offline assets artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: win64-exe-with-assets
           path: ./build
@@ -490,7 +490,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Download build artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: win64-exe-with-assets
           path: ./build
@@ -541,7 +541,7 @@ jobs:
 
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results
           path: ./test/file/
@@ -609,7 +609,7 @@ jobs:
           fi
 
       - name: Download build artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: win64-exe-with-assets
           path: ./build

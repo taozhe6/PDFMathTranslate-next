@@ -2,12 +2,14 @@ import logging
 import re
 import typing
 from dataclasses import dataclass
+from inspect import getdoc
 from types import NoneType
 from typing import Literal
 from typing import TypeAlias
 
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import create_model
 
 # any field in SENSITIVE_FIELDS will be masked in GUI
 GUI_SENSITIVE_FIELDS = []
@@ -386,6 +388,9 @@ class SiliconFlowSettings(BaseModel):
         default=False,
         description="Send enable thinking param to SiliconFlow service",
     )
+    siliconflow_enable_json_mode: bool | None = Field(
+        default=False, description="Enable JSON mode for SiliconFlow service"
+    )
 
     def validate_settings(self) -> None:
         if not self.siliconflow_api_key:
@@ -405,6 +410,10 @@ class SiliconFlowFreeSettings(BaseModel):
     translate_engine_type: Literal["SiliconFlowFree"] = Field(default="SiliconFlowFree")
     support_llm: Literal["yes", "no"] = Field(
         default="yes", description="Whether the translator supports LLM"
+    )
+
+    siliconflow_free_enable_json_mode: bool | None = Field(
+        default=False, description="Enable JSON mode for SiliconFlow Free service"
     )
 
     def validate_settings(self) -> None:
@@ -853,7 +862,7 @@ NOT_SUPPORTED_TRANSLATION_ENGINE_SETTING_TYPE: TypeAlias = NoneType
 
 # 默认翻译引擎
 _DEFAULT_TRANSLATION_ENGINE = SiliconFlowFreeSettings
-assert len(_DEFAULT_TRANSLATION_ENGINE.model_fields) == 2, (
+assert len(_DEFAULT_TRANSLATION_ENGINE.model_fields) == 3, (
     "Default translation engine cannot have detail settings"
 )
 
@@ -921,6 +930,106 @@ for metadata in TRANSLATION_ENGINE_METADATA:
         )
     dedup_set.add(metadata.cli_detail_field_name)
 del dedup_set
+
+
+_TERM_EXTRACTION_ENGINE_SETTING_TYPE: type[BaseModel] | None = None
+for metadata in TRANSLATION_ENGINE_METADATA:
+    if not metadata.support_llm:
+        continue
+    if _TERM_EXTRACTION_ENGINE_SETTING_TYPE is None:
+        _TERM_EXTRACTION_ENGINE_SETTING_TYPE = metadata.setting_model_type
+    else:
+        _TERM_EXTRACTION_ENGINE_SETTING_TYPE = (
+            _TERM_EXTRACTION_ENGINE_SETTING_TYPE | metadata.setting_model_type
+        )
+
+assert _TERM_EXTRACTION_ENGINE_SETTING_TYPE is not None, (
+    "No LLM-capable translation engines configured"
+)
+
+# 术语提取引擎：仅包含 support_llm == \"yes\" 的翻译引擎设置类型
+TERM_EXTRACTION_ENGINE_SETTING_TYPE: TypeAlias = _TERM_EXTRACTION_ENGINE_SETTING_TYPE
+
+
+def _build_term_setting_model(
+    setting_model_type: type[BaseModel],
+) -> type[BaseModel]:
+    """Dynamically build a term-extraction settings model with prefixed fields."""
+    fields: dict[str, tuple[typing.Any, Field]] = {}
+    base_to_term_field_map: dict[str, str] = {}
+
+    for name, model_field in setting_model_type.model_fields.items():
+        # Keep discriminator-related fields unchanged
+        if name in ("translate_engine_type", "support_llm"):
+            new_name = name
+        else:
+            new_name = f"term_{name}"
+
+        base_to_term_field_map[name] = new_name
+
+        fields[new_name] = (
+            model_field.annotation,
+            Field(
+                default=model_field.default,
+                description=model_field.description,
+                default_factory=model_field.default_factory,
+                alias=model_field.alias,
+                discriminator=model_field.discriminator,
+            ),
+        )
+
+    term_model_name = f"Term{setting_model_type.__name__}"
+    TermModel = create_model(term_model_name, **fields)  # type: ignore[arg-type]  # noqa: N806
+
+    # Set a meaningful docstring for the dynamically created term settings model
+    # so that inspect.getdoc(TermModel) returns helpful information in CLI help.
+    base_doc = getdoc(setting_model_type) or setting_model_type.__doc__ or ""
+    if base_doc:
+        TermModel.__doc__ = f"Term settings based on: {base_doc}"
+    else:
+        TermModel.__doc__ = (
+            "Term settings model based on the base engine settings model."
+        )
+
+    def to_base_settings(self) -> BaseModel:
+        """Convert term settings back to the base engine settings model."""
+        data: dict[str, typing.Any] = {}
+        for base_name, term_name in base_to_term_field_map.items():
+            data[base_name] = getattr(self, term_name)
+        return setting_model_type(**data)
+
+    TermModel.to_base_settings = to_base_settings  # type: ignore[attr-defined]
+    return TermModel
+
+
+@dataclass
+class TermTranslationEngineMetadata:
+    translate_engine_type: str
+    cli_flag_name: str
+    cli_detail_field_name: str | None
+    term_setting_model_type: type[BaseModel]
+
+
+TERM_EXTRACTION_ENGINE_METADATA: list[TermTranslationEngineMetadata] = []
+
+for metadata in TRANSLATION_ENGINE_METADATA:
+    if not metadata.support_llm:
+        continue
+    term_setting_model_type = _build_term_setting_model(metadata.setting_model_type)
+    TERM_EXTRACTION_ENGINE_METADATA.append(
+        TermTranslationEngineMetadata(
+            translate_engine_type=metadata.translate_engine_type,
+            cli_flag_name=metadata.cli_flag_name,
+            cli_detail_field_name=metadata.cli_detail_field_name,
+            term_setting_model_type=term_setting_model_type,
+        )
+    )
+
+TERM_EXTRACTION_ENGINE_METADATA_MAP = {
+    metadata.translate_engine_type: metadata
+    for metadata in TERM_EXTRACTION_ENGINE_METADATA
+}
+
 
 DEFAULT_TRANSLATION_ENGINE_METADATA = TRANSLATION_ENGINE_METADATA_MAP[
     _DEFAULT_TRANSLATION_ENGINE.model_fields["translate_engine_type"].default

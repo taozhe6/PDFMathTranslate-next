@@ -61,6 +61,7 @@ class OpenAITranslator(BaseTranslator):
         self.token_count = AtomicInteger()
         self.prompt_token_count = AtomicInteger()
         self.completion_token_count = AtomicInteger()
+        self.cache_hit_prompt_token_count = AtomicInteger()
 
         self.enable_json_mode = (
             settings.translate_engine_settings.openai_enable_json_mode
@@ -88,13 +89,27 @@ class OpenAITranslator(BaseTranslator):
             **options,
             messages=self.prompt(text),
         )
-        if hasattr(response, "usage") and response.usage:
-            if hasattr(response.usage, "total_tokens"):
-                self.token_count.inc(response.usage.total_tokens)
-            if hasattr(response.usage, "prompt_tokens"):
-                self.prompt_token_count.inc(response.usage.prompt_tokens)
-            if hasattr(response.usage, "completion_tokens"):
-                self.completion_token_count.inc(response.usage.completion_tokens)
+        try:
+            if hasattr(response, "usage") and response.usage:
+                if hasattr(response.usage, "total_tokens"):
+                    self.token_count.inc(response.usage.total_tokens)
+                if hasattr(response.usage, "prompt_tokens"):
+                    self.prompt_token_count.inc(response.usage.prompt_tokens)
+                if hasattr(response.usage, "completion_tokens"):
+                    self.completion_token_count.inc(response.usage.completion_tokens)
+                if hasattr(response.usage, "prompt_cache_hit_tokens"):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_cache_hit_tokens
+                    )
+                elif hasattr(response.usage, "prompt_tokens_details") and hasattr(
+                    response.usage.prompt_tokens_details, "cached_tokens"
+                ):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_tokens_details.cached_tokens
+                    )
+        except Exception as e:
+            logger.error(f"Error getting token usage: {e}")
+            pass
         message = response.choices[0].message.content.strip()
         message = self._remove_cot_content(message)
         return message
@@ -126,13 +141,27 @@ class OpenAITranslator(BaseTranslator):
                 },
             ],
         )
-        if hasattr(response, "usage") and response.usage:
-            if hasattr(response.usage, "total_tokens"):
-                self.token_count.inc(response.usage.total_tokens)
-            if hasattr(response.usage, "prompt_tokens"):
-                self.prompt_token_count.inc(response.usage.prompt_tokens)
-            if hasattr(response.usage, "completion_tokens"):
-                self.completion_token_count.inc(response.usage.completion_tokens)
+        try:
+            if hasattr(response, "usage") and response.usage:
+                if hasattr(response.usage, "total_tokens"):
+                    self.token_count.inc(response.usage.total_tokens)
+                if hasattr(response.usage, "prompt_tokens"):
+                    self.prompt_token_count.inc(response.usage.prompt_tokens)
+                if hasattr(response.usage, "completion_tokens"):
+                    self.completion_token_count.inc(response.usage.completion_tokens)
+                if hasattr(response.usage, "prompt_cache_hit_tokens"):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_cache_hit_tokens
+                    )
+                elif hasattr(response.usage, "prompt_tokens_details") and hasattr(
+                    response.usage.prompt_tokens_details, "cached_tokens"
+                ):
+                    self.cache_hit_prompt_token_count.inc(
+                        response.usage.prompt_tokens_details.cached_tokens
+                    )
+        except Exception as e:
+            logger.error(f"Error getting token usage: {e}")
+            pass
         message = response.choices[0].message.content.strip()
         message = self._remove_cot_content(message)
         return message

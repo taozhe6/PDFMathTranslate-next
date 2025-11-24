@@ -22,6 +22,7 @@ from babeldoc.main import create_progress_handler
 from rich.logging import RichHandler
 
 from pdf2zh_next.config.model import SettingsModel
+from pdf2zh_next.translator import get_term_translator
 from pdf2zh_next.translator import get_translator
 from pdf2zh_next.utils import asynchronize
 
@@ -155,9 +156,96 @@ def _translate_wrapper(
                         pipe_progress_send.send(error)
                         break
                     # Send normal progress events as before
-                    pipe_progress_send.send(event)
                     if event["type"] == "finish":
+                        # Extract token usage
+                        token_usage = {}
+
+                        # Main translator
+                        if hasattr(config.translator, "token_count"):
+                            token_usage["main"] = {
+                                "total": config.translator.token_count.value
+                                if hasattr(config.translator, "token_count")
+                                else 0,
+                                "prompt": config.translator.prompt_token_count.value
+                                if hasattr(config.translator, "prompt_token_count")
+                                else 0,
+                                "completion": config.translator.completion_token_count.value
+                                if hasattr(config.translator, "completion_token_count")
+                                else 0,
+                                "cache_hit_prompt": config.translator.cache_hit_prompt_token_count.value
+                                if hasattr(
+                                    config.translator, "cache_hit_prompt_token_count"
+                                )
+                                else 0,
+                            }
+
+                        # Term extraction translator
+                        if (
+                            hasattr(config.term_extraction_translator, "token_count")
+                            and config.term_extraction_translator != config.translator
+                        ):
+                            token_usage["term"] = {
+                                "total": config.term_extraction_translator.token_count.value
+                                if hasattr(
+                                    config.term_extraction_translator, "token_count"
+                                )
+                                else 0,
+                                "prompt": config.term_extraction_translator.prompt_token_count.value
+                                if hasattr(
+                                    config.term_extraction_translator,
+                                    "prompt_token_count",
+                                )
+                                else 0,
+                                "completion": config.term_extraction_translator.completion_token_count.value
+                                if hasattr(
+                                    config.term_extraction_translator,
+                                    "completion_token_count",
+                                )
+                                else 0,
+                                "cache_hit_prompt": config.term_extraction_translator.cache_hit_prompt_token_count.value
+                                if hasattr(
+                                    config.term_extraction_translator,
+                                    "cache_hit_prompt_token_count",
+                                )
+                                else 0,
+                            }
+                        elif config.term_extraction_token_usage:
+                            token_usage["term"] = {
+                                "total": config.term_extraction_token_usage[
+                                    "total_tokens"
+                                ],
+                                "prompt": config.term_extraction_token_usage[
+                                    "prompt_tokens"
+                                ],
+                                "completion": config.term_extraction_token_usage[
+                                    "completion_tokens"
+                                ],
+                                "cache_hit_prompt": config.term_extraction_token_usage[
+                                    "cache_hit_prompt_tokens"
+                                ],
+                            }
+                            if sum(token_usage["term"].values()) == 0:
+                                token_usage.pop("term")
+                        if (
+                            "main" in token_usage
+                            and "term" in token_usage
+                            and config.term_extraction_translator
+                            and config.term_extraction_translator == config.translator
+                        ):
+                            # 如果术语翻译器和主翻译器是同一个实例，避免重复计算
+                            term_usage = token_usage["term"]
+                            main_usage = token_usage["main"]
+                            main_usage["total"] -= term_usage["total"]
+                            main_usage["prompt"] -= term_usage["prompt"]
+                            main_usage["completion"] -= term_usage["completion"]
+                            main_usage["cache_hit_prompt"] -= term_usage[
+                                "cache_hit_prompt"
+                            ]
+
+                        event["token_usage"] = token_usage
+                        pipe_progress_send.send(event)
                         break
+                    pipe_progress_send.send(event)
             except Exception as e:
                 # Capture non-babeldoc errors during translation
                 tb_str = traceback.format_exc()
@@ -422,6 +510,24 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
     if translator is None:
         raise ValueError("No translator found")
 
+    if (
+        settings.term_extraction_engine_settings == settings.translate_engine_settings
+        and settings.translation.term_qps == settings.translation.qps
+    ):
+        term_extraction_translator = translator
+        if recommended_qps := getattr(translator, "pdf2zh_next_recommended_qps", None):
+            settings.translation.term_qps = recommended_qps
+            logger.info(f"Updated term qps to {recommended_qps}")
+        if recommended_pool_max_workers := getattr(
+            translator, "pdf2zh_next_recommended_pool_max_workers", None
+        ):
+            settings.translation.term_pool_max_workers = recommended_pool_max_workers
+            logger.info(
+                f"Updated term pool max workers to {recommended_pool_max_workers}"
+            )
+    else:
+        term_extraction_translator = get_term_translator(settings)
+
     # 设置分割策略
     split_strategy = None
     if settings.pdf.max_pages_per_part:
@@ -493,6 +599,9 @@ def create_babeldoc_config(settings: SettingsModel, file: Path) -> BabelDOCConfi
         non_formula_line_iou_threshold=settings.pdf.non_formula_line_iou_threshold,
         figure_table_protection_threshold=settings.pdf.figure_table_protection_threshold,
         skip_formula_offset_calculation=settings.pdf.skip_formula_offset_calculation,
+        # Term extraction translator (can be different from main translator)
+        term_extraction_translator=term_extraction_translator,
+        term_pool_max_workers=settings.translation.term_pool_max_workers,
     )
     return babeldoc_config
 
@@ -588,6 +697,41 @@ async def do_translate_file_async(
                         logger.info(f"  Time Cost: {result.total_seconds:.2f}s")
                         logger.info(f"  Mono PDF: {result.mono_pdf_path or 'None'}")
                         logger.info(f"  Dual PDF: {result.dual_pdf_path or 'None'}")
+
+                        token_usage = event.get("token_usage", {})
+                        if token_usage:
+                            logger.info("Token Usage:")
+                            total_usage = {
+                                "total": 0,
+                                "prompt": 0,
+                                "cache_hit_prompt": 0,
+                                "completion": 0,
+                            }
+                            if "main" in token_usage:
+                                main_usage = token_usage["main"]
+                                logger.info(
+                                    f"  Main Translator: Total {main_usage['total']}, Prompt {main_usage['prompt']}, Cache Hit Prompt {main_usage['cache_hit_prompt']}, Completion {main_usage['completion']}"
+                                )
+                                total_usage["total"] += main_usage["total"]
+                                total_usage["prompt"] += main_usage["prompt"]
+                                total_usage["cache_hit_prompt"] += main_usage[
+                                    "cache_hit_prompt"
+                                ]
+                                total_usage["completion"] += main_usage["completion"]
+                            if "term" in token_usage:
+                                term_usage = token_usage["term"]
+                                logger.info(
+                                    f"  Term Translator: Total {term_usage['total']}, Prompt {term_usage['prompt']}, Cache Hit Prompt {term_usage['cache_hit_prompt']}, Completion {term_usage['completion']}"
+                                )
+                                total_usage["total"] += term_usage["total"]
+                                total_usage["prompt"] += term_usage["prompt"]
+                                total_usage["cache_hit_prompt"] += term_usage[
+                                    "cache_hit_prompt"
+                                ]
+                                total_usage["completion"] += term_usage["completion"]
+                            logger.info(
+                                f"  Total Token Usage: Total {total_usage['total']}, Prompt {total_usage['prompt']}, Cache Hit Prompt {total_usage['cache_hit_prompt']}, Completion {total_usage['completion']}"
+                            )
                         break
                     if event["type"] == "error":
                         error_msg = event.get("error", "Unknown error")

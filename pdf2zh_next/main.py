@@ -11,10 +11,12 @@ import os
 import sys
 from pathlib import Path
 
+import babeldoc.assets.assets
+
 from pdf2zh_next.config import ConfigManager
 from pdf2zh_next.high_level import do_translate_file_async
 
-__version__ = "2.6.4"
+__version__ = "2.7.1"
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +84,9 @@ async def main() -> int:
     if settings.basic.version:
         print(f"pdf2zh-next version: {__version__}")
         return 0
+
+    logger.info("Warmup babeldoc assets...")
+    babeldoc.assets.assets.warmup()
 
     if settings.basic.gui:
         from pdf2zh_next.gui import setup_gui
