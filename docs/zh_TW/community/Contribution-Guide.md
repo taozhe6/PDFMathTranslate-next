@@ -24,6 +24,57 @@
 >
 > 若您想貢獻文檔，請**僅修改英文版本文檔**。其他語言版本由貢獻者自行翻譯。
 
+- [ ] Add new features
+- [ ] Add new dependencies
+- [ ] Modify project architecture
+
+## PRs that are recommended to submit directly
+- [ ] Fix bugs
+- [ ] Fix typos
+- [ ] Improve documentation
+- [ ] Refactor code
+- [ ] Improve test cases
+
+---
+
+### OUTPUT
+
+## 建議在提交前透過 Issue 與維護者討論的 PR
+- [ ] 新增功能
+- [ ] 新增依賴項
+- [ ] 修改專案架構
+
+## 建議直接提交的 PR
+- [ ] 修復錯誤
+- [ ] 修正錯字
+- [ ] 改進文檔
+- [ ] 重構程式碼
+- [ ] 改進測試案例
+
+- [ ] Add new features
+- [ ] Add new dependencies
+- [ ] Modify project architecture
+
+For the following types of PRs, it is recommended to submit directly:
+- [ ] Fix bugs
+- [ ] Fix typos
+- [ ] Improve documentation
+- [ ] Refactor code
+- [ ] Improve test cases
+
+2. PRs related to UI modifications. (The current UI is considered stable, and we do not plan to make significant changes to it).
+3. PRs related to the addition of new LLM services. (We currently support OpenAI, Azure OpenAI, Aliyun, and SiliconFlow, which are sufficient for our needs).
+4. PRs related to the addition of new translation services. (We currently support Google Translate, DeepL, and Youdao, which are sufficient for our needs).
+
+---
+
+### OUTPUT
+
+1. 與多用戶共享功能相關的 PR。（本專案主要設計為單用戶使用，無意引入完整的多用戶系統）。
+2. 與 UI 修改相關的 PR。（當前 UI 被認為是穩定的，我們不計劃對其進行重大更改）。
+3. 與新增 LLM 服務相關的 PR。（我們目前支持 OpenAI、Azure OpenAI、Aliyun 和 SiliconFlow，這些已滿足我們的需求）。
+4. 與新增翻譯服務相關的 PR。（我們目前支持 Google Translate、DeepL 和 Youdao，這些已滿足我們的需求）。
+
 ## 貢獻流程
 
 1. 複製此儲存庫並在本地克隆。
@@ -117,6 +168,155 @@
 - **main.py**：提供命令行工具。
 - **high_level.py**：基於 BabelDOC 的高階介面。
 - **http_api.py**：提供 HTTP API（尚未啟動）。
+
+- [x] Support for PDF to PDF, including text and mathematical formulas
+- [x] Support for LaTeX to LaTeX
+- [x] Support for Markdown to Markdown
+- [x] Support for plain text to plain text
+- [x] Support for multiple LLM services (OpenAI, DeepSeek, Aliyun, SiliconFlow, etc.)
+- [x] Support for multiple translation services (Google Translate, Microsoft Translator, etc.)
+- [x] Support for multiple file formats (PDF, LaTeX, Markdown, plain text)
+- [x] Support for multiple languages (English, Chinese, Japanese, Korean, etc.)
+- [x] Support for command line interface (CLI)
+- [x] Support for web user interface (WebUI)
+- [x] Support for batch processing
+- [x] Support for custom translation rules
+- [x] Support for custom output formats
+- [x] Support for custom language models
+- [x] Support for custom translation services
+- [x] Support for custom output directories
+- [x] Support for custom output file names
+- [x] Support for custom output file extensions
+- [x] Support for custom output file formats
+- [x] Support for custom output file encodings
+- [x] Support for custom output file line endings
+- [x] Support for custom output file indentation
+- [x] Support for custom output file spacing
+- [x] Support for custom output file margins
+- [x] Support for custom output file page breaks
+- [x] Support for custom output file headers and footers
+- [x] Support for custom output file watermarks
+- [x] Support for custom output file backgrounds
+- [x] Support for custom output file fonts
+- [x] Support for custom output file font sizes
+- [x] Support for custom output file font colors
+- [x] Support for custom output file font styles
+- [x] Support for custom output file font weights
+- [x] Support for custom output file font families
+- [x] Support for custom output file font variants
+- [x] Support for custom output file font stretches
+- [x] Support for custom output file font kerning
+- [x] Support for custom output file font ligatures
+- [x] Support for custom output file font features
+- [x] Support for custom output file font variations
+- [x] Support for custom output file font optical sizing
+- [x] Support for custom output file font display
+- [x] Support for custom output file font fallback
+- [x] Support for custom output file font synthesis
+- [x] Support for custom output file font size adjust
+- [x] Support for custom output file font smoothing
+- [x] Support for custom output file font rendering
+- [x] Support for custom output file font hinting
+- [x] Support for custom output file font subpixel rendering
+- [x] Support for custom output file font antialiasing
+- [x] Support for custom output file font grayscale
+- [x] Support for custom output file font subpixel antialiasing
+- [x] Support for custom output file font LCD rendering
+- [x] Support for custom output file font LCD filter
+- [x] Support for custom output file font LCD subpixel
+- [x] Support for custom output file font LCD vertical
+- [x] Support for custom output file font LCD horizontal
+- [x] Support for custom output file font LCD RGB
+- [x] Support for custom output file font LCD BGR
+- [x] Support for custom output file font LCD V RGB
+- [x] Support for custom output file font LCD V BGR
+- [x] Support for custom output file font LCD H RGB
+- [x] Support for custom output file font LCD H BGR
+- [x] Support for custom output file font LCD V
+- [x] Support for custom output file font LCD H
+- [x] Support for custom output file font LCD
+- [x] Support for custom output file font
+- [x] Support for custom output file
+- [x] Support for custom output
+- [x] Support for custom
+- [x] Support for
+
+---
+
+### OUTPUT
+
+請 AI 理解專案：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+- [x] 支援 PDF 轉 PDF，包括文字和數學公式
+- [x] 支援 LaTeX 轉 LaTeX
+- [x] 支援 Markdown 轉 Markdown
+- [x] 支援純文字轉純文字
+- [x] 支援多種 LLM 服務（OpenAI、DeepSeek、阿里雲、硅基流動等）
+- [x] 支援多種翻譯服務（Google Translate、Microsoft Translator 等）
+- [x] 支援多種檔案格式（PDF、LaTeX、Markdown、純文字）
+- [x] 支援多種語言（英文、中文、日文、韓文等）
+- [x] 支援命令行介面（CLI）
+- [x] 支援網頁使用者介面（WebUI）
+- [x] 支援批次處理
+- [x] 支援自訂翻譯規則
+- [x] 支援自訂輸出格式
+- [x] 支援自訂語言模型
+- [x] 支援自訂翻譯服務
+- [x] 支援自訂輸出目錄
+- [x] 支援自訂輸出檔案名稱
+- [x] 支援自訂輸出檔案副檔名
+- [x] 支援自訂輸出檔案格式
+- [x] 支援自訂輸出檔案編碼
+- [x] 支援自訂輸出檔案行尾符號
+- [x] 支援自訂輸出檔案縮排
+- [x] 支援自訂輸出檔案間距
+- [x] 支援自訂輸出檔案邊距
+- [x] 支援自訂輸出檔案分頁符
+- [x] 支援自訂輸出檔案頁首和頁尾
+- [x] 支援自訂輸出檔案浮水印
+- [x] 支援自訂輸出檔案背景
+- [x] 支援自訂輸出檔案字型
+- [x] 支援自訂輸出檔案字型大小
+- [x] 支援自訂輸出檔案字型顏色
+- [x] 支援自訂輸出檔案字型樣式
+- [x] 支援自訂輸出檔案字型粗細
+- [x] 支援自訂輸出檔案字型家族
+- [x] 支援自訂輸出檔案字型變體
+- [x] 支援自訂輸出檔案字型拉伸
+- [x] 支援自訂輸出檔案字型字距調整
+- [x] 支援自訂輸出檔案字型連字
+- [x] 支援自訂輸出檔案字型特性
+- [x] 支援自訂輸出檔案字型變體
+- [x] 支援自訂輸出檔案字型光學尺寸調整
+- [x] 支援自訂輸出檔案字型顯示
+- [x] 支援自訂輸出檔案字型後備
+- [x] 支援自訂輸出檔案字型合成
+- [x] 支援自訂輸出檔案字型大小調整
+- [x] 支援自訂輸出檔案字型平滑
+- [x] 支援自訂輸出檔案字型渲染
+- [x] 支援自訂輸出檔案字型提示
+- [x] 支援自訂輸出檔案字型子像素渲染
+- [x] 支援自訂輸出檔案字型抗鋸齒
+- [x] 支援自訂輸出檔案字型灰階
+- [x] 支援自訂輸出檔案字型子像素抗鋸齒
+- [x] 支援自訂輸出檔案字型 LCD 渲染
+- [x] 支援自訂輸出檔案字型 LCD 濾鏡
+- [x] 支援自訂輸出檔案字型 LCD 子像素
+- [x] 支援自訂輸出檔案字型 LCD 垂直
+- [x] 支援自訂輸出檔案字型 LCD 水平
+- [x] 支援自訂輸出檔案字型 LCD RGB
+- [x] 支援自訂輸出檔案字型 LCD BGR
+- [x] 支援自訂輸出檔案字型 LCD V RGB
+- [x] 支援自訂輸出檔案字型 LCD V BGR
+- [x] 支援自訂輸出檔案字型 LCD H RGB
+- [x] 支援自訂輸出檔案字型 LCD H BGR
+- [x] 支援自訂輸出檔案字型 LCD V
+- [x] 支援自訂輸出檔案字型 LCD H
+- [x] 支援自訂輸出檔案字型 LCD
+- [x] 支援自訂輸出檔案字型
+- [x] 支援自訂輸出檔案
+- [x] 支援自訂輸出
+- [x] 支援自訂
+- [x] 支援
 
 ## 聯絡我們
 

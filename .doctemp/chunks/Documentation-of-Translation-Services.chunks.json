@@ -12,7 +12,7 @@
       "start_line_no": 1
     },
     {
-      "id": "h_rule_0ff56125",
+      "id": "h_rule_d34a4729",
       "raw_content": "---\n",
       "metadata": {
         "chunk_type": "h_rule",
@@ -52,14 +52,114 @@
       "start_line_no": 9
     },
     {
-      "id": "chunk_7935E690",
-      "raw_content": "At the end of the help message, you can view detailed information about the different translation services.\n",
+      "id": "chunk_C2A1A031",
+      "raw_content": "At the end of the help message, you can view detailed information about the different translation services.\n\n",
       "metadata": {
         "chunk_type": "paragraph",
         "level": null,
         "language": null
       },
       "start_line_no": 13
+    },
+    {
+      "id": "h_rule_8ae0f850",
+      "raw_content": "---\n",
+      "metadata": {
+        "chunk_type": "h_rule",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 16
+    },
+    {
+      "id": "chunk_2DBF0B10",
+      "raw_content": "### Translation Engine Support Policy\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 3,
+        "language": null
+      },
+      "start_line_no": 18
+    },
+    {
+      "id": "chunk_0BB83C9D",
+      "raw_content": "#### Tier 1 (Official Support)\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 4,
+        "language": null
+      },
+      "start_line_no": 20
+    },
+    {
+      "id": "chunk_4E37F5F8",
+      "raw_content": "**Tier 1 translation engines** are directly maintained by the project maintainers. Although the maintainers do **not use this project regularly**, they will rely on GitHub issues to identify problems. When any of these engines encounter issues, the maintainers will fix them as soon as possible to ensure stability and reliability.\n\n\nCurrently supported Tier 1 translation engines include:",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 22
+    },
+    {
+      "id": "chunk_610CC359",
+      "raw_content": "1. SiliconFlowFree\n2. OpenAI\n3. AliyunDashScope\n4. DeepSeek\n5. SiliconFlow\n6. Zhipu\n7. OpenAICompatible\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 26
+    },
+    {
+      "id": "chunk_939CF562",
+      "raw_content": "#### Tier 2 (Community Support)\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 4,
+        "language": null
+      },
+      "start_line_no": 34
+    },
+    {
+      "id": "chunk_35662E12",
+      "raw_content": "**Tier 2 translation engines** are maintained and supported by the community.  \nWhen these engines encounter issues, the project maintainers will not provide direct fixes. Instead, they will label the related issues with `help wanted` and welcome pull requests from contributors to help resolve them.\n\nAll engines that are supported by the program but not explicitly listed under Tier 1 are considered Tier 2 translation engines.\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 36
+    },
+    {
+      "id": "chunk_DCD0732A",
+      "raw_content": "#### Deprecated Engines\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 4,
+        "language": null
+      },
+      "start_line_no": 41
+    },
+    {
+      "id": "chunk_7C961DFD",
+      "raw_content": "The following translation engines have been **deprecated** and will no longer be maintained or supported:\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 43
+    },
+    {
+      "id": "chunk_2ADE6979",
+      "raw_content": "1. Bing\n2. Google\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 45
     }
   ]
 }

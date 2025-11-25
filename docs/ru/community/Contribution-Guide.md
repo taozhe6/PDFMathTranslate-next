@@ -24,6 +24,53 @@
 >
 > Если вы хотите внести вклад в документацию, пожалуйста, **изменяйте только английскую версию документации**. Другие языковые версии переводятся самими участниками.
 
+- [ ] Any changes to the core functionality of pdf2zh (including, but not limited to, changes to the translation engine, changes to the translation process, etc.)
+- [ ] Any changes to the CLI interface
+- [ ] Any changes to the configuration file format
+- [ ] Any changes to the output file format
+- [ ] Any changes to the project structure
+
+---
+
+### OUTPUT
+
+## PR, которые рекомендуется обсудить с сопровождающими через Issue перед отправкой
+- [ ] Любые изменения в основной функциональности pdf2zh (включая, но не ограничиваясь, изменениями в механизме перевода, изменениями в процессе перевода и т.д.)
+- [ ] Любые изменения в интерфейсе CLI
+- [ ] Любые изменения в формате файла конфигурации
+- [ ] Любые изменения в формате выходного файла
+- [ ] Любые изменения в структуре проекта
+
+- [ ] Any changes to the core functionality of pdf2zh (including, but not limited to, changes to the translation engine, changes to the translation process, etc.)
+- [ ] Any changes to the CLI interface
+- [ ] Any changes to the configuration file format
+- [ ] Any changes to the output file format
+- [ ] Any changes to the project structure
+
+---
+
+### OUTPUT
+
+Для следующих типов PR рекомендуется сначала обсудить их с сопровождающими перед отправкой:
+- [ ] Любые изменения в основной функциональности pdf2zh (включая, но не ограничиваясь, изменениями в механизме перевода, изменениями в процессе перевода и т.д.)
+- [ ] Любые изменения в интерфейсе CLI
+- [ ] Любые изменения в формате файла конфигурации
+- [ ] Любые изменения в формате выходного файла
+- [ ] Любые изменения в структуре проекта
+
+2. PRs related to the addition of new translation engines (especially those requiring API keys). (This project aims to provide open-source, free translation engines. If you wish to add a new translation engine, please ensure it is open-source and free. If you need to use paid engines, please fork the project and use it yourself).
+3. PRs related to the addition of new file formats. (This project is focused on PDF to Markdown conversion. If you need to convert other file formats, please use other tools).
+4. PRs that significantly alter the project's direction or add new features that are not aligned with the project's goals.
+
+---
+
+### OUTPUT
+
+1. PR, связанные с функциональностью многопользовательского доступа. (Этот проект в первую очередь предназначен для использования одним пользователем и не планирует внедрять полноценную многопользовательскую систему).
+2. PR, связанные с добавлением новых механизмов перевода (особенно тех, которые требуют API-ключи). (Этот проект нацелен на предоставление открытых и бесплатных механизмов перевода. Если вы хотите добавить новый механизм перевода, убедитесь, что он является открытым и бесплатным. Если вам необходимо использовать платные механизмы, пожалуйста, форкните проект и используйте его самостоятельно).
+3. PR, связанные с добавлением новых форматов файлов. (Этот проект сфокусирован на конвертации из PDF в Markdown. Если вам необходимо конвертировать другие форматы файлов, пожалуйста, используйте другие инструменты).
+4. PR, которые значительно изменяют направление проекта или добавляют новые функции, не соответствующие целям проекта.
+
 ## Процесс внесения вклада
 
 1. Форкните этот репозиторий и клонируйте его локально.
@@ -117,6 +164,8 @@
 - **main.py**: Предоставляет инструмент командной строки.
 - **high_level.py**: Высокоуровневые интерфейсы на основе BabelDOC.
 - **http_api.py**: Предоставляет HTTP API (не запущено).
+
+Спросите ИИ, чтобы понять проект: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## Свяжитесь с нами
 

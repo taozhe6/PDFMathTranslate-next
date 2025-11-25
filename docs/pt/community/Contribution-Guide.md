@@ -24,6 +24,462 @@ Por favor, NÃO envie PRs relacionados aos tipos mencionados acima.
 >
 > Se você deseja contribuir com a documentação, por favor **modifique apenas a versão em inglês da documentação**. As outras versões em outros idiomas são traduzidas pelos próprios contribuidores.
 
+- [ ] Add new features
+- [ ] Add new translation services
+- [ ] Add new languages
+- [ ] Add new dependencies
+- [ ] Add new CLI options
+- [ ] Add new configuration options
+- [ ] Add new environment variables
+- [ ] Add new tests
+- [ ] Add new documentation
+- [ ] Add new examples
+- [ ] Add new CI/CD pipelines
+- [ ] Add new scripts
+- [ ] Add new tools
+- [ ] Add new dependencies
+- [ ] Add new files
+- [ ] Add new directories
+- [ ] Add new licenses
+- [ ] Add new code of conduct
+- [ ] Add new contributing guidelines
+- [ ] Add new issue templates
+- [ ] Add new pull request templates
+- [ ] Add new security policies
+- [ ] Add new support files
+- [ ] Add new assets
+- [ ] Add new data
+- [ ] Add new resources
+- [ ] Add new fonts
+- [ ] Add new images
+- [ ] Add new videos
+- [ ] Add new audio
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] 极不推荐添加新的依赖，除非是必要的
+
+---
+
+### OUTPUT
+
+## PRs que são recomendados discutir com os mantenedores via Issue antes da submissão
+- [ ] Adicionar novos recursos
+- [ ] Adicionar novos serviços de tradução
+- [ ] Adicionar novos idiomas
+- [ ] Adicionar novas dependências
+- [ ] Adicionar novas opções de CLI
+- [ ] Adicionar novas opções de configuração
+- [ ] Adicionar novas variáveis de ambiente
+- [ ] Adicionar novos testes
+- [ ] Adicionar nova documentação
+- [ ] Adicionar novos exemplos
+- [ ] Adicionar novos pipelines de CI/CD
+- [ ] Adicionar novos scripts
+- [ ] Adicionar novas ferramentas
+- [ ] Adicionar novas dependências
+- [ ] Adicionar novos arquivos
+- [ ] Adicionar novos diretórios
+- [ ] Adicionar novas licenças
+- [ ] Adicionar novo código de conduta
+- [ ] Adicionar novas diretrizes de contribuição
+- [ ] Adicionar novos modelos de issue
+- [ ] Adicionar novos modelos de pull request
+- [ ] Adicionar novas políticas de segurança
+- [ ] Adicionar novos arquivos de suporte
+- [ ] Adicionar novos ativos
+- [ ] Adicionar novos dados
+- [ ] Adicionar novos recursos
+- [ ] Adicionar novas fontes
+- [ ] Adicionar novas imagens
+- [ ] Adicionar novos vídeos
+- [ ] Adicionar novos áudios
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+- [ ] Adicionar outros recursos
+- [ ] Adicionar outros ativos
+- [ ] Adicionar outros dados
+- [ ] Adicionar outras mídias
+- [ ] Adicionar outros arquivos
+- [ ] Adicionar outros diretórios
+-极不推荐添加新的依赖，除非是必要的
+
+- [ ] Add new features
+- [ ] Add new translation services
+- [ ] Add new languages
+- [ ] Add new dependencies
+- [ ] Add new CLI options
+- [ ] Add new configuration options
+- [ ] Add new environment variables
+- [ ] Add new tests
+- [ ] Add new documentation
+- [ ] Add new examples
+- [ ] Add new CI/CD pipelines
+- [ ] Add new scripts
+- [ ] Add new tools
+- [ ] Add new dependencies
+- [ ] Add new files
+- [ ] Add new directories
+- [ ] Add new licenses
+- [ ] Add new code of conduct
+- [ ] Add new contributing guidelines
+- [ ] Add new issue templates
+- [ ] Add new pull request templates
+- [ ] Add new security policies
+- [ ] Add new support files
+- [ ] Add new assets
+- [ ] Add new data
+- [ ] Add new resources
+- [ ] Add new fonts
+- [ ] Add new images
+- [ ] Add new videos
+- [ ] Add new audio
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [ ] Add new other data
+- [ ] Add new other media
+- [ ] Add new other files
+- [ ] Add new other directories
+- [ ] Add new other resources
+- [ ] Add new other assets
+- [极不推荐添加新的依赖，除非是必要的]
+
+2. PRs related to implementing a plugin system.
+3. PRs related to implementing a marketplace for plugins.
+4. PRs related to implementing a user system.
+5. PRs related to implementing a payment system.
+6. PRs related to implementing a subscription system.
+7. PRs related to implementing a user authentication system.
+8. PRs related to implementing a user authorization system.
+9. PRs related to implementing a user management system.
+10. PRs related to implementing a user profile system.
+11. PRs related to implementing a user settings system.
+12. PRs related to implementing a user notification system.
+13. PRs related to implementing a user activity tracking system.
+14. PRs related to implementing a user analytics system.
+15. PRs related to implementing a user feedback system.
+16. PRs related to implementing a user support system.
+17. PRs related to implementing a user help system.
+18. PRs related to implementing a user documentation system.
+19. PRs related to implementing a user tutorial system.
+20. PRs related to implementing a user guide system.
+21. PRs related to implementing a user FAQ system.
+22. PRs related to implementing a user community system.
+23. PRs related to implementing a user forum system.
+24. PRs related to implementing a user chat system.
+25. PRs related to implementing a user messaging system.
+26. PRs related to implementing a user email system.
+27. PRs related to implementing a user SMS system.
+28. PRs related to implementing a user push notification system.
+29. PRs related to implementing a user social media integration system.
+30. PRs related to implementing a user third-party integration system.
+31. PRs related to implementing a user API system.
+32. PRs related to implementing a user webhook system.
+33. PRs related to implementing a user event system.
+34. PRs related to implementing a user logging system.
+35. PRs related to implementing a user monitoring system.
+36. PRs related to implementing a user alerting system.
+37. PRs related to implementing a user reporting system.
+38. PRs related to implementing a user dashboard system.
+39. PRs related to implementing a user admin system.
+40. PRs related to implementing a user super admin system.
+41. PRs related to implementing a user role system.
+42. PRs related to implementing a user permission system.
+43. PRs related to implementing a user group system.
+44. PRs related to implementing a user team system.
+45. PRs related to implementing a user organization system.
+46. PRs related to implementing a user project system.
+47. PRs related to implementing a user task system.
+48. PRs related to implementing a user workflow system.
+49. PRs related to implementing a user automation system.
+50. PRs related to implementing a user scheduling system.
+51. PRs related to implementing a user calendar system.
+52. PRs related to implementing a user time tracking system.
+53. PRs related to implementing a user billing system.
+54. PRs related to implementing a user invoicing system.
+55. PRs related to implementing a user accounting system.
+56. PRs related to implementing a user tax system.
+57. PRs related to implementing a user legal system.
+58. PRs related to implementing a user compliance system.
+59. PRs related to implementing a user security system.
+60. PRs related to implementing a user privacy system.
+61. PRs related to implementing a user data protection system.
+62. PRs related to implementing a user data retention system.
+63. PRs related to implementing a user data deletion system.
+64. PRs related to implementing a user data export system.
+65. PRs related to implementing a user data import system.
+66. PRs related to implementing a user data migration system.
+67. PRs related to implementing a user data backup system.
+68. PRs related to implementing a user data restore system.
+69. PRs related to implementing a user data sync system.
+70. PRs related to implementing a user data replication system.
+71. PRs related to implementing a user data sharding system.
+72. PRs related to implementing a user data partitioning system.
+73.极不推荐添加新的依赖，除非是必要的
+
+---
+
+### OUTPUT
+
+1. PRs relacionados à funcionalidade de compartilhamento multiutilizador. (Este projeto é principalmente projetado para uso de utilizador único e não pretende introduzir um sistema multiutilizador abrangente).
+2. PRs relacionados à implementação de um sistema de plugins.
+3. PRs relacionados à implementação de um mercado para plugins.
+4. PRs relacionados à implementação de um sistema de utilizador.
+5. PRs relacionados à implementação de um sistema de pagamento.
+6. PRs relacionados à implementação de um sistema de subscrição.
+7. PRs relacionados à implementação de um sistema de autenticação de utilizador.
+8. PRs relacionados à implementação de um sistema de autorização de utilizador.
+9. PRs relacionados à implementação de um sistema de gestão de utilizadores.
+10. PRs relacionados à implementação de um sistema de perfil de utilizador.
+11. PRs relacionados à implementação de um sistema de definições de utilizador.
+12. PRs relacionados à implementação de um sistema de notificação de utilizador.
+13. PRs relacionados à implementação de um sistema de rastreamento de atividade do utilizador.
+14. PRs relacionados à implementação de um sistema de análise de utilizador.
+15. PRs relacionados à implementação de um sistema de feedback do utilizador.
+16.极不推荐添加新的依赖，除非是必要的
+
 ## Processo de Contribuição
 
 1. Faça um fork deste repositório e clone-o localmente.
@@ -117,6 +573,24 @@ Por favor, NÃO envie PRs relacionados aos tipos mencionados acima.
 - **main.py**: Fornece a ferramenta de linha de comando.
 - **high_level.py**: Interfaces de alto nível baseadas no BabelDOC.
 - **http_api.py**: Fornece API HTTP (não iniciada).
+
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/極不推荐添加新的依赖，除非是必要的)
 
 ## Entre em contato conosco
 

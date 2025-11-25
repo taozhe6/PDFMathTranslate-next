@@ -5,12 +5,7 @@
 <h3 id="toc">Table of Contents</h3>
 
 - [Command Line Args](#command-line-args)
-  - [Args](#args)
-  - [GUI Args](#gui-args)
 - [Rate Limiting Configuration Guide](#rate-limiting-configuration-guide)
-  - [RPM (Requests Per Minute) Rate Limiting](#rpm-requests-per-minute-rate-limiting)
-  - [Concurrent Connection Limiting](#concurrent-connection-limiting)
-  - [Best Practices](#best-practices)
 - [Partial translation](#partial-translation)
 - [Specify source and target languages](#specify-source-and-target-languages)
 - [Translate wih exceptions](#translate-wih-exceptions)
@@ -36,68 +31,70 @@ In the following table, we list all advanced options for reference:
 
 | Option                          | Function                                                                               | Example                                                                                                              |
 | ------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `files`                         | Local PDF file path                                                                    | `pdf2zh ~/local.pdf`                                                                                                 |
-| `links`                         | Online files                                                                           | `pdf2zh http://arxiv.org/paper.pdf`                                                                                  |
-| `--output`                      | Output directory for files                                                             | `pdf2zh example.pdf --output /outputpath`                                                                            |
-| `--<Services>`                  | Use [**specific service**](./Documentation-of-Translation-Services.md) for translation | `pdf2zh example.pdf --openai`<br>`pdf2zh example.pdf --deepseek`                                                     |
-| `--help`, `-h`                  | Show help message and exit                                                             | `pdf2zh -h`                                                                                                          |
-| `--config-file`                 | Path to the configuration file                                                         | `pdf2zh --config-file /path/to/config/config.toml`                                                                   |
-| `--report-interval`             | Progress report interval in seconds                                                    | `pdf2zh example.pdf --report-interval 5`                                                                             |
-| `--debug`                       | Use debug logging level                                                                | `pdf2zh example.pdf --debug`                                                                                         |
-| `--gui`                         | Interact with GUI                                                                      | `pdf2zh --gui`                                                                                                       |
-| `--warmup`                      | Only download and verify required assets then exit                                     | `pdf2zh example.pdf --warmup`                                                                                        |
-| `--generate-offline-assets`     | Generate offline assets package in the specified directory                             | `pdf2zh example.pdf --generate-offline-assets /path`                                                                 |
-| `--restore-offline-assets`      | Restore offline assets package from the specified directory                            | `pdf2zh example.pdf --restore-offline-assets /path`                                                                  |
-| `--version`                     | Show version then exit                                                                 | `pdf2zh --version`                                                                                                   |
-| `--pages`                       | Partial document translation                                                           | `pdf2zh example.pdf --pages 1,2,1-,-3,3-5`                                                                           |
-| `--lang-in`                     | The code of source language                                                            | `pdf2zh example.pdf --lang-in en`                                                                                    |
-| `--lang-out`                    | The code of target language                                                            | `pdf2zh example.pdf --lang-out zh-CN`                                                                                |
-| `--min-text-length`             | Minimum text length to translate                                                       | `pdf2zh example.pdf --min-text-length 5`                                                                             |
-| `--rpc-doclayout`               | RPC service host address for document layout analysis                                  |                                                                                                                      |
-| `--qps`                         | QPS limit for translation service                                                      | `pdf2zh example.pdf --qps 200`                                                                                       |
-| `--ignore-cache`                | Ignore translation cache                                                               | `pdf2zh example.pdf --ignore-cache`                                                                                  |
-| `--custom-system-prompt`        | Custom system prompt for translation. Used for `/no_think` in Qwen 3                   | `pdf2zh example.pdf --custom-system-prompt "/no_think You are a professional, authentic machine translation engine"` |
-| `--pool-max-worker`             | Maximum number of workers for translation pool. If not set, will use qps as the number of workers | `pdf2zh example.pdf --pool-max-worker 100`                                                                |
-| `--no-auto-extract-glossary`    | Disable auto extract glossary                                                          | `pdf2zh example.pdf --no-auto-extract-glossary`                                                                      |
-| `--primary-font-family`         | Override primary font family for translated text. Choices: 'serif' for serif fonts, 'sans-serif' for sans-serif fonts, 'script' for script/italic fonts. If not specified, uses automatic font selection based on original text properties. | `pdf2zh example.pdf --primary-font-family serif` |
-| `--no-dual`                     | Do not output bilingual PDF files                                                      | `pdf2zh example.pdf --no-dual`                                                                                       |
-| `--no-mono`                     | Do not output monolingual PDF files                                                    | `pdf2zh example.pdf --no-mono`                                                                                       |
-| `--formular-font-pattern`       | Font pattern to identify formula text                                                  | `pdf2zh example.pdf --formular-font-pattern "(MS.*)"`                                                                |
-| `--formular-char-pattern`       | Character pattern to identify formula text                                             | `pdf2zh example.pdf --formular-char-pattern "(MS.*)"`                                                                |
-| `--split-short-line`            | Force split short line into different paragraphs                                       | `pdf2zh example.pdf --split-short-line`                                                                              |
-| `--short-line-split-factor`     | Split threshold factor for short lines                                                 |                                                                                                                      |
-| `--skip-clean`                  | Skip PDF cleaning step                                                                 | `pdf2zh example.pdf --skip-clean`                                                                                    |
-| `--dual-translate-first`        | 在双 PDF 模式下优先放置翻译页                                          | `pdf2zh example.pdf --dual-translate-first`                                                                                            |
-| `--disable-rich-text-translate` | Disable rich text translation                                                          | `pdf2zh example.pdf --disable-rich-text-translate`                                                                   |
-| `--enhance-compatibility`       | Enable all compatibility enhancement options                                           | `pdf2zh example.pdf --enhance-compatibility`                                                                         |
-| `--use-alternating-pages-dual`  | Use alternating pages mode for dual PDF                                                | `pdf2zh example.pdf --use-alternating-pages-dual`                                                                    |
-| `--watermark-output-mode`       | Watermark output mode for PDF files                                                    | `pdf2zh example.pdf --watermark-output-mode "NoWaterMark"`                                                           |
-| `--max-pages-per-part`          | Maximum pages per part for split translation                                           | `pdf2zh example.pdf --max-pages-per-part 1`                                                                          |
-| `--translate-table-text`        | Translate table text (experimental)                                                    | `pdf2zh example.pdf --translate-table-text`                                                                          |
-| `--skip-scanned-detection`      | Skip scanned detection                                                                 | `pdf2zh example.pdf --skip-scanned-detection`                                                                        |
-| `--ocr-workaround`              | Force translated text to be black and add white background                             | `pdf2zh example.pdf --ocr-workaround`                                                                                |
-| `--auto-enable-ocr-workaround`  | Enable automatic OCR workaround. If a document is detected as heavily scanned, this will attempt to enable OCR processing and skip further scan detection. See documentation for details. (default: False) | `pdf2zh example.pdf --auto-enable-ocr-workaround True`                    |
-| `--only-include-translated-page`| Only include translated pages in the output PDF. Effective only when --pages is used. | `pdf2zh example.pdf --pages 1-5 --only-include-translated-page`                                                       |
-| `--glossaries`                  | Custom glossary for translation.                                                      | `pdf2zh example.pdf --glossaries "glossary1.csv,glossary2.csv,glossary3.csv"`                                         |
-| `--save-auto-extracted-glossary`| save automatically extracted glossary.                                                | `pdf2zh example.pdf --save-auto-extracted-glossary`                                                                   |
-| `--no-merge-alternating-line-numbers` | Disable merging of alternating line numbers and text paragraphs in documents with line numbers | `pdf2zh example.pdf --no-merge-alternating-line-numbers` |
-| `--no-remove-non-formula-lines` | Disable removal of non-formula lines within paragraph areas                          | `pdf2zh example.pdf --no-remove-non-formula-lines`                                                                    |
-| `--non-formula-line-iou-threshold` | Set IoU threshold for identifying non-formula lines (0.0-1.0)                     | `pdf2zh example.pdf --non-formula-line-iou-threshold 0.85`                                                            |
-| `--figure-table-protection-threshold` | Set protection threshold for figures and tables (0.0-1.0). Lines within figures/tables will not be processed | `pdf2zh example.pdf --figure-table-protection-threshold 0.95` |
-| `--skip-formula-offset-calculation` | Skip formula offset calculation during processing         | `pdf2zh example.pdf --skip-formula-offset-calculation`                                                                |
+| `input-files`                   | Input PDF files to process                                                              | `pdf2zh_next example.pdf`                                                                                             |
+| `--output`                      | Output directory for files                                                              | `pdf2zh_next example.pdf --output /outputpath`                                                                        |
+| `--<Services>`                  | Use [**specific service**](./Documentation-of-Translation-Services.md) for translation | `pdf2zh_next example.pdf --openai`<br>`pdf2zh_next example.pdf --deepseek`                                            |
+| `--help`, `-h`                  | Show help message and exit                                                              | `pdf2zh_next -h`                                                                                                      |
+| `--config-file`                 | Path to the configuration file                                                          | `pdf2zh_next --config-file /path/to/config/config.toml`                                                               |
+| `--report-interval`             | Progress report interval in seconds                                                     | `pdf2zh_next example.pdf --report-interval 5`                                                                         |
+| `--debug`                       | Use debug logging level                                                                 | `pdf2zh_next example.pdf --debug`                                                                                     |
+| `--gui`                         | Interact with GUI                                                                       | `pdf2zh_next --gui`                                                                                                   |
+| `--warmup`                      | Only download and verify required assets then exit                                      | `pdf2zh_next example.pdf --warmup`                                                                                    |
+| `--generate-offline-assets`     | Generate offline assets package in the specified directory                              | `pdf2zh_next example.pdf --generate-offline-assets /path`                                                             |
+| `--restore-offline-assets`      | Restore offline assets package from the specified directory                             | `pdf2zh_next example.pdf --restore-offline-assets /path`                                                              |
+| `--version`                     | Show version then exit                                                                  | `pdf2zh_next --version`                                                                                               |
+| `--pages`                       | Partial document translation                                                            | `pdf2zh_next example.pdf --pages 1,2,1-,-3,3-5`                                                                       |
+| `--lang-in`                     | Source language code                                                                    | `pdf2zh_next example.pdf --lang-in en`                                                                                |
+| `--lang-out`                    | Target language code                                                                    | `pdf2zh_next example.pdf --lang-out zh-CN`                                                                            |
+| `--min-text-length`             | Minimum text length to translate                                                        | `pdf2zh_next example.pdf --min-text-length 5`                                                                         |
+| `--rpc-doclayout`               | RPC service host address for document layout analysis                                   | `pdf2zh_next example.pdf --rpc-doclayout http://127.0.0.1:8000`                                                       |
+| `--qps`                         | QPS limit for translation service                                                       | `pdf2zh_next example.pdf --qps 200`                                                                                   |
+| `--ignore-cache`                | Ignore translation cache                                                                | `pdf2zh_next example.pdf --ignore-cache`                                                                              |
+| `--custom-system-prompt`        | Custom system prompt for translation. Used for `/no_think` in Qwen 3                    | `pdf2zh_next example.pdf --custom-system-prompt "/no_think You are a professional, authentic machine translation engine"` |
+| `--glossaries`                  | Glossary file list.                                                                     | `pdf2zh_next example.pdf --glossaries "glossary1.csv,glossary2.csv,glossary3.csv"`                                    |
+| `--save-auto-extracted-glossary`| save automatically extracted glossary                                                   | `pdf2zh_next example.pdf --save-auto-extracted-glossary`                                                              |
+| `--pool-max-workers`            | Maximum number of workers for translation pool. If not set, will use qps as the number of workers | `pdf2zh_next example.pdf --pool-max-workers 100`                                                           |
+| `--term-qps`                    | QPS limit for term extraction translation service. If not set, will follow qps.         | `pdf2zh_next example.pdf --term-qps 20`                                                                               |
+| `--term-pool-max-workers`       | Maximum number of workers for term extraction translation pool. If not set or 0, will follow pool_max_workers. | `pdf2zh_next example.pdf --term-pool-max-workers 40`                                                  |
+| `--no-auto-extract-glossary`    | Disable auto extract glossary                                                           | `pdf2zh_next example.pdf --no-auto-extract-glossary`                                                                  |
+| `--primary-font-family`         | Override primary font family for translated text. Choices: 'serif' for serif fonts, 'sans-serif' for sans-serif fonts, 'script' for script/italic fonts. If not specified, uses automatic font selection based on original text properties. | `pdf2zh_next example.pdf --primary-font-family serif` |
+| `--no-dual`                     | Do not output bilingual PDF files                                                       | `pdf2zh_next example.pdf --no-dual`                                                                                   |
+| `--no-mono`                     | Do not output monolingual PDF files                                                     | `pdf2zh_next example.pdf --no-mono`                                                                                   |
+| `--formular-font-pattern`       | Font pattern to identify formula text                                                   | `pdf2zh_next example.pdf --formular-font-pattern "(MS.*)"`                                                            |
+| `--formular-char-pattern`       | Character pattern to identify formula text                                              | `pdf2zh_next example.pdf --formular-char-pattern "(MS.*)"`                                                            |
+| `--split-short-lines`           | Force split short lines into different paragraphs                                       | `pdf2zh_next example.pdf --split-short-lines`                                                                         |
+| `--short-line-split-factor`     | Split threshold factor for short lines                                                  | `pdf2zh_next example.pdf --short-line-split-factor 1.2`                                                               |
+| `--skip-clean`                  | Skip PDF cleaning step                                                                  | `pdf2zh_next example.pdf --skip-clean`                                                                                |
+| `--dual-translate-first`        | Put translated pages first in dual PDF mode                                             | `pdf2zh_next example.pdf --dual-translate-first`                                                                      |
+| `--disable-rich-text-translate` | Disable rich text translation                                                           | `pdf2zh_next example.pdf --disable-rich-text-translate`                                                               |
+| `--enhance-compatibility`       | Enable all compatibility enhancement options                                            | `pdf2zh_next example.pdf --enhance-compatibility`                                                                     |
+| `--use-alternating-pages-dual`  | Use alternating pages mode for dual PDF                                                 | `pdf2zh_next example.pdf --use-alternating-pages-dual`                                                                |
+| `--watermark-output-mode`       | Watermark output mode for PDF files                                                     | `pdf2zh_next example.pdf --watermark-output-mode no_watermark`                                                        |
+| `--max-pages-per-part`          | Maximum pages per part for split translation                                            | `pdf2zh_next example.pdf --max-pages-per-part 50`                                                                     |
+| `--translate-table-text`        | Translate table text (experimental)                                                     | `pdf2zh_next example.pdf --translate-table-text`                                                                      |
+| `--skip-scanned-detection`      | Skip scanned detection                                                                  | `pdf2zh_next example.pdf --skip-scanned-detection`                                                                    |
+| `--ocr-workaround`              | Force translated text to be black and add white background                              | `pdf2zh_next example.pdf --ocr-workaround`                                                                            |
+| `--auto-enable-ocr-workaround`  | Enable automatic OCR workaround. If a document is detected as heavily scanned, this will attempt to enable OCR processing and skip further scan detection. See documentation for details. (default: False) | `pdf2zh_next example.pdf --auto-enable-ocr-workaround`                     |
+| `--only-include-translated-page`| Only include translated pages in the output PDF. Effective only when --pages is used.  | `pdf2zh_next example.pdf --pages 1-5 --only-include-translated-page`                                                  |
+| `--no-merge-alternating-line-numbers` | Disable merging of alternating line numbers and text paragraphs in documents with line numbers | `pdf2zh_next example.pdf --no-merge-alternating-line-numbers`                                                |
+| `--no-remove-non-formula-lines` | Disable removal of non-formula lines within paragraph areas                             | `pdf2zh_next example.pdf --no-remove-non-formula-lines`                                                                |
+| `--non-formula-line-iou-threshold` | Set IoU threshold for identifying non-formula lines (0.0-1.0)                      | `pdf2zh_next example.pdf --non-formula-line-iou-threshold 0.85`                                                       |
+| `--figure-table-protection-threshold` | Set protection threshold for figures and tables (0.0-1.0). Lines within figures/tables will not be processed | `pdf2zh_next example.pdf --figure-table-protection-threshold 0.95`                                        |
+| `--skip-formula-offset-calculation` | Skip formula offset calculation during processing          | `pdf2zh_next example.pdf --skip-formula-offset-calculation`                                                           |
 
 
 ##### GUI Args
 
 | Option                          | Function                               | Example                                         |
 | ------------------------------- | -------------------------------------- | ----------------------------------------------- |
-| `--share`                       | Enable sharing mode                    | `pdf2zh --gui --share`                          |
-| `--auth-file`                   | Path to the authentication file        | `pdf2zh --gui --auth-file /path`                |
-| `--welcome-page`                | Path to the welcome html file          | `pdf2zh --gui --welcome-page /path`             |
-| `--enabled-services`            | Enabled translation services           | `pdf2zh --gui --enabled-services "Bing,OpenAI"` |
-| `--disable-gui-sensitive-input` | Disable GUI sensitive input            | `pdf2zh --gui --disable-gui-sensitive-input`    |
-| `--disable-config-auto-save`    | Disable automatic configuration saving | `pdf2zh --gui --disable-config-auto-save`       |
-| `--server-port`                 | WebUI Port                             | `pdf2zh --gui --server-port 7860`               |
+| `--share`                       | Enable sharing mode                    | `pdf2zh_next --gui --share`                     |
+| `--auth-file`                   | Path to the authentication file        | `pdf2zh_next --gui --auth-file /path`           |
+| `--welcome-page`                | Path to the welcome html file          | `pdf2zh_next --gui --welcome-page /path`        |
+| `--enabled-services`            | Enabled translation services           | `pdf2zh_next --gui --enabled-services "Bing,OpenAI"` |
+| `--disable-gui-sensitive-input` | Disable GUI sensitive input            | `pdf2zh_next --gui --disable-gui-sensitive-input` |
+| `--disable-config-auto-save`    | Disable automatic configuration saving | `pdf2zh_next --gui --disable-config-auto-save`  |
+| `--server-port`                 | WebUI Port                             | `pdf2zh_next --gui --server-port 7860`          |
+| `--ui-lang`                     | UI language                            | `pdf2zh_next --gui --ui-lang zh`                |
 
 [⬆️ Back to top](#toc)
 

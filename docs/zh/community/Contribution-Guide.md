@@ -24,6 +24,57 @@
 >
 > 如果你想贡献文档，请**仅修改文档的英文版本**。其他语言版本由贡献者自行翻译。
 
+To avoid wasting your time, we recommend that you create an Issue to discuss with the maintainers before submitting a PR for the following types of changes:
+
+- **Major changes**: Changes that would significantly alter the structure of the codebase, such as adding a new major feature or refactoring large portions of the code.
+- **Breaking changes**: Changes that would break existing functionality or change the API in a way that is not backward compatible.
+- **New dependencies**: Adding new dependencies to the project, especially if they are large or have licensing implications.
+- **Performance optimizations**: Changes that are intended to improve performance but might have trade-offs in terms of code readability or maintainability.
+- **UI/UX changes**: Changes to the user interface or user experience that might affect how users interact with the application.
+- **Documentation updates**: While minor documentation fixes are always welcome, major documentation overhauls or changes to the documentation structure should be discussed first.
+
+By discussing these changes upfront, we can ensure that your contributions align with the project's goals and avoid unnecessary rework.
+
+---
+
+### OUTPUT
+
+## 建议在提交 PR 前通过 Issue 与维护者讨论的类型
+为了避免浪费您的时间，我们建议您在提交以下类型的更改的 PR 之前，先创建一个 Issue 与维护者进行讨论：
+
+- **重大更改**：会显著改变代码库结构的更改，例如添加新的主要功能或重构大部分代码。
+- **破坏性更改**：会破坏现有功能或以不向后兼容的方式更改 API 的更改。
+- **新依赖项**：向项目添加新的依赖项，特别是如果它们体积较大或涉及许可问题。
+- **性能优化**：旨在提高性能但可能在代码可读性或可维护性方面有所权衡的更改。
+- **UI/UX 更改**：对用户界面或用户体验的更改，可能会影响用户与应用程序的交互方式。
+- **文档更新**：虽然欢迎小的文档修复，但大的文档 overhaul 或文档结构的更改应首先讨论。
+
+通过预先讨论这些更改，我们可以确保您的贡献符合项目的目标，并避免不必要的返工。
+
+- **Major changes**: Changes that would significantly alter the structure of the codebase, such as adding a new major feature or refactoring large portions of the code.
+- **Breaking changes**: Changes that would break existing functionality or change the API in a way that is not backward compatible.
+- **New dependencies**: Adding new dependencies to the project, especially if they are large or have licensing implications.
+- **Performance optimizations**: Changes that are intended to improve performance but might have trade-offs in terms of code readability or maintainability.
+- **UI/UX changes**: Changes to the user interface or user experience that might affect how users interact with the application.
+- **Documentation updates**: While minor documentation fixes are always welcome, major documentation overhauls or changes to the documentation structure should be discussed first.
+
+By discussing these changes upfront, we can ensure that your contributions align with the project's goals and avoid unnecessary rework.
+
+2. PRs that add new dependencies without sufficient justification.
+3. PRs that change the core architecture of the project without prior discussion.
+4. PRs that introduce breaking changes to the API or user interface without migration paths.
+5. PRs that are not aligned with the project's goals or scope.
+
+---
+
+### OUTPUT
+
+1. 与多用户共享功能相关的 PR。（此项目主要为单用户使用而设计，不打算引入完整的多用户系统）。
+2. 在没有充分理由的情况下添加新依赖项的 PR。
+3. 未经事先讨论就更改项目核心架构的 PR。
+4. 在没有迁移路径的情况下对 API 或用户界面引入破坏性更改的 PR。
+5. 与项目目标或范围不符的 PR。
+
 ## 贡献流程
 
 1. Fork 此仓库并在本地克隆它。
@@ -118,7 +169,7 @@
 - **high_level.py**：基于 BabelDOC 的高级接口。
 - **http_api.py**：提供 HTTP API（未启动）。
 
-通过 AI 了解项目：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+向 AI 询问以了解项目：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## 联系我们
 

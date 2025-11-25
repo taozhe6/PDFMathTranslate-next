@@ -72,6 +72,36 @@
       "start_line_no": 23
     },
     {
+      "id": "chunk_82B30F3F",
+      "raw_content": "## PRs that are recommended to discuss with maintainers via Issue before submission\n",
+      "metadata": {
+        "chunk_type": "header",
+        "level": 2,
+        "language": null
+      },
+      "start_line_no": 27
+    },
+    {
+      "id": "chunk_FED1157F",
+      "raw_content": "For the following types of PRs, it is recommended to discuss with maintainers first before submission:\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 29
+    },
+    {
+      "id": "chunk_11EC28E1",
+      "raw_content": "1. PRs related to multi-user sharing functionality. (This project is primarily designed for single-user use and does not intend to introduce a comprehensive multi-user system).\n",
+      "metadata": {
+        "chunk_type": "list",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 31
+    },
+    {
       "id": "chunk_485712CB",
       "raw_content": "## Contribution Process\n",
       "metadata": {
@@ -79,7 +109,7 @@
         "level": 2,
         "language": null
       },
-      "start_line_no": 27
+      "start_line_no": 33
     },
     {
       "id": "chunk_4D698FBF",
@@ -89,7 +119,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 29
+      "start_line_no": 35
     },
     {
       "id": "chunk_89A6F55A",
@@ -99,7 +129,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 41
+      "start_line_no": 47
     },
     {
       "id": "chunk_E7638696",
@@ -109,7 +139,7 @@
         "level": 2,
         "language": null
       },
-      "start_line_no": 49
+      "start_line_no": 55
     },
     {
       "id": "chunk_4D251FB3",
@@ -119,7 +149,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 51
+      "start_line_no": 57
     },
     {
       "id": "chunk_8FDDA473",
@@ -129,7 +159,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 53
+      "start_line_no": 59
     },
     {
       "id": "chunk_19D447DF",
@@ -139,7 +169,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 58
+      "start_line_no": 64
     },
     {
       "id": "chunk_65AB8932",
@@ -149,7 +179,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 60
+      "start_line_no": 66
     },
     {
       "id": "chunk_B4865580",
@@ -159,7 +189,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 63
+      "start_line_no": 69
     },
     {
       "id": "chunk_E8324FFA",
@@ -169,7 +199,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 65
+      "start_line_no": 71
     },
     {
       "id": "chunk_7A584B10",
@@ -179,7 +209,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 68
+      "start_line_no": 74
     },
     {
       "id": "chunk_BE2E8298",
@@ -189,7 +219,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 70
+      "start_line_no": 76
     },
     {
       "id": "chunk_1615D8D8",
@@ -199,7 +229,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 73
+      "start_line_no": 79
     },
     {
       "id": "chunk_725E4B8A",
@@ -209,7 +239,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 75
+      "start_line_no": 81
     },
     {
       "id": "chunk_09178615",
@@ -219,7 +249,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 78
+      "start_line_no": 84
     },
     {
       "id": "chunk_8007BC97",
@@ -229,7 +259,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 80
+      "start_line_no": 86
     },
     {
       "id": "chunk_F5439516",
@@ -239,7 +269,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 83
+      "start_line_no": 89
     },
     {
       "id": "chunk_22ECCE1D",
@@ -249,7 +279,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 85
+      "start_line_no": 91
     },
     {
       "id": "chunk_2F60B8EB",
@@ -259,7 +289,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 89
+      "start_line_no": 95
     },
     {
       "id": "chunk_320F91BE",
@@ -269,7 +299,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 91
+      "start_line_no": 97
     },
     {
       "id": "chunk_126AF33C",
@@ -279,7 +309,7 @@
         "level": 2,
         "language": null
       },
-      "start_line_no": 94
+      "start_line_no": 100
     },
     {
       "id": "chunk_38A36DFF",
@@ -289,7 +319,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 96
+      "start_line_no": 102
     },
     {
       "id": "chunk_D3058459",
@@ -299,7 +329,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 100
+      "start_line_no": 106
     },
     {
       "id": "chunk_7ED6230D",
@@ -309,7 +339,7 @@
         "level": 2,
         "language": null
       },
-      "start_line_no": 111
+      "start_line_no": 117
     },
     {
       "id": "chunk_9004E6A3",
@@ -319,7 +349,17 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 113
+      "start_line_no": 119
+    },
+    {
+      "id": "chunk_7B1CB228",
+      "raw_content": "Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)\n",
+      "metadata": {
+        "chunk_type": "paragraph",
+        "level": null,
+        "language": null
+      },
+      "start_line_no": 127
     },
     {
       "id": "chunk_0C087ADF",
@@ -329,7 +369,7 @@
         "level": 2,
         "language": null
       },
-      "start_line_no": 121
+      "start_line_no": 129
     },
     {
       "id": "chunk_2FB8F835",
@@ -339,7 +379,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 123
+      "start_line_no": 131
     },
     {
       "id": "chunk_C2A414AC",
@@ -349,7 +389,7 @@
         "level": null,
         "language": null
       },
-      "start_line_no": 125
+      "start_line_no": 133
     }
   ]
 }
