@@ -1065,7 +1065,7 @@
 | `--no-glossary`                 | 禁用詞彙表使用                                                                  | `pdf2zh_next example.pdf --no-glossary`                                                                               |
 | `--glossary`                    | 啟用詞彙表使用（預設）                                                         | `pdf2zh_next example.pdf --glossary`                                                                                  |
 | `--glossary-threshold <number>` | 設置詞彙表提取的閾值。此選項僅在啟用自動提取時有效。 | `pdf2zh_next example.pdf --glossary-threshold 0.5`                                                                  |
-
+| `--primary-font-family`         | 覆蓋翻譯文字的主要字體家族。選項：'serif' 表示襯線字體，'sans-serif' 表示無襯線字體，'script' 表示手寫體/斜體字體。如果未指定，則根據原始文字屬性使用自動字體選擇。 | `pdf2zh_next example.pdf --primary-font-family serif` |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--no-image`                    | Do not translate images                                                                 | `pdf2zh_next example.pdf --no-image`                                                                                  |
 | `--no-text`                     | Do not translate text                                                                   | `pdf2zh_next example.pdf --no-text`                                                                                   |
@@ -1236,7 +1236,7 @@
 | `--split-short-lines-max-gap`   | 要考慮拆分的行間最大間距（預設值：`0.9`）              | `pdf2zh_next example.pdf --split-short-lines --split-short-lines-max-gap 0.8`                                        |
 | `--split-short-lines-min-overlap` | 要考慮拆分的行間最小重疊（預設值：`0.1`）         | `pdf2zh_next example.pdf --split-short-lines --split-short-lines-min-overlap 0.2`                                    |
 | `--split-short-lines-max-overlap` | 要考慮拆分的行間最大重疊（預設值：`0.9`）         | `pdf2zh_next example.pdf --split-short-lines --split-short-lines-max-overlap 0.8`                                    |
-
+| `--short-line-split-factor`     | 短行分割閾值因子                                                  | `pdf2zh_next example.pdf --short-line-split-factor 1.2`                                                               |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--skip-ocr`                    | Skip OCR step                                                                           | `pdf2zh_next example.pdf --skip-ocr`                                                                                  |
 | `--skip-translate`              | Skip translation step                                                                   | `pdf2zh_next example.pdf --skip-translate`                                                                            |
@@ -1317,7 +1317,7 @@
 | `--dual-translate-first`        | 在雙 PDF 模式下，將翻譯後的頁面放在前面                                             | `pdf2zh_next example.pdf --dual-translate-first`                                                                      |
 |---------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | `--dual-translate-first-ratio`  | 雙 PDF 模式下翻譯頁面的比例，預設為 0.5                            | `pdf2zh_next example.pdf --dual-translate-first-ratio 0.3`                                                            |
-
+| `--disable-rich-text-translate` | 禁用富文本翻譯                                                           | `pdf2zh_next example.pdf --disable-rich-text-translate`                                                               |
 `false`         |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------- |
 | `--enhance-compatibility-ocr`   | Enable OCR for images in PDFs to improve text extraction accuracy                       | `pdf2zh_next example.pdf --enhance-compatibility-ocr`                                                                 | `false`         |
@@ -1541,7 +1541,7 @@
 | `--config`                       | 設定檔案的路徑。                                           | `pdf2zh_next example.pdf --config ./config.yaml`                    | `""`    |
 | `--version`                      | 顯示版本資訊。                                             | `pdf2zh_next --version`                                             | `false` |
 | `--help`                         | 顯示幫助訊息。                                             | `pdf2zh_next --help`                                                | `false` |
-
+| `--no-merge-alternating-line-numbers` | 禁用合併帶有行號的文檔中的交替行號和文本段落 | `pdf2zh_next example.pdf --no-merge-alternating-line-numbers`                                                |
 | ------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `--no-remove-non-formula-lines` | 禁用移除段落區域內的非公式行                                                              | `pdf2zh_next example.pdf --no-remove-non-formula-lines`                                                                |
 

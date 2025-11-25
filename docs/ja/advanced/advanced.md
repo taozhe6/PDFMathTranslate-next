@@ -928,7 +928,7 @@
 | `--translator-args-delay`       | リトライ間の遅延（秒）、デフォルトは 1                                                     | `pdf2zh_next example.pdf --lang-out zh-CN --translator-args-delay 2`                                                    |
 | `--translator-args-verbose`     | 翻訳機用詳細ログ出力の有効化、デフォルトは false                                           | `pdf2zh_next example.pdf --lang-out zh-CN --translator-args-verbose`                                                    |
 | `--translator-args-raise-error` | 翻訳失敗時にエラーを発生させる、デフォルトは false                                         | `pdf2zh_next example.pdf --lang-out zh-CN --translator-args-raise-error`                                                |
-| `--min-text-length`             | Minimum text length to translate                                                        | `pdf2zh_next example.pdf --min-text-length 5`                                                                         |
+| `--min-text-length`             | 翻訳する最小テキスト長                                                        | `pdf2zh_next example.pdf --min-text-length 5`                                                                         |
 | `--rpc-ocr`                     | RPC service host address for OCR                                                       | `pdf2zh_next example.pdf --rpc-ocr http://127.0.0.1:8000`                                                             |
 | `--rpc-translate`               | RPC service host address for translation                                                | `pdf2zh_next example.pdf --rpc-translate http://127.0.0.1:8000`                                                       |
 
@@ -1096,7 +1096,7 @@
 ---
 
 Let's begin.
-
+| `--term-pool-max-workers`       | 用語抽出翻訳プールの最大ワーカー数。設定されていないか 0 の場合、pool_max_workers に従います。 | `pdf2zh_next example.pdf --term-pool-max-workers 40`                                                  |
 ---
 
 ### TRANSLATION RESULT
@@ -1576,8 +1576,8 @@ Let's begin.
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `--enable-ocr-workaround`       | スキャン文書に対する OCR 回避策を有効にします。文書がスキャンされていると検出されない場合でも、OCR 処理を強制的に実行します。詳細はドキュメントを参照してください。（デフォルト：False）                         | `pdf2zh_next example.pdf --enable-ocr-workaround`                          |
 | `--disable-ocr-workaround`      | スキャン文書に対する OCR 回避策を無効にします。文書がスキャンされていると検出された場合でも、OCR 処理をスキップします。詳細はドキュメントを参照してください。（デフォルト：False）                             | `pdf2zh_next example.pdf --disable-ocr-workaround`                         |
-
-
+| `--only-include-translated-page`| 出力 PDF に翻訳済みページのみを含める。--pages が使用された場合のみ有効。  | `pdf2zh_next example.pdf --pages 1-5 --only-include-translated-page`                                                  |
+| `--no-merge-alternating-line-numbers` | 行番号付き文書における行番号とテキスト段落の交互マージを無効化 | `pdf2zh_next example.pdf --no-merge-alternating-line-numbers`                                                |
 |---------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | `--no-remove-non-inline-lines`  | Disable removal of non-inline formula lines within paragraph areas                      | `pdf2zh_next example.pdf --no-remove-non-inline-lines`                                                                |
 | `--no-remove-non-display-lines` | Disable removal of non-display formula lines within paragraph areas                     | `pdf2zh_next example.pdf --no-remove-non-display-lines`                                                               |

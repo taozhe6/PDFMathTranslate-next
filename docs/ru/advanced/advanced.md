@@ -806,7 +806,7 @@ ru
 | `--glossary-merge-strategy`     | Указать стратегию объединения глоссариев: `overwrite`, `combine`, `priority`                                        | `pdf2zh_next example.pdf --glossary-merge-strategy priority`                                                          |
 | `--glossary-priority`           | Указать приоритет пользовательского глоссария при использовании стратегии объединения `priority`                    | `pdf2zh_next example.pdf --glossary-priority 10`                                                                      |
 | `--glossary-fallback-strategy`  | Указать стратегию возврата: `ignore`, `use_default`, `abort`                                                        | `pdf2zh_next example.pdf --glossary-fallback-strategy use_default`                                                    |
-
+| `--primary-font-family`         | Переопределяет основное семейство шрифтов для переведенного текста. Варианты: 'serif' для шрифтов с засечками, 'sans-serif' для рубленых шрифтов, 'script' для рукописных/курсивных шрифтов. Если не указано, используется автоматический выбор шрифта на основе свойств исходного текста. | `pdf2zh_next example.pdf --primary-font-family serif` |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--no-cover`                    | Do not output cover pages for bilingual PDF files                                       | `pdf2zh_next example.pdf --no-cover`                                                                                  |
 | `--cover-logo <path>`           | Set logo for cover pages (default: `logo.png` in the same directory as the PDF file)    | `pdf2zh_next example.pdf --cover-logo ./logo.png`                                                                     |
@@ -1062,7 +1062,7 @@ ru
 |---------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | `--dual-translate-first-cover`  | Помещать переведенную титульную страницу первой в режиме двойного PDF                                        | `pdf2zh_next example.pdf --dual-translate-first-cover`                                                                |
 | `--dual-translate-first-cover-translated`  | Помещать переведенную титульную страницу первой в режиме двойного PDF и переводить титульную страницу.         | `pdf2zh_next example.pdf --dual-translate-first-cover-translated`                                                      |
-
+| `--disable-rich-text-translate` | Отключить перевод форматированного текста                                                           | `pdf2zh_next example.pdf --disable-rich-text-translate`                                                               |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--enhance-compatibility-ocr`   | Enable OCR compatibility enhancement                                                    | `pdf2zh_next example.pdf --enhance-compatibility-ocr`                                                                 |
 | `--enhance-compatibility-layout`| Enable layout compatibility enhancement                                                  | `pdf2zh_next example.pdf --enhance-compatibility-layout`                                                              |
@@ -1252,7 +1252,7 @@ ru
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `--disable-ocr-workaround`      | Отключить обходное решение OCR. Это пропустит обработку OCR, даже если документ определяется как сильно отсканированный. (по умолчанию: False)                                                                                                              | `pdf2zh_next example.pdf --disable-ocr-workaround`                         |
 | `--ocr-workaround-threshold`    | Установить порог для обходного решения OCR. Документы с оценкой сканирования выше этого значения будут считаться сильно отсканированными. (по умолчанию: 0.8)                                                                                               | `pdf2zh_next example.pdf --ocr-workaround-threshold 0.9`                   |
-
+| `--only-include-translated-page`| Включать в выходной PDF только переведённые страницы. Действует только при использовании --pages.  | `pdf2zh_next example.pdf --pages 1-5 --only-include-translated-page`                                                  |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `--no-merge-identical-parenthesis`    | Disable merging of identical parentheses at the beginning and end of a paragraph               | `pdf2zh_next example.pdf --no-merge-identical-parenthesis`                                                   |
 | `--no-merge-identical-brackets`       | Disable merging of identical brackets at the beginning and end of a paragraph                  | `pdf2zh_next example.pdf --no-merge-identical-brackets`                                                      |
@@ -1440,7 +1440,7 @@ Show the welcome page, and then the main window |
 | `--custom-service-config`       | Пользовательская конфигурация службы   | `pdf2zh_next --gui --custom-service-config "{}"`     | `{}`          |
 | `--custom-service-config-file`  | Файл пользовательской конфигурации службы | `pdf2zh_next --gui --custom-service-config-file ""`  | `""`          |
 | `--custom-service-config-files` | Файлы пользовательской конфигурации службы | `pdf2zh_next --gui --custom-service-config-files ""` | `""`          |
-
+| `--disable-gui-sensitive-input` | Отключить чувствительный ввод GUI | `pdf2zh_next --gui --disable-gui-sensitive-input` |
 |---------------------------------|----------------------------------------|-------------------------------------------------|
 | `--disable-auto-start-server`    | Disable auto start server              | `pdf2zh_next --gui --disable-auto-start-server` |
 

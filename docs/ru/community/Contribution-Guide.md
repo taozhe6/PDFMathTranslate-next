@@ -165,6 +165,7 @@
 - **high_level.py**: Высокоуровневые интерфейсы на основе BabelDOC.
 - **http_api.py**: Предоставляет HTTP API (не запущено).
 
+Спросите ИИ, чтобы понять проект: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## Свяжитесь с нами
 

@@ -247,6 +247,7 @@ Veuillez ne PAS soumettre de PR liées aux types mentionnés ci-dessus.
 - **high_level.py** : Interfaces de haut niveau basées sur BabelDOC.
 - **http_api.py** : Fournit l'API HTTP (non démarrée).
 
+Demandez à l'IA de comprendre le projet : [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## Nous contacter
 

@@ -230,6 +230,10 @@ Actualmente, los motores de traducción de Nivel 3 soportados incluyen:
 
 es
 
+**Los motores de traducción de Nivel 2** son mantenidos y soportados por la comunidad.  
+Cuando estos motores encuentran problemas, los mantenedores del proyecto no proporcionarán correcciones directas. En su lugar, etiquetarán los problemas relacionados con `help wanted` y darán la bienvenida a las solicitudes de extracción de los colaboradores para ayudar a resolverlos.
+
+Todos los motores que son compatibles con el programa pero no están explícitamente listados bajo el Nivel 1 se consideran motores de traducción de Nivel 2.
 
 We've deprecated the following engines due to their poor performance in Chinese-English translation. If you have a specific need for these engines, please open an issue to let us know.
 

@@ -432,6 +432,7 @@ nav:
       - Aliyun: advanced/TranslationServices/Aliyun.md
       - SiliconFlow: advanced/TranslationServices/SiliconFlow.md
   - Supported Languages: supported_languages.md
+  - API: advanced/API/python.md
   - FAQ: FAQ.md
   - Community:
     - Contribution-Guide: community/Contribution-Guide.md

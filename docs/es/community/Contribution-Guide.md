@@ -155,6 +155,7 @@ Para los siguientes tipos de PR, se recomienda discutir primero con los mantened
 - **high_level.py**: Interfaces de alto nivel basadas en BabelDOC.  
 - **http_api.py**: Proporciona API HTTP (no iniciado).
 
+Pregunta a la IA para entender el proyecto: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## Contáctanos
 

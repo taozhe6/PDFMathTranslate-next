@@ -1266,7 +1266,7 @@ In der folgenden Tabelle listen wir alle erweiterten Optionen zur Referenz auf:
 | ------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `--no-bilingual`                | Zweisprachige PDF-Dateien nicht ausgeben                                                | `pdf2zh_next example.pdf --no-bilingual`                                                                               |
 | `--no-tex`                      | LaTeX-Dateien nicht ausgeben                                                            | `pdf2zh_next example.pdf --no-tex`                                                                                     |
-
+| `--formular-font-pattern`       | Schriftmuster zur Identifizierung von Formeltext                                                   | `pdf2zh_next example.pdf --formular-font-pattern "(MS.*)"`                                                            |
 | `--formular-char-pattern-replace` | Replacement text for the matched formula character pattern                             | `pdf2zh_next example.pdf --formular-char-pattern "(MS.*)" --formular-char-pattern-replace "\\1"`                      |
 | `--formular-char-pattern-ignore` | Ignore formula character pattern matches                                                | `pdf2zh_next example.pdf --formular-char-pattern-ignore "(MS.*)"`                                                     |
 | `--formular-char-pattern-ignore-replace` | Replacement text for ignored formula character pattern matches                         | `pdf2zh_next example.pdf --formular-char-pattern-ignore "(MS.*)" --formular-char-pattern-ignore-replace "\\1"`        |
@@ -1893,7 +1893,7 @@ Enable Bing and OpenAI translation services only.                     |
 | `--output`                      | Ausgabedateipfad                       | `pdf2zh_next --gui --output "output.pdf"`             | Geben Sie den Ausgabedateipfad an.                                    |
 | `--config`                      | Konfigurationsdateipfad                 | `pdf2zh_next --gui --config "config.json"`           | Verwenden Sie eine Konfigurationsdatei, um mehrere Optionen festzulegen. |
 | `--help`                        | Hilfenachricht anzeigen                 | `pdf2zh_next --gui --help`                           | Zeigen Sie die Hilfenachricht für den GUI-Befehl an.                 |
-
+| `--disable-gui-sensitive-input` | Deaktiviert die GUI-Eingabeempfindlichkeit | `pdf2zh_next --gui --disable-gui-sensitive-input` |
 |---------------------------------|----------------------------------------|-------------------------------------------------|
 | `--config-file <path>`          | Use a custom configuration file        | `pdf2zh_next --gui --config-file ./config.json` | 
 | `--debug`                       | Enable debug mode                      | `pdf2zh_next --gui --debug`                     | 

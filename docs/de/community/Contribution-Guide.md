@@ -190,6 +190,7 @@ Für die folgenden Arten von PRs wird empfohlen, sie vor der Einreichung zuerst 
 - **high_level.py**: Hochrangige Schnittstellen basierend auf BabelDOC.
 - **http_api.py**: Bietet HTTP API (nicht gestartet).
 
+Frage KI, um das Projekt zu verstehen: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## Kontaktieren Sie uns
 

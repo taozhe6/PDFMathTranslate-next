@@ -169,6 +169,7 @@ By discussing these changes upfront, we can ensure that your contributions align
 - **high_level.py**：基于 BabelDOC 的高级接口。
 - **http_api.py**：提供 HTTP API（未启动）。
 
+向 AI 询问以了解项目：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## 联系我们
 

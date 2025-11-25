@@ -810,7 +810,7 @@ No       |
 ### TRANSLATED TEXT
 
 | `--ignore-cache`                | Ignorar cache de tradução                                                               | `pdf2zh_next example.pdf --ignore-cache`                                                                              |
-
+| `--custom-system-prompt`        | Prompt de sistema personalizado para tradução. Usado para `/no_think` no Qwen 3                    | `pdf2zh_next example.pdf --custom-system-prompt "/no_think You are a professional, authentic machine translation engine"` |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--glossary-fallback`           | Fallback to the next glossary if the current one does not contain the word.             | `pdf2zh_next example.pdf --glossaries "glossary1.csv,glossary2.csv" --glossary-fallback`                              |
 | `--glossary-case-sensitive`     | Enable case sensitivity for glossary matching.                                          | `pdf2zh_next example.pdf --glossaries "glossary.csv" --glossary-case-sensitive`                                       |
@@ -1544,8 +1544,8 @@ pt
 ### OUTPUT
 
 | `--auto-enable-ocr-workaround`  | Ativar solução alternativa automática de OCR. Se um documento for detectado como fortemente digitalizado, isso tentará ativar o processamento de OCR e ignorar a detecção de digitalização adicional. Consulte a documentação para obter detalhes. (padrão: Falso) | `pdf2zh_next example.pdf --auto-enable-ocr-workaround`                     |
-
-
+| `--only-include-translated-page`| Incluir apenas páginas traduzidas no PDF de saída. Eficaz apenas quando --pages é usado.  | `pdf2zh_next example.pdf --pages 1-5 --only-include-translated-page`                                                  |
+| `--no-merge-alternating-line-numbers` | Desativar a fusão de números de linha alternados e parágrafos de texto em documentos com numeração de linhas | `pdf2zh_next example.pdf --no-merge-alternating-line-numbers`                                                |
 | -------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `--no-remove-non-formula-lines`  | Desativar a remoção de linhas não relacionadas a fórmulas dentro de áreas de parágrafo | `pdf2zh_next example.pdf --no-remove-non-formula-lines`                                                                |
 

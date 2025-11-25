@@ -193,6 +193,7 @@ For the following types of PRs, you are welcome to submit directly:
 - **high_level.py**: BabelDOC 기반의 고수준 인터페이스.
 - **http_api.py**: HTTP API 를 제공 (시작되지 않음).
 
+AI 에게 프로젝트 이해 요청: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
 
 ## 문의하기
 

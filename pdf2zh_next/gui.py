@@ -1292,8 +1292,8 @@ with gr.Blocks(
                 lang_selector.render()
                 gr.Markdown(_("## File"))
                 file_type = gr.Radio(
-                    choices=[(_("File"), "File"), (_("Link"), "Link")],
-                    label=_("Type"),
+                    choices=[("File", "File"), ("Link", "Link")],
+                    label="Type",
                     value="File",
                 )
                 file_input = gr.File(
@@ -1420,17 +1420,15 @@ with gr.Blocks(
                     with gr.Group() as rate_limit_settings:
                         rate_limit_mode = gr.Radio(
                             choices=[
-                                (_("RPM (Requests Per Minute)"), "RPM"),
-                                (_("Concurrent Requests"), "Concurrent Threads"),
-                                (_("Custom"), "Custom"),
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
                             ],
-                            label=_("Rate Limit Mode"),
+                            label="Rate Limit Mode",
                             value="Custom",
                             interactive=True,
                             visible=False,
-                            info=_(
-                                "Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button"
-                            ),
+                            info="Select the rate limit mode that best suits your API provider, system will automatically convert the rate limiting values of RPM or Concurrent Requests to QPS and Pool Max Workers when you click the Translate button",
                         )
 
                         rpm_input = gr.Number(
@@ -1599,11 +1597,11 @@ with gr.Blocks(
 
                         term_rate_limit_mode = gr.Radio(
                             choices=[
-                                (_("RPM (Requests Per Minute)"), "RPM"),
-                                (_("Concurrent Requests"), "Concurrent Threads"),
-                                (_("Custom"), "Custom"),
+                                ("RPM (Requests Per Minute)", "RPM"),
+                                ("Concurrent Requests", "Concurrent Threads"),
+                                ("Custom", "Custom"),
                             ],
-                            label=_("Term rate limit mode"),
+                            label="Term rate limit mode",
                             value="Custom",
                             interactive=True,
                         )
@@ -1653,8 +1651,13 @@ with gr.Blocks(
                         )
 
                 page_range = gr.Radio(
-                    choices=get_page_choices(),
-                    label=_("Pages"),
+                    choices=[
+                        ("All", "All"),
+                        ("First", "First"),
+                        ("First 5 pages", "First 5 pages"),
+                        ("Range", "Range"),
+                    ],
+                    label="Pages",
                     value="All",
                 )
 
@@ -1699,8 +1702,8 @@ with gr.Blocks(
                     )
 
                 watermark_output_mode = gr.Radio(
-                    choices=[(_("Watermarked"), "Watermarked"), (_("No Watermark"), "No Watermark")],
-                    label=_("Watermark mode"),
+                    choices=[("Watermarked", "Watermarked"), ("No Watermark", "No Watermark")],
+                    label="Watermark mode",
                     value="Watermarked"
                     if settings.pdf.watermark_output_mode == "watermarked"
                     else "No Watermark",

@@ -1505,7 +1505,7 @@ The language code of the source document. If not specified, the language will be
 | `--ocr-workaround-skip-pages`   | 스캔 감지를 위해 건너뛸 초기 페이지 수. 표지 페이지가 잘못 감지될 수 있는 문서에 유용합니다. (기본값: 0)                                                                          | `pdf2zh_next example.pdf --ocr-workaround-skip-pages 1`                    |
 | `--ocr-workaround-sample-pages` | 스캔 감지용 샘플 페이지 수. 값이 높을수록 정확도가 향상되지만 처리 시간이 증가합니다. (기본값: 3)                                                                                | `pdf2zh_next example.pdf --ocr-workaround-sample-pages 5`                  |
 | `--ocr-workaround-min-density`  | 페이지를 스캔된 것으로 간주하기 위한 최소 텍스트 밀도 임계값. 값이 낮을수록 페이지가 스캔된 것으로 감지될 가능성이 높아집니다. (기본값: 0.01)                                               | `pdf2zh_next example.pdf --ocr-workaround-min-density 0.005`               |
-
+| `--only-include-translated-page`| 번역된 페이지만 출력 PDF 에 포함합니다. --pages 가 사용된 경우에만 유효합니다. | `pdf2zh_next example.pdf --pages 1-5 --only-include-translated-page`                                                  |
 | :------------------------------------ | :---------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
 | `--no-merge-lines`                    | Disable the merging of lines into paragraphs                                                    | `pdf2zh_next example.pdf --no-merge-lines`                                                                   |
 
@@ -1553,7 +1553,7 @@ The language code of the source document. If not specified, the language will be
 | `--non-formula-line-iou-threshold` | 비수식 라인 식별을 위한 IoU 임계값 설정 (0.0-1.0)                      | `pdf2zh_next example.pdf --non-formula-line-iou-threshold 0.85`                                                       | `0.8`    |
 | `--non-formula-line-font-size-ratio` | 비수식 라인 식별을 위한 글꼴 크기 비율 임계값 설정 (0.0-1.0)            | `pdf2zh_next example.pdf --non-formula-line-font-size-ratio 0.85`                                                     | `0.8`    |
 | `--non-formula-line-font-family-similarity` | 비수식 라인 식별을 위한 글꼴 패밀리 유사도 임계값 설정 (0.0-1.0)    | `pdf2zh_next example.pdf --non-formula-line-font-family-similarity 0.85`                                              | `0.8`    |
-
+| `--figure-table-protection-threshold` | 그림과 표에 대한 보호 임계값 설정 (0.0-1.0). 그림/표 내부의 라인은 처리되지 않음 | `pdf2zh_next example.pdf --figure-table-protection-threshold 0.95`                                        |
 ---
 
 ### TRANSLATED TEXT

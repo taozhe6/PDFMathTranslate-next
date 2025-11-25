@@ -733,7 +733,7 @@ Translate only pages 1,2,3,5, and all pages after page 5. The page numbers are s
 | `--force-refresh-ocr`           | 强制刷新 OCR 缓存（重新对 PDF 进行 OCR）                                                   | `pdf2zh_next example.pdf --force-refresh-ocr`                                                                         |
 | `--force-refresh-translation`   | 强制刷新翻译缓存（重新翻译文本）                                                           | `pdf2zh_next example.pdf --force-refresh-translation`                                                                 |
 | `--force-refresh-all`           | 强制刷新所有缓存（重新分析布局、重新 OCR 和重新翻译）                                       | `pdf2zh_next example.pdf --force-refresh-all`                                                                         |
-
+| `--custom-system-prompt`        | 用于翻译的自定义系统提示。适用于 Qwen 3 中的 `/no_think`                    | `pdf2zh_next example.pdf --custom-system-prompt "/no_think You are a professional, authentic machine translation engine"` |
 | ------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `--glossaries_auto_detect`      | Whether to automatically detect glossary files in the current directory.                 | `pdf2zh_next example.pdf --glossaries_auto_detect`                                                                    |
 | `--glossaries_auto_detect_path` | The path to automatically detect glossary files.                                        | `pdf2zh_next example.pdf --glossaries_auto_detect_path "./glossaries"`                                                |
@@ -822,7 +822,7 @@ Translate only pages 1,2,3,5, and all pages after page 5. The page numbers are s
 | `--term-extra-body`             | 术语提取翻译服务的额外请求体。                                                         | `pdf2zh_next example.pdf --term-extra-body '{"key": "value"}'`                                                        | `string`      |
 | `--term-extra-headers`          | 术语提取翻译服务的额外请求头。                                                         | `pdf2zh_next example.pdf --term-extra-headers '{"X-Custom-Header": "value"}'`                                         | `string`      |
 | `--term-extra-query`            | 术语提取翻译服务的额外查询参数。                                                       | `pdf2zh_next example.pdf --term-extra-query '{"custom_param": "value"}'`                                              | `string`      |
-
+| `--term-pool-max-workers`       | 术语提取翻译池的最大工作线程数。如果未设置或为 0，将遵循 pool_max_workers。 | `pdf2zh_next example.pdf --term-pool-max-workers 40`                                                  |
 | ------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `--glossary <path>`             | Use a custom glossary file                                                              | `pdf2zh_next example.pdf --glossary custom_glossary.txt`                                                              |
 | `--glossary-merge-strategy`     | Strategy for merging glossaries: `overwrite`, `combine` or `smart` (default: `smart`)   | `pdf2zh_next example.pdf --glossary custom_glossary.txt --glossary-merge-strategy overwrite`                          |
