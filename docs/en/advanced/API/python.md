@@ -19,7 +19,8 @@
   - file: str | pathlib.Path. The single PDF to translate. Must exist.
 
 Note:
-- settings.basic.input_files is ignored by this function; only the given `file` is translated.
+
+- `settings.basic.input_files` is ignored by this function; only the given `file` is translated.
 - If `settings.basic.debug` is True, translation runs in the main process; otherwise it runs in a subprocess. Event schema is identical for both.
 
 ### Event Stream Contract

@@ -1,7 +1,7 @@
 <!-- CHUNK ID: chunk_1C59CC51  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Getting Started**](./getting-started.md) > **Usage** > **Command Line** _(current)_
 
-<!-- CHUNK ID: h_rule_af5fa67a  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_d9670f42  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_9C810511  CHUNK TYPE: header START_LINE:5 -->
@@ -49,7 +49,7 @@ After execute translation, files generated in **current working directory**.
 > 
 > After executing this command, a pathname will be output. This pathname is the "**Current working directory**". The translated files will appear here.
 
-<!-- CHUNK ID: h_rule_b6fcd8cb  CHUNK TYPE: h_rule START_LINE:43 -->
+<!-- CHUNK ID: h_rule_ce8e1296  CHUNK TYPE: h_rule START_LINE:43 -->
 ---
 
 <!-- CHUNK ID: chunk_67DBD505  CHUNK TYPE: header START_LINE:45 -->
