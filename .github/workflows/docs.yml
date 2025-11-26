@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # debug purpose
-      is_main_repo: ${{ github.repository == 'PDFMathTranslate/PDFMathTranslate-next' }}
+      is_main_repo: ${{ github.repository == 'PDFMathTranslate-next/PDFMathTranslate-next' }}
     steps:
       - run: echo "Running repository check"
   deploy:
