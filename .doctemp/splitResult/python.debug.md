@@ -24,18 +24,19 @@
   - settings: SettingsModel. Must be valid; the function will call `settings.validate_settings()`.
   - file: str | pathlib.Path. The single PDF to translate. Must exist.
 
-<!-- CHUNK ID: chunk_CFDA70BC  CHUNK TYPE: paragraph START_LINE:21 -->
+<!-- CHUNK ID: chunk_F0CF2344  CHUNK TYPE: paragraph START_LINE:21 -->
 Note:
-<!-- CHUNK ID: chunk_80F8D6A6  CHUNK TYPE: list START_LINE:22 -->
-- settings.basic.input_files is ignored by this function; only the given `file` is translated.
+
+<!-- CHUNK ID: chunk_083FB11D  CHUNK TYPE: list START_LINE:23 -->
+- `settings.basic.input_files` is ignored by this function; only the given `file` is translated.
 - If `settings.basic.debug` is True, translation runs in the main process; otherwise it runs in a subprocess. Event schema is identical for both.
 
-<!-- CHUNK ID: chunk_EB0CE4AC  CHUNK TYPE: header START_LINE:25 -->
+<!-- CHUNK ID: chunk_EB0CE4AC  CHUNK TYPE: header START_LINE:26 -->
 ### Event Stream Contract
-<!-- CHUNK ID: chunk_3036F1F2  CHUNK TYPE: paragraph START_LINE:26 -->
+<!-- CHUNK ID: chunk_3036F1F2  CHUNK TYPE: paragraph START_LINE:27 -->
 The async generator yields JSON-like dict events with the following types:
 
-<!-- CHUNK ID: chunk_675B6F86  CHUNK TYPE: list START_LINE:28 -->
+<!-- CHUNK ID: chunk_675B6F86  CHUNK TYPE: list START_LINE:29 -->
 - Stage summary event: `stage_summary` (optional, may appear first)
   - Fields
     - `type`: "stage_summary"
@@ -74,17 +75,17 @@ The async generator yields JSON-like dict events with the following types:
     - `error_type`: one of `BabeldocError`, `SubprocessError`, `IPCError`, `SubprocessCrashError`, etc.
     - `details`: optional details (e.g., original error or traceback)
 
-<!-- CHUNK ID: chunk_F9D8685D  CHUNK TYPE: paragraph START_LINE:66 -->
+<!-- CHUNK ID: chunk_F9D8685D  CHUNK TYPE: paragraph START_LINE:67 -->
 Important behavior:
-<!-- CHUNK ID: chunk_C8ABE7AA  CHUNK TYPE: list START_LINE:67 -->
+<!-- CHUNK ID: chunk_C8ABE7AA  CHUNK TYPE: list START_LINE:68 -->
 - An optional `stage_summary` may be emitted before progress begins.
 - On certain failures, the generator will first yield an `error` event and then raise an exception derived from `TranslationError`. You should both check for error events and be prepared to catch exceptions.
 - `progress_update` events may repeat with identical values; consumers should debounce if necessary.
 - Stop consuming the stream when you receive a `finish` event.
 
-<!-- CHUNK ID: chunk_FB4E5C3D  CHUNK TYPE: header START_LINE:72 -->
+<!-- CHUNK ID: chunk_FB4E5C3D  CHUNK TYPE: header START_LINE:73 -->
 ### Minimal Usage Example (Async)
-<!-- CHUNK ID: chunk_21C5563D  CHUNK TYPE: code_block START_LINE:73 -->
+<!-- CHUNK ID: chunk_21C5563D  CHUNK TYPE: code_block START_LINE:74 -->
 ```python
 import asyncio
 from pathlib import Path
@@ -133,12 +134,12 @@ async def translate_one(settings, pdf_path: str | Path):
 # asyncio.run(translate_one(settings, "/path/to/file.pdf"))
 ```
 
-<!-- CHUNK ID: chunk_D1A58650  CHUNK TYPE: header START_LINE:121 -->
+<!-- CHUNK ID: chunk_D1A58650  CHUNK TYPE: header START_LINE:122 -->
 ### Cancellation
-<!-- CHUNK ID: chunk_08070A6A  CHUNK TYPE: paragraph START_LINE:122 -->
+<!-- CHUNK ID: chunk_08070A6A  CHUNK TYPE: paragraph START_LINE:123 -->
 You can cancel the task consuming the stream. Cancellation is propagated to the underlying translation process.
 
-<!-- CHUNK ID: chunk_0AF5D8DE  CHUNK TYPE: code_block START_LINE:124 -->
+<!-- CHUNK ID: chunk_0AF5D8DE  CHUNK TYPE: code_block START_LINE:125 -->
 ```python
 import asyncio
 from pdf2zh_next.high_level import do_translate_async_stream
@@ -158,11 +159,11 @@ async def _consume(settings, pdf):
             break
 ```
 
-<!-- CHUNK ID: chunk_ED7E6B17  CHUNK TYPE: header START_LINE:143 -->
+<!-- CHUNK ID: chunk_ED7E6B17  CHUNK TYPE: header START_LINE:144 -->
 ### Example Event Shapes
-<!-- CHUNK ID: chunk_6F13A489  CHUNK TYPE: paragraph START_LINE:144 -->
+<!-- CHUNK ID: chunk_6F13A489  CHUNK TYPE: paragraph START_LINE:145 -->
 Stage summary event (example):
-<!-- CHUNK ID: chunk_A8D3C870  CHUNK TYPE: code_block START_LINE:145 -->
+<!-- CHUNK ID: chunk_A8D3C870  CHUNK TYPE: code_block START_LINE:146 -->
 ```json
 {
   "type": "stage_summary",
@@ -177,9 +178,9 @@ Stage summary event (example):
 }
 ```
 
-<!-- CHUNK ID: chunk_EECBAE94  CHUNK TYPE: paragraph START_LINE:159 -->
+<!-- CHUNK ID: chunk_EECBAE94  CHUNK TYPE: paragraph START_LINE:160 -->
 Progress event (example):
-<!-- CHUNK ID: chunk_37B241CB  CHUNK TYPE: code_block START_LINE:160 -->
+<!-- CHUNK ID: chunk_37B241CB  CHUNK TYPE: code_block START_LINE:161 -->
 ```json
 {
   "type": "progress_update",
@@ -193,9 +194,9 @@ Progress event (example):
 }
 ```
 
-<!-- CHUNK ID: chunk_C6F45B63  CHUNK TYPE: paragraph START_LINE:173 -->
+<!-- CHUNK ID: chunk_C6F45B63  CHUNK TYPE: paragraph START_LINE:174 -->
 Finish event (example):
-<!-- CHUNK ID: chunk_6A7D099B  CHUNK TYPE: code_block START_LINE:174 -->
+<!-- CHUNK ID: chunk_6A7D099B  CHUNK TYPE: code_block START_LINE:175 -->
 ```json
 {
   "type": "finish",
@@ -212,9 +213,9 @@ Finish event (example):
 }
 ```
 
-<!-- CHUNK ID: chunk_F8F61FC8  CHUNK TYPE: paragraph START_LINE:190 -->
+<!-- CHUNK ID: chunk_F8F61FC8  CHUNK TYPE: paragraph START_LINE:191 -->
 Error event (example):
-<!-- CHUNK ID: chunk_D4934FF8  CHUNK TYPE: code_block START_LINE:191 -->
+<!-- CHUNK ID: chunk_D4934FF8  CHUNK TYPE: code_block START_LINE:192 -->
 ```json
 {
   "type": "error",
@@ -224,9 +225,9 @@ Error event (example):
 }
 ```
 
-<!-- CHUNK ID: chunk_C7DBFA5F  CHUNK TYPE: header START_LINE:200 -->
+<!-- CHUNK ID: chunk_C7DBFA5F  CHUNK TYPE: header START_LINE:201 -->
 ### Notes & Best Practices
-<!-- CHUNK ID: chunk_F18B5199  CHUNK TYPE: list START_LINE:201 -->
+<!-- CHUNK ID: chunk_F18B5199  CHUNK TYPE: list START_LINE:202 -->
 - Always handle both error events and exceptions from the generator.
 - Break the loop on `finish` to avoid unnecessary work.
 - Ensure the `file` exists and `settings.validate_settings()` passes before calling.
