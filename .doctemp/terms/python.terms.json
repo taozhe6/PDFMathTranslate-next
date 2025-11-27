@@ -24,15 +24,7 @@
         "Aliyun": "阿里云",
         "SiliconFlow": "硅基流动",
         "For Translators": "文档翻译贡献指南",
-        "Immersive Translate": "沉浸式翻译",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### 概述",
-        "### Signature": "### 签名",
-        "### Event Stream Contract": "### 事件流契约",
-        "### Minimal Usage Example (Async)": "### 最小使用示例（异步）",
-        "### Cancellation": "### 取消",
-        "### Example Event Shapes": "### 示例事件形状",
-        "### Notes & Best Practices": "### 注意事项与最佳实践"
+        "Immersive Translate": "沉浸式翻译"
       }
     },
     "zh_TW": {
@@ -52,15 +44,7 @@
         "FAQ": "常見問題",
         "Aliyun": "阿里雲",
         "SiliconFlow": "硅基流動",
-        "For Translators": "文檔翻譯貢獻指南",
-        "## Python API: do_translate_async_stream": "## Python API：do_translate_async_stream",
-        "### Overview": "### 概述",
-        "### Signature": "### 簽名",
-        "### Event Stream Contract": "### 事件串流合約",
-        "### Minimal Usage Example (Async)": "### 最小使用範例（非同步）",
-        "### Cancellation": "### 取消",
-        "### Example Event Shapes": "### 事件形狀示例",
-        "### Notes & Best Practices": "### 注意事項與最佳實踐"
+        "For Translators": "文檔翻譯貢獻指南"
       }
     },
     "ja": {
@@ -79,15 +63,7 @@
         "Community": "コミュニティ",
         "FAQ": "よくある質問",
         "For Translators": "文書翻訳貢献ガイド",
-        "Immersive Translate": "没入型翻訳",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### 概要",
-        "### Signature": "### 署名",
-        "### Event Stream Contract": "### イベントストリーム契約",
-        "### Minimal Usage Example (Async)": "### 最小限の使用例（非同期）",
-        "### Cancellation": "### キャンセル",
-        "### Example Event Shapes": "### イベント形状の例",
-        "### Notes & Best Practices": "### 注意点とベストプラクティス"
+        "Immersive Translate": "没入型翻訳"
       }
     },
     "ko": {
@@ -105,15 +81,7 @@
         "Supported Languages": "지원 언어",
         "Community": "커뮤니티",
         "FAQ": "자주 묻는 질문",
-        "For Translators": "문서 번역 기여 가이드",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### 개요",
-        "### Signature": "### 서명",
-        "### Event Stream Contract": "### 이벤트 스트림 계약",
-        "### Minimal Usage Example (Async)": "### 최소 사용 예시 (비동기)",
-        "### Cancellation": "### 취소",
-        "### Example Event Shapes": "### 이벤트 모양 예시",
-        "### Notes & Best Practices": "### 참고 사항 및 모범 사례"
+        "For Translators": "문서 번역 기여 가이드"
       }
     },
     "ru": {
@@ -131,15 +99,7 @@
         "Supported Languages": "Поддерживаемые языки",
         "Community": "Сообщество",
         "FAQ": "Часто задаваемые вопросы",
-        "For Translators": "Руководство по внесению вклада в переводы",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### Обзор",
-        "### Signature": "### Подпись",
-        "### Event Stream Contract": "### Контракт потока событий",
-        "### Minimal Usage Example (Async)": "### Минимальный пример использования (Асинхронный)",
-        "### Cancellation": "### Отмена",
-        "### Example Event Shapes": "### Примеры форм событий",
-        "### Notes & Best Practices": "### Примечания и рекомендации"
+        "For Translators": "Руководство по внесению вклада в переводы"
       }
     },
     "es": {
@@ -157,15 +117,7 @@
         "Supported Languages": "Idiomas soportados",
         "Community": "Comunidad",
         "FAQ": "Preguntas frecuentes",
-        "For Translators": "Guía de contribución de traducciones",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### Resumen",
-        "### Signature": "### Firma",
-        "### Event Stream Contract": "### Contrato de flujo de eventos",
-        "### Minimal Usage Example (Async)": "### Ejemplo de uso mínimo (Asíncrono)",
-        "### Cancellation": "### Cancelación",
-        "### Example Event Shapes": "### Formas de eventos de ejemplo",
-        "### Notes & Best Practices": "### Notas y mejores prácticas"
+        "For Translators": "Guía de contribución de traducciones"
       }
     },
     "fr": {
@@ -183,15 +135,7 @@
         "Supported Languages": "Langues supportées",
         "Community": "Communauté",
         "FAQ": "FAQ",
-        "For Translators": "Guide de contribution des traductions",
-        "## Python API: do_translate_async_stream": "## Python API : do_translate_async_stream",
-        "### Overview": "### Aperçu",
-        "### Signature": "### Signature",
-        "### Event Stream Contract": "### Contrat de flux d'événements",
-        "### Minimal Usage Example (Async)": "### Exemple d'utilisation minimale (Asynchrone)",
-        "### Cancellation": "### Annulation",
-        "### Example Event Shapes": "### Formes d'événements exemples",
-        "### Notes & Best Practices": "### Notes & Meilleures pratiques"
+        "For Translators": "Guide de contribution des traductions"
       }
     },
     "de": {
@@ -209,15 +153,7 @@
         "Supported Languages": "Unterstützte Sprachen",
         "Community": "Gemeinschaft",
         "FAQ": "Häufig gestellte Fragen",
-        "For Translators": "Guide de contribution des traductions",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### Übersicht",
-        "### Signature": "### Signatur",
-        "### Event Stream Contract": "### Event-Stream-Vertrag",
-        "### Minimal Usage Example (Async)": "### Minimales Verwendungsbeispiel (Async)",
-        "### Cancellation": "### Stornierung",
-        "### Example Event Shapes": "### Beispielhafte Ereignisformen",
-        "### Notes & Best Practices": "### Hinweise & Best Practices"
+        "For Translators": "Guide de contribution des traductions"
       }
     },
     "it": {
@@ -235,15 +171,7 @@
         "Supported Languages": "Lingue supportate",
         "Community": "Comunità",
         "FAQ": "Domande frequenti",
-        "For Translators": "Guida alla contribuzione per le traduzioni",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### Panoramica",
-        "### Signature": "### Firma",
-        "### Event Stream Contract": "### Contratto del flusso di eventi",
-        "### Minimal Usage Example (Async)": "### Esempio di utilizzo minimo (Async)",
-        "### Cancellation": "### Annullamento",
-        "### Example Event Shapes": "### Forme di Evento di Esempio",
-        "### Notes & Best Practices": "### Note e migliori pratiche"
+        "For Translators": "Guida alla contribuzione per le traduzioni"
       }
     },
     "pt": {
@@ -261,15 +189,7 @@
         "Supported Languages": "Idiomas suportados",
         "Community": "Comunidade",
         "FAQ": "Perguntas frequentes",
-        "For Translators": "Guia de contribuição para traduções",
-        "## Python API: do_translate_async_stream": "## Python API: do_translate_async_stream",
-        "### Overview": "### Visão geral",
-        "### Signature": "### Assinatura",
-        "### Event Stream Contract": "### Contrato de Fluxo de Eventos",
-        "### Minimal Usage Example (Async)": "### Exemplo de Uso Mínimo (Assíncrono)",
-        "### Cancellation": "### Cancelamento",
-        "### Example Event Shapes": "### Formas de Eventos de Exemplo",
-        "### Notes & Best Practices": "### Notas e Melhores Práticas"
+        "For Translators": "Guia de contribuição para traduções"
       }
     }
   }

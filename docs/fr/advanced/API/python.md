@@ -18,7 +18,7 @@
   - settings : SettingsModel. Doit être valide ; la fonction appellera `settings.validate_settings()`.
   - file : str | pathlib.Path. Le PDF unique à traduire. Doit exister.
 
-[!NOTE]
+NOTE
 
 - `settings.basic.input_files` est ignoré par cette fonction ; seul le `file` donné est traduit.
 - Si `settings.basic.debug` est True, la traduction s'exécute dans le processus principal ; sinon, elle s'exécute dans un sous-processus. Le schéma d'événements est identique dans les deux cas.
