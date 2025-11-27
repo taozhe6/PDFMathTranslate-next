@@ -14,7 +14,7 @@
 ### 署名
 - インポート：`from pdf2zh_next.high_level import do_translate_async_stream`
 - 呼び出し：`async for event in do_translate_async_stream(settings, file): ...`
-- パラメータ：
+- パラメータ:
   - settings: SettingsModel。有効である必要があります。関数は `settings.validate_settings()` を呼び出します。
   - file: str | pathlib.Path。翻訳する単一の PDF ファイル。存在する必要があります。
 

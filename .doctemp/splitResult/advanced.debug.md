@@ -1,7 +1,7 @@
 <!-- CHUNK ID: chunk_DDD39913  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Advanced**](./introduction.md) > **Advanced** _(current)_
 
-<!-- CHUNK ID: h_rule_a76e30f4  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_8268bba0  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_D9B293FF  CHUNK TYPE: paragraph START_LINE:5 -->
@@ -21,7 +21,7 @@
 - [Authentication and welcome page](#authentication-and-welcome-page)
 - [Glossary Support](#glossary-support)
 
-<!-- CHUNK ID: h_rule_0f535a08  CHUNK TYPE: h_rule START_LINE:20 -->
+<!-- CHUNK ID: h_rule_4f9c9a70  CHUNK TYPE: h_rule START_LINE:20 -->
 ---
 
 <!-- CHUNK ID: chunk_3BF1A9B5  CHUNK TYPE: header START_LINE:22 -->
@@ -168,7 +168,7 @@ In the following table, we list all advanced options for reference:
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:99 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_660caffe  CHUNK TYPE: h_rule START_LINE:101 -->
+<!-- CHUNK ID: h_rule_60043796  CHUNK TYPE: h_rule START_LINE:101 -->
 ---
 
 <!-- CHUNK ID: chunk_E0DC0651  CHUNK TYPE: header START_LINE:103 -->
@@ -246,7 +246,7 @@ pdf2zh example.pdf --qps 45 --pool-max-worker 45
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:157 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_4b3e66ac  CHUNK TYPE: h_rule START_LINE:159 -->
+<!-- CHUNK ID: h_rule_53cb14ca  CHUNK TYPE: h_rule START_LINE:159 -->
 ---
 
 <!-- CHUNK ID: chunk_ADC018D0  CHUNK TYPE: header START_LINE:161 -->
@@ -299,7 +299,7 @@ This command will translate the first page, the third page, pages 10-20, and all
 
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_80d753b6  CHUNK TYPE: h_rule START_LINE:199 -->
+<!-- CHUNK ID: h_rule_c55a47b4  CHUNK TYPE: h_rule START_LINE:199 -->
 ---
 
 <!-- CHUNK ID: chunk_482C5F18  CHUNK TYPE: header START_LINE:201 -->
@@ -316,7 +316,7 @@ pdf2zh_next example.pdf --lang-in en -lang-out ja
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:209 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_2d1c5205  CHUNK TYPE: h_rule START_LINE:211 -->
+<!-- CHUNK ID: h_rule_4469a613  CHUNK TYPE: h_rule START_LINE:211 -->
 ---
 
 <!-- CHUNK ID: chunk_EA41DE52  CHUNK TYPE: header START_LINE:213 -->
@@ -341,7 +341,7 @@ pdf2zh_next example.pdf --formular-font-pattern "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:227 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_de069307  CHUNK TYPE: h_rule START_LINE:229 -->
+<!-- CHUNK ID: h_rule_48128847  CHUNK TYPE: h_rule START_LINE:229 -->
 ---
 
 <!-- CHUNK ID: chunk_37A13558  CHUNK TYPE: header START_LINE:231 -->
@@ -361,7 +361,7 @@ pdf2zh_next example.pdf --custom-system-prompt "/no_think You are a professional
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:241 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_d3c57e84  CHUNK TYPE: h_rule START_LINE:243 -->
+<!-- CHUNK ID: h_rule_fb0c24b1  CHUNK TYPE: h_rule START_LINE:243 -->
 ---
 
 <!-- CHUNK ID: chunk_1EC5A9B5  CHUNK TYPE: header START_LINE:245 -->
@@ -441,7 +441,7 @@ It is strongly recommended to refer to this configuration file's content and use
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:302 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_5dcc345e  CHUNK TYPE: h_rule START_LINE:304 -->
+<!-- CHUNK ID: h_rule_18b4b4d3  CHUNK TYPE: h_rule START_LINE:304 -->
 ---
 
 <!-- CHUNK ID: chunk_870EBD0C  CHUNK TYPE: header START_LINE:306 -->
@@ -469,7 +469,7 @@ PDF2ZH_SKIP_CLEAN=TRUE pdf2zh_next example.pdf
 > [!TIP]
 > When `--enhance-compatibility` is enabled, Skip clean is automatically enabled.
 
-<!-- CHUNK ID: h_rule_abbc88b7  CHUNK TYPE: h_rule START_LINE:325 -->
+<!-- CHUNK ID: h_rule_068fd2f7  CHUNK TYPE: h_rule START_LINE:325 -->
 ---
 
 <!-- CHUNK ID: chunk_A35603CF  CHUNK TYPE: header START_LINE:327 -->
@@ -486,7 +486,7 @@ pdf2zh_next example.pdf --ignore-cache
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:335 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_4248de69  CHUNK TYPE: h_rule START_LINE:337 -->
+<!-- CHUNK ID: h_rule_85c7ddf7  CHUNK TYPE: h_rule START_LINE:337 -->
 ---
 
 <!-- CHUNK ID: chunk_05080CDF  CHUNK TYPE: header START_LINE:339 -->
@@ -522,7 +522,7 @@ disable_config_auto_save = true
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:364 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_34c95700  CHUNK TYPE: h_rule START_LINE:366 -->
+<!-- CHUNK ID: h_rule_dd52a23a  CHUNK TYPE: h_rule START_LINE:366 -->
 ---
 
 <!-- CHUNK ID: chunk_E255AB78  CHUNK TYPE: header START_LINE:368 -->
@@ -581,7 +581,7 @@ welcome_page = "/path/to/welcome/html/file"
 <!-- CHUNK ID: chunk_F1B6ECA2  CHUNK TYPE: paragraph START_LINE:413 -->
 [⬆️ Back to top](#toc)
 
-<!-- CHUNK ID: h_rule_ec91662c  CHUNK TYPE: h_rule START_LINE:415 -->
+<!-- CHUNK ID: h_rule_4616fb87  CHUNK TYPE: h_rule START_LINE:415 -->
 ---
 
 <!-- CHUNK ID: chunk_4A9C44BF  CHUNK TYPE: header START_LINE:417 -->
