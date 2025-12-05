@@ -1199,27 +1199,30 @@ async def translate_files(
         # All files zip
         with zipfile.ZipFile(zip_path, 'w') as zipf:
             for fname, res in state["results"].items():
-                if res["mono"]: zipf.write(res["mono"], arcname=f"mono_{Path(res['mono']).name}")
-                if res["dual"]: zipf.write(res["dual"], arcname=f"dual_{Path(res['dual']).name}")
-                if res["glossary"]: zipf.write(res["glossary"], arcname=f"glossary_{Path(res['glossary']).name}")
+                if res["mono"]:
+                    zipf.write(res["mono"], arcname=f"mono_{Path(res['mono']).name}")
+                if res["dual"]:
+                    zipf.write(res["dual"], arcname=f"dual_{Path(res['dual']).name}")
+                if res["glossary"]:
+                    zipf.write(res["glossary"], arcname=f"glossary_{Path(res['glossary']).name}")
 
         # Individual Zips
         has_mono, has_dual, has_glossary = False, False, False
         with zipfile.ZipFile(zip_mono_path, 'w') as zipf:
             for fname, res in state["results"].items():
-                if res["mono"]: 
+                if res["mono"]:
                     zipf.write(res["mono"], arcname=f"mono_{Path(res['mono']).name}")
                     has_mono = True
         
         with zipfile.ZipFile(zip_dual_path, 'w') as zipf:
             for fname, res in state["results"].items():
-                if res["dual"]: 
+                if res["dual"]:
                     zipf.write(res["dual"], arcname=f"dual_{Path(res['dual']).name}")
                     has_dual = True
 
         with zipfile.ZipFile(zip_glossary_path, 'w') as zipf:
             for fname, res in state["results"].items():
-                if res["glossary"]: 
+                if res["glossary"]:
                     zipf.write(res["glossary"], arcname=f"glossary_{Path(res['glossary']).name}")
                     has_glossary = True
 
