@@ -343,7 +343,11 @@ def download_with_limit(url: str, save_path: str, size_limit: int = None) -> str
 
 
 def _prepare_input_file(
-    file_type: str, file_input: str | list, link_input: str, output_dir: Path
+    file_type: str,
+    file_input: str | list,
+    link_input: str,
+    output_dir: Path,
+    state: dict | None = None,
 ) -> list[Path]:
     """
     This function prepares the input file(s) for translation.
@@ -360,23 +364,40 @@ def _prepare_input_file(
     prepared_files = []
 
     if file_type == "File":
-        if not file_input:
+        # Handle normal case: file_input is provided by the File component
+        if file_input:
+            # Handle single file or multiple files
+            if isinstance(file_input, str | Path):
+                inputs = [file_input]
+            else:
+                inputs = file_input
+
+            for f_in in inputs:
+                # Gradio provides file paths as NamedString or str in temp
+                src_path = Path(f_in.name if hasattr(f_in, "name") else f_in)
+                # Use original filename without UUID prefix as requested, but avoid collisions
+                dest_name = src_path.name
+                dest_path = _get_unique_dest_path(output_dir, dest_name)
+                shutil.copy(src_path, dest_path)
+                prepared_files.append(dest_path)
+        # Fallback case: rely on state when File component value is empty
+        elif state and state.get("uploaded_files") and state.get("display_map"):
+            for original_name in state.get("uploaded_files", []):
+                src_str = state["display_map"].get(original_name)
+                if not src_str:
+                    continue
+                src_path = Path(src_str)
+                if not src_path.exists():
+                    # Skip missing temp files; user may need to re-upload
+                    continue
+                dest_name = src_path.name
+                dest_path = _get_unique_dest_path(output_dir, dest_name)
+                shutil.copy(src_path, dest_path)
+                prepared_files.append(dest_path)
+
+        if not prepared_files:
+            # Still nothing prepared: propagate original error
             raise gr.Error("No file input provided")
-
-        # Handle single file or multiple files
-        if isinstance(file_input, str | Path):
-            inputs = [file_input]
-        else:
-            inputs = file_input
-
-        for f_in in inputs:
-            # Gradio provides file paths as NamedString or str in temp
-            src_path = Path(f_in.name if hasattr(f_in, "name") else f_in)
-            # Use original filename without UUID prefix as requested, but avoid collisions
-            dest_name = src_path.name
-            dest_path = _get_unique_dest_path(output_dir, dest_name)
-            shutil.copy(src_path, dest_path)
-            prepared_files.append(dest_path)
 
     else:
         if not link_input:
@@ -1134,6 +1155,16 @@ async def translate_files(
             if parent_key and parent_key in state["results"]:
                 current_res = state["results"][parent_key]
 
+        # Build uploaded files markdown view
+        uploaded_files = state.get("uploaded_files") or []
+        if uploaded_files:
+            uploaded_md = "\n".join(
+                f"{idx + 1}. {name}" for idx, name in enumerate(uploaded_files)
+            )
+            uploaded_view_update = gr.update(value=uploaded_md, visible=True)
+        else:
+            uploaded_view_update = gr.update(value="", visible=False)
+
         return (
             current_res["mono"],
             preview_path,
@@ -1155,11 +1186,14 @@ async def translate_files(
             None,
             gr.update(visible=False),
             None,
+            uploaded_view_update,
         )
 
     try:
         # Step 1: Prepare input files
-        file_paths = _prepare_input_file(file_type, file_input, link_input, output_dir)
+        file_paths = _prepare_input_file(
+            file_type, file_input, link_input, output_dir, state
+        )
         total_files = len(file_paths)
 
         all_token_usage = {
@@ -1336,7 +1370,13 @@ async def translate_files(
             _u7,
             _u8,
             _u9,
+            uploaded_view_update,
         ) = get_current_ui_update(final_preview_label)
+
+        # After successful translation of all files, clear uploaded files for next batch
+        if "uploaded_files" in state:
+            state["uploaded_files"] = []
+            uploaded_view_update = gr.update(value="", visible=False)
 
         # Yield Final Result with Zips visible
         yield (
@@ -1358,10 +1398,12 @@ async def translate_files(
             str(zip_dual_path) if has_dual else None,
             gr.update(visible=has_glossary),
             str(zip_glossary_path) if has_glossary else None,
+            uploaded_view_update,
         )
 
     except asyncio.CancelledError:
         gr.Info(_("Translation cancelled"))
+        state["uploaded_files"] = []
         yield (
             None,
             None,
@@ -1381,6 +1423,7 @@ async def translate_files(
             None,
             gr.update(visible=False),
             None,
+            gr.update(value="", visible=False),
         )
     except Exception as e:
         logger.exception(f"Error in translate_files: {e}")
@@ -1461,12 +1504,15 @@ def on_file_upload(files, state):
             "file_order": [],
             "display_map": {},
             "parent_map": {},
+            "uploaded_files": [],
         }
 
     if "display_map" not in state:
         state["display_map"] = {}
     if "parent_map" not in state:
         state["parent_map"] = {}
+    if "uploaded_files" not in state:
+        state["uploaded_files"] = []
 
     # Clear previous maps if this is a fresh upload action/session logic implies reset
     # For additive behavior, we keep them. Assuming additive for multi-upload.
@@ -1483,6 +1529,10 @@ def on_file_upload(files, state):
         state["display_map"][original_name] = str(f_path)
         state["parent_map"][original_name] = original_name
 
+        # Track uploaded files for this session
+        if original_name not in state["uploaded_files"]:
+            state["uploaded_files"].append(original_name)
+
         # Add to local list to update UI
         if original_name not in new_choices:
             new_choices.append(original_name)
@@ -1495,7 +1545,21 @@ def on_file_upload(files, state):
         new_choices[0] if new_choices else (all_choices[0] if all_choices else None)
     )
 
-    return gr.update(choices=all_choices, value=default_value, visible=True), state
+    # Build uploaded files markdown view
+    uploaded_files = state["uploaded_files"]
+    if uploaded_files:
+        uploaded_md = "\n".join(
+            f"{idx + 1}. {name}" for idx, name in enumerate(uploaded_files)
+        )
+        uploaded_view_update = gr.update(value=uploaded_md, visible=True)
+    else:
+        uploaded_view_update = gr.update(value="", visible=False)
+
+    return (
+        gr.update(choices=all_choices, value=default_value, visible=True),
+        state,
+        uploaded_view_update,
+    )
 
 
 def save_config(
@@ -1641,6 +1705,11 @@ with gr.Blocks(
                     label=_("Link"),
                     visible=False,
                     interactive=True,
+                )
+                uploaded_files_view = gr.Markdown(
+                    label=_("Uploaded files (this session)"),
+                    value="",
+                    visible=False,
                 )
 
                 gr.Markdown(_("## Translation Options"))
@@ -2476,13 +2545,14 @@ with gr.Blocks(
                 "file_order": [],
                 "display_map": {},
                 "parent_map": {},
+                "uploaded_files": [],
             }
         )
 
         file_input.upload(
             on_file_upload,
             inputs=[file_input, state],
-            outputs=[result_file_selector, state],
+            outputs=[result_file_selector, state, uploaded_files_view],
         )
 
         # Event bindings
@@ -2673,6 +2743,7 @@ with gr.Blocks(
                 output_file_zip_dual,  # File
                 output_file_zip_glossary,  # Visibility
                 output_file_zip_glossary,  # File
+                uploaded_files_view,  # Uploaded files view
             ],
             show_progress_on=[preview],
         )
