@@ -5,7 +5,7 @@ site_author: awwaawwa
 site_description: PDF scientific paper translation and bilingual comparison.
 
 # Repository
-repo_name: PDFMathTranslate/PDFMathTranslate-next
+repo_name: PDFMathTranslate-next
 repo_url: https://github.com/PDFMathTranslate-next/PDFMathTranslate-next
 edit_uri: edit/main/docs/
 
