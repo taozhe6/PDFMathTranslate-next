@@ -7,6 +7,7 @@ import shutil
 import tempfile
 import typing
 import uuid
+import zipfile
 from enum import Enum
 from pathlib import Path
 from string import Template
@@ -294,7 +295,7 @@ def download_with_limit(url: str, save_path: str, size_limit: int = None) -> str
         response.raise_for_status()
         content = response.headers.get("Content-Disposition")
         try:  # filename from header
-            _, params = cgi.parse_header(content)
+            un_used, params = cgi.parse_header(content)
             filename = params["filename"]
         except Exception:  # filename from url
             filename = Path(url).name
@@ -313,33 +314,51 @@ def download_with_limit(url: str, save_path: str, size_limit: int = None) -> str
 
 
 def _prepare_input_file(
-    file_type: str, file_input: str, link_input: str, output_dir: Path
-) -> Path:
+    file_type: str, file_input: typing.Union[str, list], link_input: str, output_dir: Path
+) -> typing.List[Path]:
     """
-    This function prepares the input file for translation.
+    This function prepares the input file(s) for translation.
 
     Inputs:
         - file_type: The type of file to translate (File or Link)
-        - file_input: The path to the file to translate
+        - file_input: The path to the file to translate or list of paths
         - link_input: The link to the file to translate
         - output_dir: The directory to save the file to
 
     Returns:
-        - The path of the input file
+        - A list of paths of the input files
     """
+    prepared_files = []
+    
     if file_type == "File":
         if not file_input:
             raise gr.Error("No file input provided")
-        file_path = shutil.copy(file_input, output_dir)
+        
+        # Handle single file or multiple files
+        if isinstance(file_input, (str, Path)):
+            inputs = [file_input]
+        else:
+            inputs = file_input
+
+        for f_in in inputs:
+            # Gradio provides file paths as NamedString or str in temp
+            src_path = Path(f_in.name if hasattr(f_in, 'name') else f_in)
+            # Use original filename without UUID prefix as requested
+            dest_name = src_path.name
+            dest_path = output_dir / dest_name
+            shutil.copy(src_path, dest_path)
+            prepared_files.append(dest_path)
+            
     else:
         if not link_input:
             raise gr.Error("No link input provided")
         try:
             file_path = download_with_limit(link_input, output_dir)
+            prepared_files.append(Path(file_path))
         except Exception as e:
             raise gr.Error(f"Error downloading file: {e}") from e
 
-    return Path(file_path)
+    return prepared_files
 
 
 def _validate_rate_limit_inputs(
@@ -924,7 +943,7 @@ def build_ui_inputs(*args):
 
 
 async def _run_translation_task(
-    settings: SettingsModel, file_path: Path, state: dict, progress: gr.Progress
+    settings: SettingsModel, file_path: Path, state: dict, progress: gr.Progress, task_prefix: str = ""
 ) -> tuple[Path | None, Path | None, Path | None, dict | None]:
     """
     This function runs the translation task and handles progress updates.
@@ -934,6 +953,7 @@ async def _run_translation_task(
         - file_path: The path to the input file
         - state: The state dictionary for tracking the task
         - progress: The Gradio progress bar
+        - task_prefix: A prefix string for progress description
 
     Returns:
         - A tuple of (mono_pdf_path, dual_pdf_path, glossary_path, token_usage)
@@ -958,9 +978,11 @@ async def _run_translation_task(
                 total_parts = event["total_parts"]
                 stage_current = event["stage_current"]
                 stage_total = event["stage_total"]
-                desc = f"{desc} ({part_index}/{total_parts}, {stage_current}/{stage_total})"
-                logger.info(f"Progress: {progress_value}, {desc}")
-                progress(progress_value, desc=desc)
+                
+                # Combine task prefix with current status
+                full_desc = f"{task_prefix}{desc} ({part_index}/{total_parts}, {stage_current}/{stage_total})"
+                logger.info(f"Progress: {progress_value}, {full_desc}")
+                progress(progress_value, desc=full_desc)
             elif event["type"] == "finish":
                 # Extract result paths
                 result = event["translate_result"]
@@ -968,15 +990,12 @@ async def _run_translation_task(
                 dual_path = result.dual_pdf_path
                 glossary_path = result.auto_extracted_glossary_path
                 token_usage = event.get("token_usage", {})
-                progress(1.0, desc=_("Translation complete!"))
+                # progress(1.0, desc=_("Translation complete!")) # Let caller handle final completion
                 break
             elif event["type"] == "error":
                 # Handle error event
                 error_msg = event.get("error", "Unknown error")
                 error_details = event.get("details", "")
-                # error_str = f"{error_msg}" + (
-                #     f": {error_details}" if error_details else ""
-                # )
                 raise gr.Error(f"Translation error: {error_msg}")
     except asyncio.CancelledError:
         # Handle task cancellation - let translate_file handle the UI updates
@@ -1026,35 +1045,16 @@ async def stop_translate_file(state: dict) -> None:
         state["current_task"] = None
 
 
-async def translate_file(
+async def translate_files(
     file_type,
     file_input,
     link_input,
     *ui_args,
-    progress=None,
+    progress=gr.Progress(), # Fix: Make progress a default arg to ensure it works
 ):
     """
-    This function translates a PDF file from one language to another using the new architecture.
-
-    Inputs:
-        - file_type: The type of file to translate
-        - file_input: The file to translate
-        - link_input: The link to the file to translate
-        - *ui_args: UI setting controls (see build_ui_inputs for details)
-        - progress: The progress bar
-
-    Returns:
-        - The translated mono PDF file
-        - The preview PDF file
-        - The translated dual PDF file
-        - The visibility state of the mono PDF output
-        - The visibility state of the dual PDF output
-        - The visibility state of the output title
+    This function translates PDF files and yields updates incrementally.
     """
-    # Setup progress tracking
-    if progress is None:
-        progress = gr.Progress()
-
     # Build ui_inputs from *args
     ui_inputs = build_ui_inputs(*ui_args)
     state = ui_inputs["state"]
@@ -1062,107 +1062,309 @@ async def translate_file(
     # Initialize session and output directory
     session_id = str(uuid.uuid4())
     state["session_id"] = session_id
-
-    # Track progress
-    progress(0, desc=_("Starting translation..."))
+    # Reset results for new translation run, but keep display_map for uploaded files
+    state["results"] = {} 
+    state["file_order"] = [] 
+    
+    # Ensure display_map exists (it might have been populated by on_file_upload)
+    if "display_map" not in state:
+        state["display_map"] = {}
+    if "parent_map" not in state:
+        state["parent_map"] = {}
 
     # Prepare output directory
     output_dir = Path("pdf2zh_files") / session_id
     output_dir.mkdir(parents=True, exist_ok=True)
-    try:
-        # Step 1: Prepare input file
-        file_path = _prepare_input_file(file_type, file_input, link_input, output_dir)
+    
+    zip_path = output_dir / "all_translations.zip"
+    zip_mono_path = output_dir / "all_mono_translations.zip"
+    zip_dual_path = output_dir / "all_dual_translations.zip"
+    zip_glossary_path = output_dir / "all_glossaries.zip"
 
-        # Step 2: Build translation settings
-        translate_settings = _build_translate_settings(
-            settings.clone(), file_path, output_dir, SaveMode.follow_settings, ui_inputs
-        )
-
-        # Step 3: Create and run the translation task
-        task = asyncio.create_task(
-            _run_translation_task(translate_settings, file_path, state, progress)
-        )
-        state["current_task"] = task
-
-        # Wait for the translation to complete
-        mono_path, dual_path, glossary_path, token_usage = await task
-        if not mono_path or not mono_path.exists():
-            mono_path = None
-        else:
-            mono_path = mono_path.as_posix()
-        if not dual_path or not dual_path.exists():
-            dual_path = None
-        else:
-            dual_path = dual_path.as_posix()
-
-        if not glossary_path or not glossary_path.exists():
-            glossary_path = None
-        else:
-            glossary_path = glossary_path.as_posix()
-
-        token_info = ""
-        if token_usage:
-            token_info = "\n\n**Token Usage:**\n"  # noqa: S105, this is not a hardcoded password
-            total_usage = {
-                "total": 0,
-                "prompt": 0,
-                "cache_hit_prompt": 0,
-                "completion": 0,
-            }
-            if "main" in token_usage:
-                m = token_usage["main"]
-                token_info += f"- Main: Total {m['total']} (Prompt {m['prompt']}, Cache Hit Prompt {m['cache_hit_prompt']}, Completion {m['completion']})\n"
-                total_usage["total"] += m["total"]
-                total_usage["prompt"] += m["prompt"]
-                total_usage["cache_hit_prompt"] += m["cache_hit_prompt"]
-                total_usage["completion"] += m["completion"]
-            if "term" in token_usage:
-                t = token_usage["term"]
-                token_info += f"- Term: Total {t['total']} (Prompt {t['prompt']}, Cache Hit Prompt {t['cache_hit_prompt']}, Completion {t['completion']})\n"
-                total_usage["total"] += t["total"]
-                total_usage["prompt"] += t["prompt"]
-                total_usage["cache_hit_prompt"] += t["cache_hit_prompt"]
-                total_usage["completion"] += t["completion"]
-            token_info += f"- Total: Total {total_usage['total']} (Prompt {total_usage['prompt']}, Cache Hit Prompt {total_usage['cache_hit_prompt']}, Completion {total_usage['completion']})\n"
-            logger.info(f"Token usage: {token_info}")
-        # Build success UI updates
+    # Default return values (Hidden/Empty)
+    def get_current_ui_update(preview_file_key=None):
+        """Helper to generate the massive return tuple based on current state"""
+        # Determine choices from display_map
+        choices = list(state["display_map"].keys())
+        
+        # Determine values based on the preview_file_key (default to first processed file)
+        current_res = {"mono": None, "dual": None, "glossary": None}
+        preview_path = None
+        
+        if preview_file_key:
+             preview_path = state["display_map"].get(preview_file_key)
+             parent_key = state["parent_map"].get(preview_file_key)
+             if parent_key and parent_key in state["results"]:
+                 current_res = state["results"][parent_key]
+        
         return (
-            str(mono_path) if mono_path else None,  # Output mono file
-            str(mono_path) if mono_path else dual_path,  # Preview
-            str(dual_path) if dual_path else None,  # Output dual file
-            str(glossary_path) if glossary_path else None,  # Output dual file
-            gr.update(visible=bool(mono_path)),  # Show mono download if available
-            gr.update(visible=bool(dual_path)),  # Show dual download if available
-            gr.update(
-                visible=bool(glossary_path)
-            ),  # Show glossary download if available
-            gr.update(
-                value=f"{_('## Translated')}{token_info}",
-                visible=bool(mono_path or dual_path),
-            ),  # Show output title if any output
+            current_res["mono"], 
+            preview_path, 
+            current_res["dual"], 
+            current_res["glossary"],
+            gr.update(visible=bool(current_res["mono"])),
+            gr.update(visible=bool(current_res["dual"])),
+            gr.update(visible=bool(current_res["glossary"])),
+            gr.update(visible=True, value=f"## Processing..."), # Title
+            gr.update(choices=choices, value=preview_file_key, visible=True), # Result Selector
+            gr.update(visible=True), # Result Selector Container
+            gr.update(visible=False), # Zip
+            None,
+            gr.update(visible=False), None,
+            gr.update(visible=False), None,
+            gr.update(visible=False), None
         )
+
+    try:
+        # Step 1: Prepare input files
+        file_paths = _prepare_input_file(file_type, file_input, link_input, output_dir)
+        total_files = len(file_paths)
+        
+        all_token_usage = {
+            "total": 0, "prompt": 0, "cache_hit_prompt": 0, "completion": 0
+        }
+
+        # Step 2: Iterate and Process each file
+        for idx, file_path in enumerate(file_paths):
+            filename = file_path.name
+            current_file_idx = idx + 1
+            task_prefix = f"[{current_file_idx}/{total_files}] {filename}: "
+            
+            logger.info(f"Processing file {current_file_idx}/{total_files}: {filename}")
+            
+            # Update display map for the original file being processed (if not already there)
+            if filename not in state["display_map"]:
+                state["display_map"][filename] = str(file_path)
+                state["parent_map"][filename] = filename
+            
+            # Build translation settings
+            translate_settings = _build_translate_settings(
+                settings.clone(), file_path, output_dir, SaveMode.follow_settings, ui_inputs
+            )
+
+            # Create task
+            task = asyncio.create_task(
+                _run_translation_task(translate_settings, file_path, state, progress, task_prefix=task_prefix)
+            )
+            state["current_task"] = task
+
+            # Await result
+            mono_path, dual_path, glossary_path, token_usage = await task
+            
+            # Store results
+            result_entry = {
+                "original_name": filename,
+                "original_path": str(file_path),
+                "mono": str(mono_path) if mono_path and mono_path.exists() else None,
+                "dual": str(dual_path) if dual_path and dual_path.exists() else None,
+                "glossary": str(glossary_path) if glossary_path and glossary_path.exists() else None,
+                "token_usage": token_usage
+            }
+            state["results"][filename] = result_entry
+            state["file_order"].append(filename)
+
+            # Update maps for dropdown
+            if result_entry["mono"]:
+                mono_label = f"{Path(filename).stem}_mono{Path(filename).suffix}"
+                state["display_map"][mono_label] = result_entry["mono"]
+                state["parent_map"][mono_label] = filename
+            
+            if result_entry["dual"]:
+                dual_label = f"{Path(filename).stem}_dual{Path(filename).suffix}"
+                state["display_map"][dual_label] = result_entry["dual"]
+                state["parent_map"][dual_label] = filename
+
+            # Accumulate tokens
+            if token_usage:
+                for key in ["main", "term"]:
+                    if key in token_usage:
+                        u = token_usage[key]
+                        all_token_usage["total"] += u.get('total', 0)
+                        all_token_usage["prompt"] += u.get('prompt', 0)
+                        all_token_usage["cache_hit_prompt"] += u.get('cache_hit_prompt', 0)
+                        all_token_usage["completion"] += u.get('completion', 0)
+
+            # YIELD UPDATE: Update the UI immediately after this file is done
+            # Select the Dual version of the current file to show progress visually
+            current_preview_label = filename
+            if result_entry["dual"]:
+                current_preview_label = f"{Path(filename).stem}_dual{Path(filename).suffix}"
+            elif result_entry["mono"]:
+                current_preview_label = f"{Path(filename).stem}_mono{Path(filename).suffix}"
+            
+            # Generate the intermediate UI update
+            yield get_current_ui_update(current_preview_label)
+
+        # Step 3: Finalize (Create Zips)
+        # All files zip
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            for fname, res in state["results"].items():
+                if res["mono"]:
+                    zipf.write(res["mono"], arcname=f"mono_{Path(res['mono']).name}")
+                if res["dual"]:
+                    zipf.write(res["dual"], arcname=f"dual_{Path(res['dual']).name}")
+                if res["glossary"]:
+                    zipf.write(res["glossary"], arcname=f"glossary_{Path(res['glossary']).name}")
+
+        # Individual Zips
+        has_mono, has_dual, has_glossary = False, False, False
+        with zipfile.ZipFile(zip_mono_path, 'w') as zipf:
+            for fname, res in state["results"].items():
+                if res["mono"]:
+                    zipf.write(res["mono"], arcname=f"mono_{Path(res['mono']).name}")
+                    has_mono = True
+        
+        with zipfile.ZipFile(zip_dual_path, 'w') as zipf:
+            for fname, res in state["results"].items():
+                if res["dual"]:
+                    zipf.write(res["dual"], arcname=f"dual_{Path(res['dual']).name}")
+                    has_dual = True
+
+        with zipfile.ZipFile(zip_glossary_path, 'w') as zipf:
+            for fname, res in state["results"].items():
+                if res["glossary"]:
+                    zipf.write(res["glossary"], arcname=f"glossary_{Path(res['glossary']).name}")
+                    has_glossary = True
+
+        progress(1.0, desc=_("All translations complete!"))
+
+        # Final UI State
+        token_info = f"\n\n**Total Token Usage:** Total {all_token_usage['total']} (Prompt {all_token_usage['prompt']}, Cache Hit {all_token_usage['cache_hit_prompt']}, Completion {all_token_usage['completion']})"
+        
+        # Determine final preview (last file processed or first)
+        last_file_key = state["file_order"][-1] if state["file_order"] else None
+        final_preview_label = None
+        
+        if last_file_key:
+            res = state["results"][last_file_key]
+            final_preview_label = last_file_key
+            if res["dual"]: final_preview_label = f"{Path(last_file_key).stem}_dual{Path(last_file_key).suffix}"
+            elif res["mono"]: final_preview_label = f"{Path(last_file_key).stem}_mono{Path(last_file_key).suffix}"
+
+        # Get the base tuple
+        final_mono, final_preview_path, final_dual, final_glossary, vis_mono, vis_dual, vis_glossary, _u1, selector_update, selector_vis, _u2, _u3, _u4, _u5, _u6, _u7, _u8, _u9  = get_current_ui_update(final_preview_label)
+
+        # Yield Final Result with Zips visible
+        yield (
+            final_mono, final_preview_path, final_dual, final_glossary,
+            vis_mono, vis_dual, vis_glossary,
+            gr.update(value=f"{_('## Translated')}{token_info}"), # Title updated
+            selector_update, selector_vis,
+            gr.update(visible=True), str(zip_path), # Zip
+            gr.update(visible=has_mono), str(zip_mono_path) if has_mono else None,
+            gr.update(visible=has_dual), str(zip_dual_path) if has_dual else None,
+            gr.update(visible=has_glossary), str(zip_glossary_path) if has_glossary else None
+        )
+
     except asyncio.CancelledError:
         gr.Info(_("Translation cancelled"))
-        # Return None for all outputs if cancelled
-        return (
-            None,
-            None,
-            None,
-            gr.update(visible=False),
-            gr.update(visible=False),
-            gr.update(visible=False),
+        yield (
+            None, None, None, None, 
+            gr.update(visible=False), gr.update(visible=False), gr.update(visible=False), 
+            gr.update(visible=False), 
+            gr.update(choices=[], value=None, visible=False), gr.update(visible=False), 
+            gr.update(visible=False), None,
+            gr.update(visible=False), None,
+            gr.update(visible=False), None,
+            gr.update(visible=False), None
         )
-    except gr.Error:
-        # Re-raise Gradio errors without modification
-        raise
     except Exception as e:
-        # Catch any other errors and wrap in gr.Error
-        logger.exception(f"Error in translate_file: {e}")
+        logger.exception(f"Error in translate_files: {e}")
         raise gr.Error(f"Translation failed: {e}") from e
     finally:
-        # Clear task reference
         state["current_task"] = None
 
+def update_preview(selected_label, state):
+    """
+    Update preview based on selected label from dropdown.
+    Modified to support previewing raw uploaded files before translation.
+    """
+    # 1. Basic validation
+    if not selected_label or not state or "display_map" not in state:
+        return (
+            None, None, None, None,
+            gr.update(visible=False),
+            gr.update(visible=False),
+            gr.update(visible=False)
+        )
+    
+    # 2. Get the file path for the PDF viewer
+    # This works for both uploaded files and translated files
+    preview_path = state["display_map"].get(selected_label)
+    
+    if not preview_path:
+         return (
+            None, None, None, None,
+            gr.update(visible=False),
+            gr.update(visible=False),
+            gr.update(visible=False)
+        )
+
+    # 3. Try to get translation results for download buttons
+    # If just uploaded (not translated), res will be None
+    parent_key = state["parent_map"].get(selected_label)
+    res = None
+    if parent_key and "results" in state:
+        res = state["results"].get(parent_key)
+
+    # 4. Prepare return values
+    # If res exists, show download buttons. If not, hide them.
+    mono_path = res["mono"] if res else None
+    dual_path = res["dual"] if res else None
+    glossary_path = res["glossary"] if res else None
+
+    return (
+        mono_path,      # Download Mono Button Value
+        preview_path,   # PDF Preview Value (Critical Fix: Always return this if found)
+        dual_path,      # Download Dual Button Value
+        glossary_path,  # Download Glossary Button Value
+        gr.update(visible=bool(mono_path)),     # Mono Button Visibility
+        gr.update(visible=bool(dual_path)),     # Dual Button Visibility
+        gr.update(visible=bool(glossary_path))  # Glossary Button Visibility
+    )
+
+def on_file_upload(files, state):
+    """
+    Handle file upload event to populate the preview dropdown immediately.
+    """
+    if not files:
+        return gr.update(choices=[], value=None, visible=False), state
+
+    # Initialize state if needed
+    if not state:
+        state = {"session_id": None, "current_task": None, "results": {}, "file_order": [], "display_map": {}, "parent_map": {}}
+    
+    if "display_map" not in state:
+        state["display_map"] = {}
+    if "parent_map" not in state:
+        state["parent_map"] = {}
+
+    # Clear previous maps if this is a fresh upload action/session logic implies reset
+    # For additive behavior, we keep them. Assuming additive for multi-upload.
+    
+    new_choices = []
+    
+    # Process uploaded files
+    for f in files:
+        # Gradio passes NamedString or file path
+        f_path = Path(f.name if hasattr(f, 'name') else f)
+        original_name = f_path.name
+        
+        # Add to display map (Original file)
+        state["display_map"][original_name] = str(f_path)
+        state["parent_map"][original_name] = original_name
+        
+        # Add to local list to update UI
+        if original_name not in new_choices:
+            new_choices.append(original_name)
+
+    # Get all current choices from state to preserve history + new files
+    all_choices = list(state["display_map"].keys())
+    
+    # Default to the first file of the new batch if available
+    default_value = new_choices[0] if new_choices else (all_choices[0] if all_choices else None)
+
+    return gr.update(choices=all_choices, value=default_value, visible=True), state
 
 def save_config(
     *ui_args,
@@ -1253,7 +1455,7 @@ tech_details_string = f"""
                     <summary>Technical details</summary>
                     - ⭐ Star at GitHub: <a href="https://github.com/PDFMathTranslate/PDFMathTranslate-next">PDFMathTranslate/PDFMathTranslate-next</a><br>
                     - BabelDOC: <a href="https://github.com/funstory-ai/BabelDOC">funstory-ai/BabelDOC</a><br>
-                    - GUI by: <a href="https://github.com/reycn">Rongxin</a> & <a href="https://github.com/hellofinch">hellofinch</a> & <a href="https://github.com/awwaawwa">awwaawwa</a><br>
+                    - GUI by: <a href="https://github.com/reycn">Rongxin</a> & <a href="https://github.com/hellofinch">hellofinch</a> & <a href="https://github.com/awwaawwa">awwaawwa</a> & <a href="https://github.com/zfb132">zfb132</a><br>
                     - pdf2zh Version: {__version__} <br>
                     - BabelDOC Version: {babeldoc_version}<br>
                     - Free translation service provided by <a href="https://siliconflow.cn/" target="_blank" style="text-decoration: none;">SiliconFlow</a><br>
@@ -1290,15 +1492,15 @@ with gr.Blocks(
         with gr.Row():
             with gr.Column(scale=1):
                 lang_selector.render()
-                gr.Markdown(_("## File"))
+                gr.Markdown(_("## File(s)"))
                 file_type = gr.Radio(
-                    choices=[("File", "File"), ("Link", "Link")],
+                    choices=[("File(s)", "File"), ("Link", "Link")],
                     label="Type",
                     value="File",
                 )
                 file_input = gr.File(
-                    label=_("File"),
-                    file_count="single",
+                    label=_("File(s)"),
+                    file_count="multiple",
                     file_types=[".pdf", ".PDF"],
                     type="filepath",
                     elem_classes=["input-file"],
@@ -1939,6 +2141,19 @@ with gr.Blocks(
                 output_file_glossary = gr.File(
                     label=_("Download automatically extracted glossary"), visible=False
                 )
+                # ADDED: Batch download button
+                output_file_zip = gr.File(
+                    label=_("Download All (ZIP)"), visible=False
+                )
+                output_file_zip_mono = gr.File(
+                    label=_("Download All Mono (ZIP)"), visible=False
+                )
+                output_file_zip_dual = gr.File(
+                    label=_("Download All Dual (ZIP)"), visible=False
+                )
+                output_file_zip_glossary = gr.File(
+                    label=_("Download All Glossaries (ZIP)"), visible=False
+                )
                 translate_btn = gr.Button(_("Translate"), variant="primary")
                 cancel_btn = gr.Button(_("Cancel"), variant="secondary")
                 save_btn = gr.Button(_("Save Settings"), variant="secondary")
@@ -1950,6 +2165,12 @@ with gr.Blocks(
 
             with gr.Column(scale=2):
                 gr.Markdown(_("## Preview"))
+                # MOVED: Result file selector dropdown
+                result_file_selector = gr.Dropdown(
+                    label=_("Select File to Preview/Download"),
+                    visible=True,
+                    interactive=True
+                )
                 preview = PDF(label=_("Document Preview"), visible=True, height=2000)
 
         # Event handlers
@@ -2108,11 +2329,13 @@ with gr.Blocks(
 
         lang_selector.change(on_lang_selector_change, lang_selector)
 
-        # Default file handler
+        # State for managing translation tasks
+        state = gr.State({"session_id": None, "current_task": None, "results": {}, "file_order": [], "display_map": {}, "parent_map": {}})
+
         file_input.upload(
-            lambda x: x,
-            inputs=file_input,
-            outputs=preview,
+            on_file_upload,
+            inputs=[file_input, state],
+            outputs=[result_file_selector, state],
         )
 
         # Event bindings
@@ -2210,9 +2433,6 @@ with gr.Blocks(
             ),
         )
 
-        # State for managing translation tasks
-        state = gr.State({"session_id": None, "current_task": None})
-
         # UI setting controls list (shared by translate_btn and save_btn)
         ui_setting_controls = [
             service,
@@ -2280,7 +2500,7 @@ with gr.Blocks(
 
         # Translation button click handler
         translate_btn.click(
-            translate_file,
+            translate_files, # MODIFIED function name
             inputs=[
                 file_type,
                 file_input,
@@ -2296,7 +2516,33 @@ with gr.Blocks(
                 output_file_dual,  # Visibility of dual output
                 output_file_glossary,
                 output_title,  # Visibility of output title
+                result_file_selector, # Result selector
+                result_file_selector, # Visibility
+                output_file_zip, # Visibility
+                output_file_zip, # Zip File
+                output_file_zip_mono, # Visibility
+                output_file_zip_mono, # File
+                output_file_zip_dual, # Visibility
+                output_file_zip_dual, # File
+                output_file_zip_glossary, # Visibility
+                output_file_zip_glossary # File
             ],
+            show_progress_on=[preview],
+        )
+
+        # ADDED: Handle result selector change
+        result_file_selector.change(
+            update_preview,
+            inputs=[result_file_selector, state],
+            outputs=[
+                output_file_mono,  # Mono PDF file
+                preview,  # Preview
+                output_file_dual,  # Dual PDF file
+                output_file_glossary,
+                output_file_mono,  # Visibility of mono output
+                output_file_dual,  # Visibility of dual output
+                output_file_glossary,
+            ]
         )
 
         # Cancel button click handler
