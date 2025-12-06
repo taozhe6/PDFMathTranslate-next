@@ -1,10 +1,9 @@
 [project]
 name = "pdf2zh-next"
 version = "2.7.1"
-description = "Latex PDF Translator"
+description = "PDF Translator based on BabelDOC"
 authors = [
     { name = "awwaawwa", email = "aw@funstory.ai" },
-    { name = "Byaidu", email = "byaidux@gmail.com" }
 ]
 maintainers = [
     { name = "awwaawwa", email = "aw@funstory.ai" }
@@ -65,7 +64,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/PDFMathTranslate/PDFMathTranslate-next"
+Homepage = "https://github.com/PDFMathTranslate-next/PDFMathTranslate-next"
 
 [build-system]
 requires = ["hatchling"]
