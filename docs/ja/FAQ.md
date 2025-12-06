@@ -36,21 +36,21 @@
 
 ## SSL エラーとその他のネットワーク問題
 - **問題**:
-Hugging Face のモデルをダウンロードする際、中国のユーザーはネットワークエラーに遭遇する可能性があります。例えば、[issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55)、[#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70) で報告されています。
+Hugging Face のモデルをダウンロードする際、中国のユーザーはネットワークエラーに遭遇する可能性があります。例えば、[issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55)、[#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70) で報告されています。
 
 - **解決策**:
   - [GFW をバイパスする](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Hugging Face ミラーを使用する](https://hf-mirror.com/).
-  - [ポータブル版を使用する](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
-  - [代わりに Docker を使用する](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker).
-  - [証明書を更新する](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests)、[issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55) で提案されている通り。
+  - [ポータブル版を使用する](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [代わりに Docker を使用する](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
+  - [証明書を更新する](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests)、[issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55) で提案されている通り。
 
 ## ローカルホストにアクセスできない
 以下をご覧ください。
 
 ## GUI を 0.0.0.0 で起動する際のエラー
 - **問題**:
-グローバルモードでプロキシソフトウェアを使用すると、Gradio が正常に起動しない場合があります。例として、[issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77) を参照してください。
+グローバルモードでプロキシソフトウェアを使用すると、Gradio が正常に起動しない場合があります。例として、[issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77) を参照してください。
 
 - **解決策**:
 ルールモードを使用

@@ -21,7 +21,7 @@
 
 #### コマンドライン引数
 
-コマンドラインで翻訳コマンドを実行し、現在の作業ディレクトリに翻訳文書 `example-mono.pdf` とバイリンガル文書 `example-dual.pdf` を生成します。デフォルトの翻訳サービスとして Google を使用します。その他のサポート翻訳サービスは [こちら](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) で確認できます。
+コマンドラインで翻訳コマンドを実行し、現在の作業ディレクトリに翻訳文書 `example-mono.pdf` とバイリンガル文書 `example-dual.pdf` を生成します。デフォルトの翻訳サービスとして Google を使用します。その他のサポート翻訳サービスは [こちら](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) で確認できます。
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 
@@ -230,7 +230,7 @@ pdf2zh_next example.pdf --formular-font-pattern "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|
 
 #### カスタムプロンプト
 
-<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pull/637). -->
+<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->
 
 翻訳用のカスタムシステムプロンプト。主にプロンプト内に Qwen 3 の'/no_think'指示を追加するために使用されます。
 

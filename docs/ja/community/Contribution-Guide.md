@@ -12,7 +12,7 @@
 
 1. ドキュメントの国際化／翻訳  
 2. HTTP API など、コアインフラストラクチャに関連する貢献  
-3. 「助けが必要ない」と明示的にマークされたイシュー（[Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) および [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) リポジトリ内のイシューを含む）。  
+3. 「助けが必要ない」と明示的にマークされたイシュー（[Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) および [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) リポジトリ内のイシューを含む）。  
 4. メンテナーが不適切と判断したその他の貢献。  
 5. ドキュメントへの貢献だが、英語以外の言語でドキュメントを変更する場合。  
 6. `PDF` ファイルの変更を必要とする PR。  
@@ -195,7 +195,7 @@ The following types of PRs are not recommended for submission:
 - **high_level.py**：BabelDOC ベースの高レベルインターフェース。
 - **http_api.py**：HTTP API を提供（未開始）。
 
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ---
 - [Home](https://pdf2zh-next.com/)
@@ -214,8 +214,8 @@ Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTransla
 
 ---
 
-プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+プロジェクトを理解するために AI に質問：[DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ---
 - [ホーム](https://pdf2zh-next.com/)

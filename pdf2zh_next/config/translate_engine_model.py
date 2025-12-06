@@ -99,7 +99,7 @@ class OpenAISettings(BaseModel):
     )
 
     # This parameter contains a spelling error, but it will not be corrected for compatibility reasons.
-    # For details, see: https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/175#issuecomment-3213568681
+    # For details, see: https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/175#issuecomment-3213568681
     openai_send_temprature: bool | None = Field(
         default=None, description="Send temprature to OpenAI service"
     )

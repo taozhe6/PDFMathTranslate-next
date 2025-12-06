@@ -21,7 +21,7 @@
 
 #### 命令行參數
 
-在命令行中執行翻譯命令，在當前工作目錄中生成翻譯後的文檔 `example-mono.pdf` 和雙語文檔 `example-dual.pdf`。使用 Google 作為默認翻譯服務。更多支持的翻譯服務可以在 [這裡](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。
+在命令行中執行翻譯命令，在當前工作目錄中生成翻譯後的文檔 `example-mono.pdf` 和雙語文檔 `example-dual.pdf`。使用 Google 作為默認翻譯服務。更多支持的翻譯服務可以在 [這裡](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 
@@ -229,7 +229,7 @@ pdf2zh_next example.pdf --formular-font-pattern "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|
 
 #### 自訂提示詞
 
-<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pull/637). -->
+<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->
 
 自訂翻譯系統提示詞。主要用於在提示詞中添加 Qwen 3 的 `/no_think` 指令。
 

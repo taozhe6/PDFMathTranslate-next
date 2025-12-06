@@ -1,7 +1,7 @@
 > [!NOTE]
 > Esta documentação pode conter conteúdo gerado por IA. Embora nos esforcemos pela precisão, podem ocorrer imprecisões. Por favor, relate quaisquer problemas através de:
 >
-> - [GitHub Issues](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues)
+> - [GitHub Issues](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues)
 > - Contribuição da comunidade (PRs são bem-vindos!)
 
 ## Python API: do_translate_async_stream

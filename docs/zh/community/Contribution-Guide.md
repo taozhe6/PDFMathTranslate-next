@@ -12,7 +12,7 @@
 
 1. 文档国际化/翻译
 2. 与核心基础设施相关的贡献，例如 HTTP API 等
-3. 明确标记为「无需帮助」的 Issues（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) 仓库中的 Issues）
+3. 明确标记为「无需帮助」的 Issues（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) 仓库中的 Issues）
 4. 维护者认为不合适的其他贡献
 5. 贡献文档，但修改非英语语言的文档
 6. 需要修改 PDF 文件的 PR
@@ -169,7 +169,7 @@ By discussing these changes upfront, we can ensure that your contributions align
 - **high_level.py**：基于 BabelDOC 的高级接口。
 - **http_api.py**：提供 HTTP API（未启动）。
 
-向 AI 询问以了解项目：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+向 AI 询问以了解项目：[DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ## 联系我们
 

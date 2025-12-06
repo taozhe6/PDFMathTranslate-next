@@ -12,7 +12,7 @@ Obrigado pelo seu interesse neste projeto! Antes de começar a contribuir, reser
 
 1. Internacionalização/tradução da documentação
 2. Contribuições relacionadas à infraestrutura principal, como API HTTP, etc.
-3. Problemas explicitamente marcados como "No help needed" (incluindo problemas nos repositórios [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next)).
+3. Problemas explicitamente marcados como "No help needed" (incluindo problemas nos repositórios [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).
 4. Outras contribuições consideradas inadequadas pelos mantenedores.
 5. Contribuição com documentação, mas alterando a documentação em idiomas diferentes do inglês.
 6. PRs que exigem modificação de arquivos PDF.
@@ -574,22 +574,22 @@ Por favor, NÃO envie PRs relacionados aos tipos mencionados acima.
 - **high_level.py**: Interfaces de alto nível baseadas no BabelDOC.
 - **http_api.py**: Fornece API HTTP (não iniciada).
 
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/極不推荐添加新的依赖，除非是必要的)
 
 ## Entre em contato conosco

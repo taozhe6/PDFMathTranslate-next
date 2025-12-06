@@ -19,7 +19,7 @@ docker run -d -p 7860:7860 awwaawwa/pdfmathtranslate-next
 
 > [!NOTE]
 > 
-> - 如果您無法存取 Docker Hub，請嘗試使用 [GitHub Container Registry](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pkgs/container/pdfmathtranslate) 上的映像檔。
+> - 如果您無法存取 Docker Hub，請嘗試使用 [GitHub Container Registry](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pkgs/container/pdfmathtranslate) 上的映像檔。
 > 
 > ```bash
 > docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next
@@ -41,13 +41,13 @@ http://localhost:7860/
 #### For docker deployment on cloud service:
 
 <div>
-<a href="https://www.heroku.com/deploy?template=https://github.com/PDFMathTranslate/PDFMathTranslate-next">
+<a href="https://www.heroku.com/deploy?template=https://github.com/PDFMathTranslate-next/PDFMathTranslate-next">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy" height="26"></a>
 <a href="https://render.com/deploy">
   <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Koyeb" height="26"></a>
 <a href="https://zeabur.com/templates/5FQIGX?referralCode=reycn">
   <img src="https://zeabur.com/button.svg" alt="Deploy on Zeabur" height="26"></a>
-<a href="https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/PDFMathTranslate/PDFMathTranslate-next&branch=main&name=pdf-math-translate">
+<a href="https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/PDFMathTranslate-next/PDFMathTranslate-next&branch=main&name=pdf-math-translate">
   <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy to Koyeb" height="26"></a>
 </div>
 

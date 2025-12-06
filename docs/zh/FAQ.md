@@ -36,21 +36,21 @@
 
 ## SSL 错误及其他网络问题
 - **问题**:
-在下载 hugging face 模型时，中国用户可能会遇到网络错误。例如，在 [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55)、[#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70) 中。
+在下载 hugging face 模型时，中国用户可能会遇到网络错误。例如，在 [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55)、[#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70) 中。
 
 - **解决方案**：
   - [绕过 GFW](https://github.com/clash-verge-rev/clash-verge-rev)。
   - [使用 Hugging Face 镜像](https://hf-mirror.com/)。
-  - [使用便携版](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable)。
-  - [改用 Docker](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker)。
-  - [更新证书](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests)，如 [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55) 中建议。
+  - [使用便携版](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable)。
+  - [改用 Docker](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker)。
+  - [更新证书](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests)，如 [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55) 中建议。
 
 ## 无法访问本地主机
 请见下文。
 
 ## 使用 0.0.0.0 启动 GUI 时出错
 - **问题**:
-使用全局模式的代理软件可能会阻止 Gradio 正常启动。例如，在 [issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77) 中。
+使用全局模式的代理软件可能会阻止 Gradio 正常启动。例如，在 [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77) 中。
 
 - **解决方案**：
 使用规则模式

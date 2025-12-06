@@ -36,21 +36,21 @@
 
 ## SSL 오류 및 기타 네트워크 문제
 - **문제**:
-허깅 페이스 모델을 다운로드할 때 중국 사용자는 네트워크 오류를 겪을 수 있습니다. 예를 들어, [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70) 에서 확인할 수 있습니다.
+허깅 페이스 모델을 다운로드할 때 중국 사용자는 네트워크 오류를 겪을 수 있습니다. 예를 들어, [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70) 에서 확인할 수 있습니다.
 
 - **해결 방법**:
   - [GFW 우회](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Hugging Face 미러 사용](https://hf-mirror.com/).
-  - [포터블 버전 사용](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
-  - [대신 Docker 사용](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker).
-  - [인증서 업데이트](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), [이슈 #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55) 에서 제안된 대로.
+  - [포터블 버전 사용](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [대신 Docker 사용](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
+  - [인증서 업데이트](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), [이슈 #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55) 에서 제안된 대로.
 
 ## 로컬호스트에 접근할 수 없음
 아래를 참조하세요.
 
 ## 0.0.0.0 를 사용하여 GUI 를 실행하는 중 오류 발생
 - **문제**:
-전역 모드에서 프록시 소프트웨어를 사용하면 Gradio 가 제대로 시작되지 않을 수 있습니다. 예를 들어, [issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77) 에서와 같은 경우가 있습니다.
+전역 모드에서 프록시 소프트웨어를 사용하면 Gradio 가 제대로 시작되지 않을 수 있습니다. 예를 들어, [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77) 에서와 같은 경우가 있습니다.
 
 - **해결 방법**:
 규칙 모드 사용

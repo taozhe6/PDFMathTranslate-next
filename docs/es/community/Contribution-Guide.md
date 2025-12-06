@@ -12,7 +12,7 @@ Gracias por tu interés en este proyecto. Antes de empezar a contribuir, por fav
 
 1. Internacionalización/traducción de documentación  
 2. Contribuciones relacionadas con la infraestructura central, como API HTTP, etc.  
-3. Problemas marcados explícitamente como "No se necesita ayuda" (incluyendo problemas en los repositorios [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) y [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next)).  
+3. Problemas marcados explícitamente como "No se necesita ayuda" (incluyendo problemas en los repositorios [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) y [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).  
 4. Otras contribuciones consideradas inapropiadas por los mantenedores.  
 5. Contribuir a la documentación, pero modificando la documentación en idiomas distintos al inglés.  
 6. PRs que requieran modificar archivos PDF.  
@@ -155,7 +155,7 @@ Para los siguientes tipos de PR, se recomienda discutir primero con los mantened
 - **high_level.py**: Interfaces de alto nivel basadas en BabelDOC.  
 - **http_api.py**: Proporciona API HTTP (no iniciado).
 
-Pregunta a la IA para entender el proyecto: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Pregunta a la IA para entender el proyecto: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ## Contáctanos
 

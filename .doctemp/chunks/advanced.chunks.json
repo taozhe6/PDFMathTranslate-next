@@ -63,7 +63,7 @@
     },
     {
       "id": "chunk_A2860DDF",
-      "raw_content": "Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+      "raw_content": "Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
       "metadata": {
         "chunk_type": "paragraph",
         "level": null,
@@ -1173,7 +1173,7 @@
     },
     {
       "id": "chunk_54E57534",
-      "raw_content": "<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pull/637). -->\n",
+      "raw_content": "<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->\n",
       "metadata": {
         "chunk_type": "html_comment",
         "level": null,

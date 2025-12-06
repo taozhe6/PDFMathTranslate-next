@@ -12,7 +12,7 @@ Grazie per il tuo interesse in questo progetto! Prima di iniziare a contribuire,
 
 1. Documentazione internazionalizzazione/traduzione  
 2. Contributi relativi all'infrastruttura di base, come API HTTP, ecc.  
-3. Problemi contrassegnati esplicitamente come "No help needed" (inclusi i problemi nei repository [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next)).  
+3. Problemi contrassegnati esplicitamente come "No help needed" (inclusi i problemi nei repository [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).  
 4. Altri contributi ritenuti inappropriati dai maintainer.  
 5. Contribuire alla documentazione, ma modificando la documentazione in lingue diverse dall'inglese.  
 6. PR che richiedono la modifica di file PDF.  
@@ -189,7 +189,7 @@ Per i seguenti tipi di PR, si consiglia di discutere prima con i maintainer prim
 
 ### TRANSLATION
 
-Chiedi all'AI di comprendere il progetto: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Chiedi all'AI di comprendere il progetto: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 - [Home](https://pdf2zh-next.com/)
 - [Iniziare](https://pdf2zh-next.com/getting-started/)
 - [Installazione](https://pdf2zh-next.com/getting-started/INSTALLATION.html)

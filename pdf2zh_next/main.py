@@ -16,7 +16,7 @@ import babeldoc.assets.assets
 from pdf2zh_next.config import ConfigManager
 from pdf2zh_next.high_level import do_translate_file_async
 
-__version__ = "2.8.0"
+__version__ = "2.8.1"
 
 logger = logging.getLogger(__name__)
 

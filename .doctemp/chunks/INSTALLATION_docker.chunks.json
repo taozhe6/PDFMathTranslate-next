@@ -83,7 +83,7 @@
     },
     {
       "id": "chunk_B1F3E7B5",
-      "raw_content": "> [!NOTE]\n> \n> - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pkgs/container/pdfmathtranslate).\n> \n> ```bash\n> docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next\n> docker run -d -p 7860:7860 ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next\n> ```\n",
+      "raw_content": "> [!NOTE]\n> \n> - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pkgs/container/pdfmathtranslate).\n> \n> ```bash\n> docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next\n> docker run -d -p 7860:7860 ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next\n> ```\n",
       "metadata": {
         "chunk_type": "blockquote",
         "level": null,
@@ -123,7 +123,7 @@
     },
     {
       "id": "chunk_0B40829E",
-      "raw_content": "<!-- \n#### For docker deployment on cloud service:\n\n<div>\n<a href=\"https://www.heroku.com/deploy?template=https://github.com/PDFMathTranslate/PDFMathTranslate-next\">\n  <img src=\"https://www.herokucdn.com/deploy/button.svg\" alt=\"Deploy\" height=\"26\"></a>\n<a href=\"https://render.com/deploy\">\n  <img src=\"https://render.com/images/deploy-to-render-button.svg\" alt=\"Deploy to Koyeb\" height=\"26\"></a>\n<a href=\"https://zeabur.com/templates/5FQIGX?referralCode=reycn\">\n  <img src=\"https://zeabur.com/button.svg\" alt=\"Deploy on Zeabur\" height=\"26\"></a>\n<a href=\"https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/PDFMathTranslate/PDFMathTranslate-next&branch=main&name=pdf-math-translate\">\n  <img src=\"https://www.koyeb.com/static/images/deploy/button.svg\" alt=\"Deploy to Koyeb\" height=\"26\"></a>\n</div>\n\n-->",
+      "raw_content": "<!-- \n#### For docker deployment on cloud service:\n\n<div>\n<a href=\"https://www.heroku.com/deploy?template=https://github.com/PDFMathTranslate-next/PDFMathTranslate-next\">\n  <img src=\"https://www.herokucdn.com/deploy/button.svg\" alt=\"Deploy\" height=\"26\"></a>\n<a href=\"https://render.com/deploy\">\n  <img src=\"https://render.com/images/deploy-to-render-button.svg\" alt=\"Deploy to Koyeb\" height=\"26\"></a>\n<a href=\"https://zeabur.com/templates/5FQIGX?referralCode=reycn\">\n  <img src=\"https://zeabur.com/button.svg\" alt=\"Deploy on Zeabur\" height=\"26\"></a>\n<a href=\"https://app.koyeb.com/deploy?type=git&builder=buildpack&repository=github.com/PDFMathTranslate-next/PDFMathTranslate-next&branch=main&name=pdf-math-translate\">\n  <img src=\"https://www.koyeb.com/static/images/deploy/button.svg\" alt=\"Deploy to Koyeb\" height=\"26\"></a>\n</div>\n\n-->",
       "metadata": {
         "chunk_type": "html_comment",
         "level": null,

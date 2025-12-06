@@ -36,21 +36,21 @@
 
 ## Ошибка SSL и другие сетевые проблемы
 - **Проблема**:
-При загрузке моделей с hugging face пользователи из Китая могут столкнуться с сетевой ошибкой. Например, в [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70).
+При загрузке моделей с hugging face пользователи из Китая могут столкнуться с сетевой ошибкой. Например, в [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 - **Решение**:
   - [Обход GFW](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Использовать зеркало Hugging Face](https://hf-mirror.com/).
-  - [Использовать портативную версию](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
-  - [Использовать Docker](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker).
-  - [Обновить сертификаты](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), как предложено в [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55).
+  - [Использовать портативную версию](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [Использовать Docker](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
+  - [Обновить сертификаты](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), как предложено в [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
 
 ## Локальный хост недоступен
 Пожалуйста, смотрите ниже.
 
 ## Ошибка запуска GUI с использованием 0.0.0.0
 - **Проблема**:
-Использование прокси-программ в глобальном режиме может помешать правильному запуску Gradio. Например, в [issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77).
+Использование прокси-программ в глобальном режиме может помешать правильному запуску Gradio. Например, в [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 - **Решение**:
 Использовать режим правил

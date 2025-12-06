@@ -36,21 +36,21 @@ When executing the program, users would have the following outputs: `The followi
 
 ## SSL Error and Other Network Issues
 - **Issue**:  
-When downloading hugging face models, users in China may get network error. For example, in [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70).
+When downloading hugging face models, users in China may get network error. For example, in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 - **Solution**:
   - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Use Hugging Face Mirror](https://hf-mirror.com/).
-  - [Use Portable version](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
-  - [Use Docker instead](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker).
-  - [Update Certificates](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), as suggested in [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55).
+  - [Use Portable version](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [Use Docker instead](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
+  - [Update Certificates](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), as suggested in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
 
 ## Localhost is not accessible
 Please see below.
 
 ## Error launching GUI using 0.0.0.0
 - **Issue**:  
-Using proxy software in global mode may prevent Gradio from starting properly. For example, in [issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77).
+Using proxy software in global mode may prevent Gradio from starting properly. For example, in [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 - **Solution**:  
 Use rule mode

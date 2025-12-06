@@ -12,7 +12,7 @@
 
 1. Интернационализация/перевод документации  
 2. Вклад в основную инфраструктуру, например, HTTP API и т. д.  
-3. Проблемы, явно помеченные как "No help needed" (включая проблемы в репозиториях [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) и [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next)).  
+3. Проблемы, явно помеченные как "No help needed" (включая проблемы в репозиториях [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) и [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).  
 4. Другие вклады, которые модераторы сочтут неуместными.  
 5. Вклад в документацию, но изменение документации на языках, отличных от английского.  
 6. PR, требующие изменения файлов PDF.  
@@ -165,7 +165,7 @@
 - **high_level.py**: Высокоуровневые интерфейсы на основе BabelDOC.
 - **http_api.py**: Предоставляет HTTP API (не запущено).
 
-Спросите ИИ, чтобы понять проект: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Спросите ИИ, чтобы понять проект: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ## Свяжитесь с нами
 

@@ -12,7 +12,7 @@
 
 1. 文檔國際化/翻譯
 2. 與核心基礎設施相關的貢獻，例如 HTTP API 等
-3. 明確標記為「No help needed」的議題（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) 存儲庫中的議題）
+3. 明確標記為「No help needed」的議題（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) 存儲庫中的議題）
 4. 維護者認為不適當的其他貢獻
 5. 貢獻文檔，但修改非英文的其他語言文檔
 6. 需要修改 `PDF` 文件的 PR
@@ -245,7 +245,7 @@ For the following types of PRs, it is recommended to submit directly:
 
 ### OUTPUT
 
-請 AI 理解專案：[DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+請 AI 理解專案：[DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 - [x] 支援 PDF 轉 PDF，包括文字和數學公式
 - [x] 支援 LaTeX 轉 LaTeX
 - [x] 支援 Markdown 轉 Markdown

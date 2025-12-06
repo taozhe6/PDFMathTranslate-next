@@ -21,7 +21,7 @@
 
 #### 명령줄 인수
 
-현재 작업 디렉토리에서 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성하려면 명령줄에서 번역 명령을 실행하세요. 기본 번역 서비스로 Google 을 사용합니다. 지원되는 더 많은 번역 서비스는 [여기](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 확인할 수 있습니다.
+현재 작업 디렉토리에서 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성하려면 명령줄에서 번역 명령을 실행하세요. 기본 번역 서비스로 Google 을 사용합니다. 지원되는 더 많은 번역 서비스는 [여기](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 확인할 수 있습니다.
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 
@@ -229,7 +229,7 @@ pdf2zh_next example.pdf --formular-font-pattern "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|
 
 #### 사용자 지정 프롬프트
 
-<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pull/637). -->
+<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->
 
 번역을 위한 사용자 지정 시스템 프롬프트. 주로 프롬프트에 Qwen 3 의 '/no_think' 지시어를 추가하는 데 사용됩니다.
 

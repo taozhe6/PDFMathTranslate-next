@@ -12,7 +12,7 @@
 
 1. 문서 국제화/번역
 2. HTTP API 등과 같은 핵심 인프라와 관련된 기여
-3. "도움 필요 없음"으로 명시적으로 표시된 이슈 ([Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 및 [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) 저장소의 이슈 포함).
+3. "도움 필요 없음"으로 명시적으로 표시된 이슈 ([Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 및 [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) 저장소의 이슈 포함).
 4. 유지 관리자가 부적절하다고 판단한 기타 기여.
 5. 문서 기여이지만 영어 이외의 언어로 문서를 변경하는 경우.
 6. `PDF` 파일 수정이 필요한 PR.
@@ -193,7 +193,7 @@ For the following types of PRs, you are welcome to submit directly:
 - **high_level.py**: BabelDOC 기반의 고수준 인터페이스.
 - **http_api.py**: HTTP API 를 제공 (시작되지 않음).
 
-AI 에게 프로젝트 이해 요청: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+AI 에게 프로젝트 이해 요청: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 ## 문의하기
 

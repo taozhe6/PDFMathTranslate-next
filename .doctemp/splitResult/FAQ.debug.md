@@ -60,15 +60,15 @@ When executing the program, users would have the following outputs: `The followi
 <!-- CHUNK ID: chunk_22B1E6C4  CHUNK TYPE: list START_LINE:38 -->
 - **Issue**:  
 <!-- CHUNK ID: chunk_DF99BBC1  CHUNK TYPE: paragraph START_LINE:39 -->
-When downloading hugging face models, users in China may get network error. For example, in [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/70).
+When downloading hugging face models, users in China may get network error. For example, in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 <!-- CHUNK ID: chunk_AC4D20E5  CHUNK TYPE: list START_LINE:41 -->
 - **Solution**:
   - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Use Hugging Face Mirror](https://hf-mirror.com/).
-  - [Use Portable version](https://github.com/PDFMathTranslate/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
-  - [Use Docker instead](https://github.com/PDFMathTranslate/PDFMathTranslate-next#docker).
-  - [Update Certificates](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), as suggested in [issue #55](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/55).
+  - [Use Portable version](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [Use Docker instead](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
+  - [Update Certificates](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), as suggested in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
 
 <!-- CHUNK ID: chunk_8AA448AC  CHUNK TYPE: header START_LINE:48 -->
 ## Localhost is not accessible
@@ -80,7 +80,7 @@ Please see below.
 <!-- CHUNK ID: chunk_22B1E6C4  CHUNK TYPE: list START_LINE:52 -->
 - **Issue**:  
 <!-- CHUNK ID: chunk_D65A22CE  CHUNK TYPE: paragraph START_LINE:53 -->
-Using proxy software in global mode may prevent Gradio from starting properly. For example, in [issue #77](https://github.com/PDFMathTranslate/PDFMathTranslate-next/issues/77).
+Using proxy software in global mode may prevent Gradio from starting properly. For example, in [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 <!-- CHUNK ID: chunk_587F7FBA  CHUNK TYPE: list START_LINE:55 -->
 - **Solution**:  

@@ -28,7 +28,7 @@
 #### Command Line Args
 
 <!-- CHUNK ID: chunk_A2860DDF  CHUNK TYPE: paragraph START_LINE:24 -->
-Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/PDFMathTranslate/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).
+Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).
 
 <!-- CHUNK ID: chunk_B6CD1E39  CHUNK TYPE: image START_LINE:26 -->
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
@@ -348,7 +348,7 @@ pdf2zh_next example.pdf --formular-font-pattern "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|
 #### Custom prompt
 
 <!-- CHUNK ID: chunk_54E57534  CHUNK TYPE: html_comment START_LINE:233 -->
-<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pull/637). -->
+<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->
 
 <!-- CHUNK ID: chunk_5F141742  CHUNK TYPE: paragraph START_LINE:235 -->
 Custom system prompt for translation. It is mainly used to add the '/no_think' instruction of Qwen 3 in the prompt.

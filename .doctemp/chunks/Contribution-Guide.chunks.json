@@ -43,7 +43,7 @@
     },
     {
       "id": "chunk_D91B42A2",
-      "raw_content": "1. Documentation internationalization/translation\n2. Contributions related to core infrastructure, such as HTTP API, etc.\n3. Issues explicitly marked as \"No help needed\" (including issues in the [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) and the [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) repository).\n4. Other contributions deemed inappropriate by the maintainers.\n5. Contributing documentation, but changing the documentation in languages other than English.\n6. PRs that require modifying PDF files.\n7. PRs that modify the `pdf2zh_next/gui_translation.yaml` file.\n",
+      "raw_content": "1. Documentation internationalization/translation\n2. Contributions related to core infrastructure, such as HTTP API, etc.\n3. Issues explicitly marked as \"No help needed\" (including issues in the [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) and the [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) repository).\n4. Other contributions deemed inappropriate by the maintainers.\n5. Contributing documentation, but changing the documentation in languages other than English.\n6. PRs that require modifying PDF files.\n7. PRs that modify the `pdf2zh_next/gui_translation.yaml` file.\n",
       "metadata": {
         "chunk_type": "list",
         "level": null,
@@ -353,7 +353,7 @@
     },
     {
       "id": "chunk_7B1CB228",
-      "raw_content": "Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)\n",
+      "raw_content": "Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)\n",
       "metadata": {
         "chunk_type": "paragraph",
         "level": null,

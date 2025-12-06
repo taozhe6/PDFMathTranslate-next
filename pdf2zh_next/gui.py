@@ -1649,7 +1649,7 @@ if not config_fake_pdf_path.exists():
 
 tech_details_string = f"""
                     <summary>Technical details</summary>
-                    - ⭐ Star at GitHub: <a href="https://github.com/PDFMathTranslate/PDFMathTranslate-next">PDFMathTranslate/PDFMathTranslate-next</a><br>
+                    - ⭐ Star at GitHub: <a href="https://github.com/PDFMathTranslate-next/PDFMathTranslate-next">PDFMathTranslate-next/PDFMathTranslate-next</a><br>
                     - BabelDOC: <a href="https://github.com/funstory-ai/BabelDOC">funstory-ai/BabelDOC</a><br>
                     - GUI by: <a href="https://github.com/reycn">Rongxin</a> & <a href="https://github.com/hellofinch">hellofinch</a> & <a href="https://github.com/awwaawwa">awwaawwa</a> & <a href="https://github.com/zfb132">zfb132</a><br>
                     - pdf2zh Version: {__version__} <br>

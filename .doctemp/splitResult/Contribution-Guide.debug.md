@@ -17,7 +17,7 @@ Thank you for your interest in this project! Before you start contributing, plea
 <!-- CHUNK ID: chunk_D91B42A2  CHUNK TYPE: list START_LINE:13 -->
 1. Documentation internationalization/translation
 2. Contributions related to core infrastructure, such as HTTP API, etc.
-3. Issues explicitly marked as "No help needed" (including issues in the [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) and the [PDFMathTranslate/PDFMathTranslate-next](PDFMathTranslate/PDFMathTranslate-next) repository).
+3. Issues explicitly marked as "No help needed" (including issues in the [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) and the [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) repository).
 4. Other contributions deemed inappropriate by the maintainers.
 5. Contributing documentation, but changing the documentation in languages other than English.
 6. PRs that require modifying PDF files.
@@ -160,7 +160,7 @@ For the following types of PRs, it is recommended to discuss with maintainers fi
 - **http_api.py**: Provides HTTP API (not started).
 
 <!-- CHUNK ID: chunk_7B1CB228  CHUNK TYPE: paragraph START_LINE:127 -->
-Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate/PDFMathTranslate-next)
+Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 <!-- CHUNK ID: chunk_0C087ADF  CHUNK TYPE: header START_LINE:129 -->
 ## Contact Us

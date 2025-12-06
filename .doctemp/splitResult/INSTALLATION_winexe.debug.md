@@ -8,7 +8,7 @@
 ### Install PDFMathTranslate via .exe file
 
 <!-- CHUNK ID: chunk_D3A98932  CHUNK TYPE: table START_LINE:7 -->
-***Step 1*** | Download `pdf2zh-<version>-with-assets-win64.zip` from [release page](https://github.com/PDFMathTranslate/PDFMathTranslate-next/releases).
+***Step 1*** | Download `pdf2zh-<version>-with-assets-win64.zip` from [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).
 
 <!-- CHUNK ID: chunk_29FE8C1D  CHUNK TYPE: blockquote START_LINE:9 -->
 > [!TIP]
