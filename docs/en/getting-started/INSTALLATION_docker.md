@@ -22,8 +22,8 @@ docker run -d -p 7860:7860 awwaawwa/pdfmathtranslate-next
 > - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pkgs/container/pdfmathtranslate).
 > 
 > ```bash
-> docker pull ghcr.io/PDFMathTranslate/PDFMathTranslate-next
-> docker run -d -p 7860:7860 ghcr.io/PDFMathTranslate/PDFMathTranslate-next
+> docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next
+> docker run -d -p 7860:7860 ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next
 > ```
 
 <h4>2. Enter this URL in your default browser to open the WebUI page:</h4>

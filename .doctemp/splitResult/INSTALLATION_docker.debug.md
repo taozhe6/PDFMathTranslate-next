@@ -31,8 +31,8 @@ docker run -d -p 7860:7860 awwaawwa/pdfmathtranslate-next
 > - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/PDFMathTranslate/PDFMathTranslate-next/pkgs/container/pdfmathtranslate).
 > 
 > ```bash
-> docker pull ghcr.io/PDFMathTranslate/PDFMathTranslate-next
-> docker run -d -p 7860:7860 ghcr.io/PDFMathTranslate/PDFMathTranslate-next
+> docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next
+> docker run -d -p 7860:7860 ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next
 > ```
 
 <!-- CHUNK ID: chunk_0222B95B  CHUNK TYPE: paragraph START_LINE:29 -->
