@@ -21,7 +21,7 @@
 
 #### Аргументы командной строки
 
-Выполните команду перевода в командной строке, чтобы сгенерировать переведенный документ `example-mono.pdf` и двуязычный документ `example-dual.pdf` в текущем рабочем каталоге. Используйте Google в качестве службы перевода по умолчанию. Дополнительные поддерживаемые службы перевода можно найти [ЗДЕСЬ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).
+Выполните команду перевода в командной строке, чтобы сгенерировать переведённый документ `example-mono.pdf` и двуязычный документ `example-dual.pdf` в текущей рабочей директории. Используйте Google в качестве службы перевода по умолчанию. Дополнительные поддерживаемые службы перевода можно найти [ЗДЕСЬ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 

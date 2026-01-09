@@ -21,7 +21,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_a7a28fd0",
+      "chunk_id": "h_rule_2143d606",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 3,
@@ -57,21 +57,21 @@
       }
     },
     {
-      "chunk_id": "chunk_D3A98932",
+      "chunk_id": "chunk_CA38942C",
       "chunk_type": "table",
       "original_content": "***Step 1*** | Download `pdf2zh-<version>-with-assets-win64.zip` from [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
       "start_line_no": 7,
       "translations": {
-        "zh": "***步骤 1*** | 从 [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 下载 `pdf2zh-<version>-with-assets-win64.zip`。\n",
-        "es": "***Paso 1*** | Descarga `pdf2zh-<version>-with-assets-win64.zip` desde la [página de lanzamientos](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
-        "ko": "***1 단계*** | [릴리스 페이지](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 에서 `pdf2zh-<version>-with-assets-win64.zip` 을 다운로드하세요.\n",
-        "zh_TW": "***步驟 1*** | 從 [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 下載 `pdf2zh-<version>-with-assets-win64.zip`。\n",
-        "pt": "***Passo 1*** | Baixe `pdf2zh-<version>-with-assets-win64.zip` da [página de lançamentos](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
-        "de": "***Schritt 1*** | Laden Sie `pdf2zh-<version>-with-assets-win64.zip` von der [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) herunter.\n",
+        "zh": "***第一步*** | 从 [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 下载 `pdf2zh-<version>-with-assets-win64.zip`。\n",
+        "zh_TW": "***步驟 1*** | 從 [發佈頁面](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 下載 `pdf2zh-<version>-with-assets-win64.zip`。\n",
+        "ko": "***1 단계*** | [릴리스 페이지](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 에서 `pdf2zh-<version>-with-assets-win64.zip` 을 다운로드합니다.\n",
+        "ru": "***Шаг 1*** | Скачайте `pdf2zh-<version>-with-assets-win64.zip` со [страницы релизов](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
         "ja": "***ステップ 1*** | [リリースページ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) から `pdf2zh-<version>-with-assets-win64.zip` をダウンロードします。\n",
-        "fr": "***Étape 1*** | Téléchargez `pdf2zh-<version>-with-assets-win64.zip` depuis la [page des versions](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
+        "de": "***Schritt 1*** | Laden Sie `pdf2zh-<version>-with-assets-win64.zip` von der [Release-Seite](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) herunter.\n",
         "it": "***Passo 1*** | Scarica `pdf2zh-<version>-with-assets-win64.zip` dalla [pagina delle release](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
-        "ru": "***Шаг 1*** | Загрузите `pdf2zh-<version>-with-assets-win64.zip` со [страницы релизов](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n"
+        "es": "***Paso 1*** | Descarga `pdf2zh-<version>-with-assets-win64.zip` desde la [página de lanzamientos](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
+        "fr": "***Étape 1*** | Téléchargez `pdf2zh-<version>-with-assets-win64.zip` depuis la [page des versions](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n",
+        "pt": "***Passo 1*** | Baixe `pdf2zh-<version>-with-assets-win64.zip` da [página de lançamentos](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).\n"
       }
     },
     {

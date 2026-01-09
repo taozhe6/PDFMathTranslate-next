@@ -57,21 +57,21 @@ Se riscontri errori SSL o altri problemi di rete durante l'utilizzo di `pdf2zh`,
 
 Se il problema persiste, contatta il supporto tecnico fornendo i dettagli dell'errore.
 - **Problema**:
-Durante il download dei modelli di Hugging Face, gli utenti in Cina potrebbero riscontrare errori di rete. Ad esempio, nei [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
+Quando si scaricano modelli da Hugging Face, gli utenti in Cina potrebbero riscontrare errori di rete. Ad esempio, nelle [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 - **Soluzione**:
   - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).
-  - [Usa Hugging Face Mirror](https://hf-mirror.com/).
+  - [Usa lo specchio di Hugging Face](https://hf-mirror.com/).
   - [Usa la versione portatile](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
   - [Usa Docker invece](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
-  - [Aggiorna i certificati](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), come suggerito nell'[issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
+  - [Aggiorna i certificati](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), come suggerito in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
 
 ## Localhost non è accessibile
 Per favore, vedi sotto.
 
 ## Errore durante l'avvio della GUI utilizzando 0.0.0.0
 - **Problema**:
-L'utilizzo di software proxy in modalità globale potrebbe impedire il corretto avvio di Gradio. Ad esempio, nel [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
+L'utilizzo di software proxy in modalità globale potrebbe impedire l'avvio corretto di Gradio. Ad esempio, nel [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 - **Soluzione**:
 Modalità di utilizzo delle regole

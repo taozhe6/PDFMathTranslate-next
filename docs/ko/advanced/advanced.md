@@ -21,7 +21,7 @@
 
 #### 명령줄 인수
 
-현재 작업 디렉토리에서 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성하려면 명령줄에서 번역 명령을 실행하세요. 기본 번역 서비스로 Google 을 사용합니다. 지원되는 더 많은 번역 서비스는 [여기](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 확인할 수 있습니다.
+명령줄에서 번역 명령을 실행하여 현재 작업 디렉토리에 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성합니다. 기본 번역 서비스로 Google 을 사용합니다. 더 많은 지원 번역 서비스는 [여기](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 찾을 수 있습니다.
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 

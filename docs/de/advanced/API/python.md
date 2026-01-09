@@ -1,5 +1,5 @@
 > [!NOTE]
-> Diese Dokumentation kann KI-generierte Inhalte enthalten. Obwohl wir auf Genauigkeit achten, kann es zu Ungenauigkeiten kommen. Bitte melden Sie etwaige Probleme über:
+> Diese Dokumentation kann KI-generierte Inhalte enthalten. Obwohl wir auf Genauigkeit achten, können Ungenauigkeiten auftreten. Bitte melden Sie Probleme über:
 >
 > - [GitHub Issues](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues)
 > - Gemeinschaftsbeiträge (PRs sind willkommen!)

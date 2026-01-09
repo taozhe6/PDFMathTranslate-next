@@ -108,7 +108,7 @@ You can try our application out using either of the following services:
 2. [**Docker**](https://pdf2zh-next.com/getting-started/INSTALLATION_docker.html) <small>Recommand for Linux</small>
 3. [**uv** (a Python package manager)](https://pdf2zh-next.com/getting-started/INSTALLATION_uv.html) <small>Recommand for macOS</small>
 
-<!-- CHUNK ID: h_rule_ceb8ff06  CHUNK TYPE: h_rule START_LINE:75 -->
+<!-- CHUNK ID: h_rule_9b357edb  CHUNK TYPE: h_rule START_LINE:75 -->
 ---
 
 <!-- CHUNK ID: chunk_047D6F23  CHUNK TYPE: header START_LINE:77 -->

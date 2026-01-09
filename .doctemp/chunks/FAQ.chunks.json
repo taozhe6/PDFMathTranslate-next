@@ -232,7 +232,7 @@
       "start_line_no": 38
     },
     {
-      "id": "chunk_DF99BBC1",
+      "id": "chunk_471D045B",
       "raw_content": "When downloading hugging face models, users in China may get network error. For example, in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).\n",
       "metadata": {
         "chunk_type": "paragraph",
@@ -242,7 +242,7 @@
       "start_line_no": 39
     },
     {
-      "id": "chunk_AC4D20E5",
+      "id": "chunk_7E74DF2D",
       "raw_content": "- **Solution**:\n  - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).\n  - [Use Hugging Face Mirror](https://hf-mirror.com/).\n  - [Use Portable version](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).\n  - [Use Docker instead](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).\n  - [Update Certificates](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), as suggested in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).\n",
       "metadata": {
         "chunk_type": "list",
@@ -292,7 +292,7 @@
       "start_line_no": 52
     },
     {
-      "id": "chunk_D65A22CE",
+      "id": "chunk_A3391C06",
       "raw_content": "Using proxy software in global mode may prevent Gradio from starting properly. For example, in [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).\n",
       "metadata": {
         "chunk_type": "paragraph",

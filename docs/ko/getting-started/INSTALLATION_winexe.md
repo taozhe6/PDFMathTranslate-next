@@ -4,7 +4,7 @@
 
 ### .exe 파일로 PDFMathTranslate 설치하기
 
-***1 단계*** | [릴리스 페이지](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 에서 `pdf2zh-<version>-with-assets-win64.zip` 을 다운로드하세요.
+***1 단계*** | [릴리스 페이지](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases) 에서 `pdf2zh-<version>-with-assets-win64.zip` 을 다운로드합니다.
 
 > [!TIP]
 > **`pdf2zh-<version>-with-assets-win64.zip` 와 `pdf2zh-<version>-win64.zip` 의 차이점은 무엇인가요?**

@@ -19,7 +19,7 @@ docker run -d -p 7860:7860 awwaawwa/pdfmathtranslate-next
 
 > [!NOTE]
 > 
-> - 如果无法访问 Docker Hub，请尝试使用 [GitHub Container Registry](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pkgs/container/pdfmathtranslate) 上的镜像。
+> - 如果您无法访问 Docker Hub，请尝试使用 [GitHub Container Registry](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pkgs/container/pdfmathtranslate) 上的镜像。
 > 
 > ```bash
 > docker pull ghcr.io/pdfmathtranslate-next/pdfmathtranslate-next

@@ -4,7 +4,7 @@
 
 ### Установка PDFMathTranslate через файл .exe
 
-***Шаг 1*** | Загрузите `pdf2zh-<version>-with-assets-win64.zip` со [страницы релизов](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).
+***Шаг 1*** | Скачайте `pdf2zh-<version>-with-assets-win64.zip` со [страницы релизов](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).
 
 > [!TIP]
 > **В чем разница между `pdf2zh-<version>-with-assets-win64.zip` и `pdf2zh-<version>-win64.zip`?**
