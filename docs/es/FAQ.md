@@ -41,7 +41,7 @@ Al descargar modelos de hugging face, los usuarios en China pueden experimentar 
 - **Solución**:
   - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Usar espejo de Hugging Face](https://hf-mirror.com/).
-  - [Usar versión portable](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
+  - [Usar versión portátil](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
   - [Usar Docker en su lugar](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
   - [Actualizar certificados](https://stackoverflow.com/questions/51925384/unable-to-get-local-issuer-certificate-when-using-requests), como se sugiere en [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55).
 

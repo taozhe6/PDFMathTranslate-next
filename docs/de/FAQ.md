@@ -36,7 +36,7 @@ Beim Ausführen des Programms erhalten Benutzer die folgende Ausgabe: `The follo
 
 ## SSL-Fehler und andere Netzwerkprobleme
 - **Problem**:
-Beim Herunterladen von Hugging-Face-Modellen können Benutzer in China Netzwerkfehler erhalten. Zum Beispiel in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
+Beim Herunterladen von Hugging Face-Modellen können Nutzer in China Netzwerkfehler erhalten. Zum Beispiel in [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 - **Lösung**:
   - [GFW umgehen](https://github.com/clash-verge-rev/clash-verge-rev).
@@ -50,7 +50,7 @@ Bitte sehen Sie unten.
 
 ## Fehler beim Starten der GUI mit 0.0.0.0
 - **Problem**:
-Die Verwendung von Proxy-Software im globalen Modus kann verhindern, dass Gradio ordnungsgemäß startet. Zum Beispiel in [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
+Die Verwendung von Proxy-Software im globalen Modus kann verhindern, dass Gradio ordnungsgemäß startet. Zum Beispiel in [Issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 - **Lösung**:
 Verwenden Sie den Regelmodus

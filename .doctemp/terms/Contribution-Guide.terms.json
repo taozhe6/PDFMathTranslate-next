@@ -24,7 +24,15 @@
         "Aliyun": "阿里云",
         "SiliconFlow": "硅基流动",
         "For Translators": "文档翻译贡献指南",
-        "Immersive Translate": "沉浸式翻译"
+        "Immersive Translate": "沉浸式翻译",
+        "# Contributing to the Project": "# 为项目做贡献",
+        "## Types of Contributions Not Accepted": "## 不接受的贡献类型",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## 建议在提交前通过 Issue 与维护者讨论的 PR 类型",
+        "## Contribution Process": "## 贡献流程",
+        "## Basic Requirements": "## 基本要求",
+        "## Adding a Translation Engine": "## 添加翻译引擎",
+        "## Project Structure": "## 项目结构",
+        "## Contact Us": "## 联系我们"
       }
     },
     "zh_TW": {
@@ -44,7 +52,15 @@
         "FAQ": "常見問題",
         "Aliyun": "阿里雲",
         "SiliconFlow": "硅基流動",
-        "For Translators": "文檔翻譯貢獻指南"
+        "For Translators": "文檔翻譯貢獻指南",
+        "# Contributing to the Project": "# 為專案貢獻",
+        "## Types of Contributions Not Accepted": "## 不接受貢獻的類型",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## 建議在提交前透過 Issue 與維護者討論的 PR 類型",
+        "## Contribution Process": "## 貢獻流程",
+        "## Basic Requirements": "## 基本要求",
+        "## Adding a Translation Engine": "## 添加翻譯引擎",
+        "## Project Structure": "## 專案結構",
+        "## Contact Us": "## 聯繫我們"
       }
     },
     "ja": {
@@ -63,7 +79,15 @@
         "Community": "コミュニティ",
         "FAQ": "よくある質問",
         "For Translators": "文書翻訳貢献ガイド",
-        "Immersive Translate": "没入型翻訳"
+        "Immersive Translate": "没入型翻訳",
+        "# Contributing to the Project": "# プロジェクトへの貢献",
+        "## Types of Contributions Not Accepted": "## 受け入れられない貢献の種類",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## メンテナーとの事前 Issue での議論を推奨する PR",
+        "## Contribution Process": "## 貢献プロセス",
+        "## Basic Requirements": "## 基本要件",
+        "## Adding a Translation Engine": "## 翻訳エンジンの追加",
+        "## Project Structure": "## プロジェクト構造",
+        "## Contact Us": "## お問い合わせ"
       }
     },
     "ko": {
@@ -81,7 +105,15 @@
         "Supported Languages": "지원 언어",
         "Community": "커뮤니티",
         "FAQ": "자주 묻는 질문",
-        "For Translators": "문서 번역 기여 가이드"
+        "For Translators": "문서 번역 기여 가이드",
+        "# Contributing to the Project": "# 프로젝트에 기여하기",
+        "## Types of Contributions Not Accepted": "## 허용되지 않는 기여 유형",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PR을 제출하기 전에 유지 관리자와 Issue를 통해 논의하는 것이 권장됩니다",
+        "## Contribution Process": "## 기여 프로세스",
+        "## Basic Requirements": "## 기본 요구사항",
+        "## Adding a Translation Engine": "## 번역 엔진 추가하기",
+        "## Project Structure": "## 프로젝트 구조",
+        "## Contact Us": "## 문의하기"
       }
     },
     "ru": {
@@ -99,7 +131,15 @@
         "Supported Languages": "Поддерживаемые языки",
         "Community": "Сообщество",
         "FAQ": "Часто задаваемые вопросы",
-        "For Translators": "Руководство по внесению вклада в переводы"
+        "For Translators": "Руководство по внесению вклада в переводы",
+        "# Contributing to the Project": "# Вклад в проект",
+        "## Types of Contributions Not Accepted": "## Типы вкладов, которые не принимаются",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PR, которые рекомендуется обсудить с сопровождающими через Issue перед отправкой",
+        "## Contribution Process": "## Процесс внесения вклада",
+        "## Basic Requirements": "## Основные требования",
+        "## Adding a Translation Engine": "## Добавление движка перевода",
+        "## Project Structure": "## Структура проекта",
+        "## Contact Us": "## Свяжитесь с нами"
       }
     },
     "es": {
@@ -117,7 +157,15 @@
         "Supported Languages": "Idiomas soportados",
         "Community": "Comunidad",
         "FAQ": "Preguntas frecuentes",
-        "For Translators": "Guía de contribución de traducciones"
+        "For Translators": "Guía de contribución de traducciones",
+        "# Contributing to the Project": "# Contribuir al proyecto",
+        "## Types of Contributions Not Accepted": "## Tipos de contribuciones no aceptadas",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PRs que se recomienda discutir con los mantenedores a través de un Issue antes de enviarlos",
+        "## Contribution Process": "## Proceso de contribución",
+        "## Basic Requirements": "## Requisitos básicos",
+        "## Adding a Translation Engine": "## Agregar un motor de traducción",
+        "## Project Structure": "## Estructura del proyecto",
+        "## Contact Us": "## Contáctanos"
       }
     },
     "fr": {
@@ -135,7 +183,15 @@
         "Supported Languages": "Langues supportées",
         "Community": "Communauté",
         "FAQ": "FAQ",
-        "For Translators": "Guide de contribution des traductions"
+        "For Translators": "Guide de contribution des traductions",
+        "# Contributing to the Project": "# Contribuer au projet",
+        "## Types of Contributions Not Accepted": "## Types de contributions non acceptées",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PRs qu'il est recommandé de discuter avec les mainteneurs via Issue avant soumission",
+        "## Contribution Process": "## Processus de contribution",
+        "## Basic Requirements": "## Exigences de base",
+        "## Adding a Translation Engine": "## Ajouter un moteur de traduction",
+        "## Project Structure": "## Structure du projet",
+        "## Contact Us": "## Nous contacter"
       }
     },
     "de": {
@@ -153,7 +209,15 @@
         "Supported Languages": "Unterstützte Sprachen",
         "Community": "Gemeinschaft",
         "FAQ": "Häufig gestellte Fragen",
-        "For Translators": "Guide de contribution des traductions"
+        "For Translators": "Guide de contribution des traductions",
+        "# Contributing to the Project": "# Beitrag zum Projekt",
+        "## Types of Contributions Not Accepted": "## Arten von Beiträgen, die nicht akzeptiert werden",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PRs, die empfohlen werden, vor der Einreichung mit den Maintainern über ein Issue zu besprechen",
+        "## Contribution Process": "## Beitragsprozess",
+        "## Basic Requirements": "## Grundlegende Anforderungen",
+        "## Adding a Translation Engine": "## Hinzufügen einer Übersetzungsmaschine",
+        "## Project Structure": "## Projektstruktur",
+        "## Contact Us": "## Kontaktieren Sie uns"
       }
     },
     "it": {
@@ -171,7 +235,15 @@
         "Supported Languages": "Lingue supportate",
         "Community": "Comunità",
         "FAQ": "Domande frequenti",
-        "For Translators": "Guida alla contribuzione per le traduzioni"
+        "For Translators": "Guida alla contribuzione per le traduzioni",
+        "# Contributing to the Project": "# Contribuire al Progetto",
+        "## Types of Contributions Not Accepted": "## Tipi di contributi non accettati",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PR consigliati per discutere con i manutentori tramite Issue prima dell'invio",
+        "## Contribution Process": "## Processo di Contribuzione",
+        "## Basic Requirements": "## Requisiti di base",
+        "## Adding a Translation Engine": "## Aggiungere un motore di traduzione",
+        "## Project Structure": "## Struttura del progetto",
+        "## Contact Us": "## Contattaci"
       }
     },
     "pt": {
@@ -189,7 +261,15 @@
         "Supported Languages": "Idiomas suportados",
         "Community": "Comunidade",
         "FAQ": "Perguntas frequentes",
-        "For Translators": "Guia de contribuição para traduções"
+        "For Translators": "Guia de contribuição para traduções",
+        "# Contributing to the Project": "# Contribuindo para o projeto",
+        "## Types of Contributions Not Accepted": "## Tipos de Contribuições Não Aceitas",
+        "## PRs that are recommended to discuss with maintainers via Issue before submission": "## PRs que são recomendados discutir com os mantenedores via Issue antes da submissão",
+        "## Contribution Process": "## Processo de Contribuição",
+        "## Basic Requirements": "## Requisitos básicos",
+        "## Adding a Translation Engine": "## Adicionando um mecanismo de tradução",
+        "## Project Structure": "## Estrutura do Projeto",
+        "## Contact Us": "## Contate-nos"
       }
     }
   }

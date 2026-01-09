@@ -1,7 +1,7 @@
 <!-- CHUNK ID: chunk_F3B96F2D  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Getting Started**](./getting-started.md) > **Installation** > **Docker** _(current)_
 
-<!-- CHUNK ID: h_rule_31939f38  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_040a7790  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_3EBE8361  CHUNK TYPE: header START_LINE:5 -->
@@ -25,7 +25,7 @@ docker pull awwaawwa/pdfmathtranslate-next
 docker run -d -p 7860:7860 awwaawwa/pdfmathtranslate-next
 ```
 
-<!-- CHUNK ID: chunk_B1F3E7B5  CHUNK TYPE: blockquote START_LINE:20 -->
+<!-- CHUNK ID: chunk_CEAB798C  CHUNK TYPE: blockquote START_LINE:20 -->
 > [!NOTE]
 > 
 > - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pkgs/container/pdfmathtranslate).
@@ -49,7 +49,7 @@ http://localhost:7860/
 
 > [!NOTE]
 > If you encounter any issues during use command line, please refer to [Usage --> Command Line](./USAGE_commandline.md).
-<!-- CHUNK ID: chunk_0B40829E  CHUNK TYPE: html_comment START_LINE:40 -->
+<!-- CHUNK ID: chunk_B026E889  CHUNK TYPE: html_comment START_LINE:40 -->
 <!-- 
 #### For docker deployment on cloud service:
 

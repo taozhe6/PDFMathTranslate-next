@@ -1,7 +1,7 @@
 <!-- CHUNK ID: chunk_9221A870  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Advanced**](./introduction.md) > **Documentation of Translation Services** _(current)_
 
-<!-- CHUNK ID: h_rule_8e49692a  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_e0a05fa1  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_7775DA81  CHUNK TYPE: header START_LINE:5 -->
@@ -19,7 +19,7 @@ pdf2zh_next -h
 At the end of the help message, you can view detailed information about the different translation services.
 
 
-<!-- CHUNK ID: h_rule_74ef211f  CHUNK TYPE: h_rule START_LINE:16 -->
+<!-- CHUNK ID: h_rule_806f6d1d  CHUNK TYPE: h_rule START_LINE:16 -->
 ---
 
 <!-- CHUNK ID: chunk_2DBF0B10  CHUNK TYPE: header START_LINE:18 -->

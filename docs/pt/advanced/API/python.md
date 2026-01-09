@@ -1,5 +1,5 @@
 > [!NOTE]
-> Esta documentação pode conter conteúdo gerado por IA. Embora nos esforcemos pela precisão, podem ocorrer imprecisões. Por favor, relate quaisquer problemas através de:
+> Esta documentação pode conter conteúdo gerado por IA. Embora nos esforcemos para garantir a precisão, podem ocorrer imprecisões. Por favor, reporte quaisquer problemas através de:
 >
 > - [GitHub Issues](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues)
 > - Contribuição da comunidade (PRs são bem-vindos!)

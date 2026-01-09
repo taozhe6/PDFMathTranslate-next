@@ -39,10 +39,10 @@ Lors de l'exécution du programme, les utilisateurs auront les sorties suivantes
 
 ## Erreur SSL et autres problèmes réseau
 - **Problème** :
-Lors du téléchargement des modèles de hugging face, les utilisateurs en Chine peuvent rencontrer des erreurs réseau. Par exemple, dans [issue #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55), [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
+Lors du téléchargement de modèles depuis Hugging Face, les utilisateurs en Chine peuvent rencontrer des erreurs réseau. Par exemple, dans les [issues #55](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/55) et [#70](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/70).
 
 - **Solution** :
-  - [Contourner le GFW](https://github.com/clash-verge-rev/clash-verge-rev).
+  - [Bypass GFW](https://github.com/clash-verge-rev/clash-verge-rev).
   - [Utiliser le miroir Hugging Face](https://hf-mirror.com/).
   - [Utiliser la version portable](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next?tab=readme-ov-file#method-ii-portable).
   - [Utiliser Docker à la place](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next#docker).
@@ -53,7 +53,7 @@ Veuillez voir ci-dessous.
 
 ## Erreur lors du lancement de l'interface graphique avec 0.0.0.0
 - **Problème** :
-L'utilisation d'un logiciel proxy en mode global peut empêcher Gradio de démarrer correctement. Par exemple, dans [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
+L'utilisation d'un logiciel de proxy en mode global peut empêcher Gradio de démarrer correctement. Par exemple, dans [issue #77](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues/77).
 
 - **Solution** :
 Utiliser le mode règle

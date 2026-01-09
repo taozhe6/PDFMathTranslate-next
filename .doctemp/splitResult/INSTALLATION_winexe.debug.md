@@ -1,13 +1,13 @@
 <!-- CHUNK ID: chunk_E5616440  CHUNK TYPE: paragraph START_LINE:1 -->
 [**Getting Started**](./getting-started.md) > **Installation** > **Windows EXE** _(current)_
 
-<!-- CHUNK ID: h_rule_a7a28fd0  CHUNK TYPE: h_rule START_LINE:3 -->
+<!-- CHUNK ID: h_rule_2143d606  CHUNK TYPE: h_rule START_LINE:3 -->
 ---
 
 <!-- CHUNK ID: chunk_F372470F  CHUNK TYPE: header START_LINE:5 -->
 ### Install PDFMathTranslate via .exe file
 
-<!-- CHUNK ID: chunk_D3A98932  CHUNK TYPE: table START_LINE:7 -->
+<!-- CHUNK ID: chunk_CA38942C  CHUNK TYPE: table START_LINE:7 -->
 ***Step 1*** | Download `pdf2zh-<version>-with-assets-win64.zip` from [release page](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/releases).
 
 <!-- CHUNK ID: chunk_29FE8C1D  CHUNK TYPE: blockquote START_LINE:9 -->

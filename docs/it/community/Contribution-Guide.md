@@ -1,142 +1,103 @@
-# Contribuire al progetto
+# Contribuire al Progetto
 
 > [!CAUTION]
 >
-> Gli attuali responsabili del progetto stanno ricercando l'internazionalizzazione automatizzata della documentazione. Pertanto, qualsiasi PR relativa all'internazionalizzazione/traduzione della documentazione NON sarà accettata!
+> Gli attuali manutentori del progetto stanno ricercando l'internazionalizzazione automatizzata della documentazione. Pertanto, qualsiasi PR relativa all'internazionalizzazione/traduzione della documentazione NON sarà accettata!
 >
 > Si prega di NON inviare PR relative all'internazionalizzazione/traduzione della documentazione!
 
-Grazie per il tuo interesse in questo progetto! Prima di iniziare a contribuire, ti preghiamo di dedicare un po' di tempo a leggere le seguenti linee guida per assicurarti che il tuo contributo possa essere accettato senza problemi.
+Grazie per il tuo interesse in questo progetto! Prima di iniziare a contribuire, ti preghiamo di dedicare un po' di tempo a leggere le seguenti linee guida per garantire che il tuo contributo possa essere accettato senza problemi.
 
-## Tipi di Contributi Non Accettati
+## Tipi di contributi non accettati
 
-1. Documentazione internazionalizzazione/traduzione  
-2. Contributi relativi all'infrastruttura di base, come API HTTP, ecc.  
-3. Problemi contrassegnati esplicitamente come "No help needed" (inclusi i problemi nei repository [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).  
-4. Altri contributi ritenuti inappropriati dai maintainer.  
-5. Contribuire alla documentazione, ma modificando la documentazione in lingue diverse dall'inglese.  
-6. PR che richiedono la modifica di file PDF.  
+1. Documentazione internazionalizzazione/traduzione
+2. Contributi relativi all'infrastruttura di base, come API HTTP, ecc.
+3. Issue contrassegnate esplicitamente come "No help needed" (inclusi i problemi nei repository [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) e [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next)).
+4. Altri contributi ritenuti inappropriati dai manutentori.
+5. Contributi alla documentazione, ma che modificano la documentazione in lingue diverse dall'inglese.
+6. PR che richiedono la modifica di file PDF.
 7. PR che modificano il file `pdf2zh_next/gui_translation.yaml`.
 
-Per favore NON inviare PR relativi ai tipi sopra menzionati.
+Si prega di NON inviare PR relativi ai tipi sopra menzionati.
 
 > [!NOTE]
 >
-> Se vuoi contribuire alla documentazione, **modifica solo la versione inglese della documentazione**. Le altre versioni linguistiche sono tradotte dai contributori stessi.
+> Se desideri contribuire alla documentazione, **modifica solo la versione inglese della documentazione**. Le altre versioni linguistiche sono tradotte dai contributori stessi.
 
-- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
-- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
-- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
-- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
-- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
-- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
+## PR consigliati per discutere con i manutentori tramite Issue prima dell'invio
 
----
+Per i seguenti tipi di PR, si consiglia di discutere con i manutentori prima dell'invio:
 
-### OUTPUT LANGUAGE
-
-it
-
-- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
-- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
-- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
-- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
-- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
-- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
-
----
-
-### TRANSLATION
-
-Per i seguenti tipi di PR, si consiglia di discutere prima con i maintainer prima dell' invio:
-- **Nuove funzionalità o modifiche importanti** (ad esempio, aggiungere un nuovo servizio di traduzione, modificare l' architettura core, ecc.)
-- **Modifiche che potrebbero influenzare l' esperienza utente** (ad esempio, modificare la configurazione predefinita, cambiare l' UI/UX, ecc.)
-- **Modifiche che potrebbero influenzare le prestazioni** (ad esempio, modificare gli algoritmi core, cambiare la strategia di caching, ecc.)
-- **Modifiche che potrebbero influenzare la sicurezza** (ad esempio, modificare il meccanismo di autenticazione, cambiare il metodo di archiviazione dei dati, ecc.)
-- **Modifiche che potrebbero influenzare la compatibilità** (ad esempio, modificare l' API, cambiare il formato dei dati, ecc.)
-- **Modifiche che potrebbero influenzare la manutenzione a lungo termine del progetto** (ad esempio, modificare la struttura del progetto, cambiare il metodo di gestione delle dipendenze, ecc.)
-
-2. PRs that involve modifying the project's core architecture or introducing new dependencies without sufficient justification.
-3. PRs that involve modifying the project's license or introducing new license restrictions.
-4. PRs that involve modifying the project's core functionality without sufficient testing or documentation.
-
----
-
-### TRANSLATED TEXT
-
-1. PR relativi alla funzionalità di condivisione multi-utente. (Questo progetto è progettato principalmente per l'uso da parte di un singolo utente e non intende introdurre un sistema multi-utente completo).
-2. PR che coinvolgono la modifica dell'architettura core del progetto o l'introduzione di nuove dipendenze senza una giustificazione sufficiente.
-3. PR che coinvolgono la modifica della licenza del progetto o l'introduzione di nuove restrizioni di licenza.
-4. PR che coinvolgono la modifica della funzionalità core del progetto senza test o documentazione sufficienti.
+1. PR relativi alla funzionalità di condivisione multi-utente. (Questo progetto è principalmente progettato per l'uso da parte di un singolo utente e non intende introdurre un sistema multi-utente completo).
 
 ## Processo di Contribuzione
 
 1. Forka questo repository e clonalo localmente.
 2. Crea un nuovo branch: `git checkout -b feature/<feature-name>`.
 3. Sviluppa e assicurati che il tuo codice soddisfi i requisiti.
-4. Esegui il commit del tuo codice:
+4. Committa il tuo codice:
    ```bash
    git add .
    git commit -m "<semantic commit message>"
    ```
-5. Esegui il push sul tuo repository: `git push origin feature/<feature-name>`.
+5. Pusha sul tuo repository: `git push origin feature/<feature-name>`.
 6. Crea una PR su GitHub, fornisci una descrizione dettagliata e richiedi una revisione da [@awwaawwa](https://github.com/awwaawwa).
-7. Assicurati che tutti i controlli automatizzati siano superati.
+7. Assicurati che tutti i controlli automatici siano superati.
 
 > [!TIP]
 >
-> Non è necessario attendere che lo sviluppo sia completamente terminato per creare una PR. Crearne una in anticipo ci permette di esaminare la tua implementazione e fornire suggerimenti.
+> Non è necessario attendere che lo sviluppo sia completamente terminato per creare una PR. Crearne una in anticipo ci permette di rivedere la tua implementazione e fornire suggerimenti.
 >
-> Se hai domande sul codice sorgente o su questioni correlate, contatta il maintainer all'indirizzo aw@funstory.ai.
+> Se hai domande sul codice sorgente o su questioni correlate, contatta il manutentore all'indirizzo aw@funstory.ai.
 >
-> I file delle risorse per la versione 2.0 sono condivisi con [BabelDOC](https://github.com/funstory-ai/BabelDOC). Il codice per scaricare le risorse correlate si trova in BabelDOC. Se desideri aggiungere nuovi file di risorse, contatta il maintainer di BabelDOC all'indirizzo aw@funstory.ai.
+> I file di risorse per la versione 2.0 sono condivisi con [BabelDOC](https://github.com/funstory-ai/BabelDOC). Il codice per scaricare le risorse correlate si trova in BabelDOC. Se desideri aggiungere nuovi file di risorse, contatta il manutentore di BabelDOC all'indirizzo aw@funstory.ai.
 
 ## Requisiti di base
 
 <h4 id="sop">1. Flusso di lavoro</h4>
 
-   - Si prega di effettuare il fork dal branch `main` e sviluppare sul proprio branch forkato.
+   - Si prega di effettuare il fork dal ramo `main` e sviluppare sul proprio ramo forkato.
    - Quando si invia una Pull Request (PR), fornire una descrizione dettagliata delle modifiche apportate.
-   - Se la PR non supera i controlli automatizzati (indicati da `checks failed` e una croce rossa), si prega di rivedere i corrispondenti `details` e modificare l'invio per garantire che la nuova PR superi tutti i controlli.
+   - Se la PR non supera i controlli automatici (indicati da `checks failed` e una croce rossa), si prega di rivedere i corrispondenti `details` e modificare l'invio per garantire che la nuova PR superi tutti i controlli.
 
 
 <h4 id="dev&test">2. Sviluppo e Test</h4>
 
-   - Utilizzare il comando `pip install -e .` per sviluppo e test.
+   - Usa il comando `pip install -e .` per lo sviluppo e il testing.
 
 
-<h4 id="formato">3. Formattazione del Codice</h4>
+<h4 id="format">3. Formattazione del Codice</h4>
 
    - Configura lo strumento `pre-commit` e abilita `black` e `flake8` per la formattazione del codice.
 
 
-<h4 id="requpdate">4. Aggiornamenti delle dipendenze</h4>
+<h4 id="requpdate">4. Aggiornamenti delle Dipendenze</h4>
 
    - Se introduci nuove dipendenze, aggiorna tempestivamente l'elenco delle dipendenze nel file `pyproject.toml`.
 
 
-<h4 id="docupdate">5. Aggiornamenti della documentazione</h4>
+<h4 id="docupdate">5. Aggiornamenti della Documentazione</h4>
 
-   - Se aggiungi nuove opzioni da riga di comando, aggiorna l'elenco delle opzioni da riga di comando in tutte le versioni linguistiche del file `README.md` di conseguenza.
+   - Se aggiungi nuove opzioni da riga di comando, aggiorna di conseguenza l'elenco delle opzioni da riga di comando in tutte le versioni linguistiche del file `README.md`.
 
 
 <h4 id="commitmsg">6. Messaggi di Commit</h4>
 
-   - Utilizzare [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), ad esempio: `feat(translator): add openai`.
+   - Utilizza [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), ad esempio: `feat(translator): add openai`.
 
 
 <h4 id="codestyle">7. Stile di Codifica</h4>
 
-   - Assicurati che il codice inviato rispetti gli standard di base dello stile di codifica.
+   - Assicurati che il codice inviato aderisca agli standard di base dello stile di codifica.
    - Utilizza snake_case o camelCase per la denominazione delle variabili.
 
 
 <h4 id="doctypo">8. Formattazione della Documentazione</h4>
 
-   - Per la formattazione di `README.md`, seguire le [Linee guida per la scrittura in cinese](https://github.com/sparanoid/chinese-copywriting-guidelines).
-   - Assicurarsi che la documentazione in inglese e cinese sia sempre aggiornata; gli aggiornamenti della documentazione in altre lingue sono facoltativi.
+   - Per la formattazione di `README.md`, si prega di seguire le [Linee guida per la scrittura in cinese](https://github.com/sparanoid/chinese-copywriting-guidelines).
+   - Assicurarsi che la documentazione in inglese e cinese sia sempre aggiornata; gli aggiornamenti della documentazione in altre lingue sono opzionali.
 
-## Aggiunta di un motore di traduzione
+## Aggiungere un motore di traduzione
 
 1. Aggiungi una nuova classe di configurazione del traduttore nel file `pdf2zh/config/translate_engine_model.py`.
 2. Aggiungi un'istanza della nuova classe di configurazione del traduttore all'alias di tipo `TRANSLATION_ENGINE_SETTING_TYPE` nello stesso file.
@@ -151,74 +112,27 @@ Per i seguenti tipi di PR, si consiglia di discutere prima con i maintainer prim
 > - Traduttori instabili
 > - Traduttori basati su API di reverse engineering
 >
-> Quando non sei sicuro se un traduttore soddisfa i requisiti, puoi inviare un problema per discuterne con i manutentori.
+> Quando non sei sicuro se un traduttore soddisfa i requisiti, puoi inviare un issue per discuterne con i manutentori.
 
 ## Struttura del progetto
 
-- **config folder**: Sistema di configurazione.
-- **translator folder**: Implementazioni relative al traduttore.
+- **cartella config**: Sistema di configurazione.
+- **cartella translator**: Implementazioni relative ai traduttori.
 - **gui.py**: Fornisce l'interfaccia GUI.
 - **const.py**: Alcune costanti.
 - **main.py**: Fornisce lo strumento da riga di comando.
 - **high_level.py**: Interfacce di alto livello basate su BabelDOC.
-- **http_api.py**: Fornisce API HTTP (non avviato).
-
-- [Home](https://pdf2zh-next.com/)
-- [Getting Start](https://pdf2zh-next.com/getting-started/)
-- [Installation](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
-- [Command Line](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
-- [Usage](https://pdf2zh-next.com/getting-started/USAGE.html)
-- [Language Code](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
-- [Documentation of Translation Services](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICE.html)
-- [Getting Started](https://pdf2zh-next.com/getting-started/)
-- [Advanced](https://pdf2zh-next.com/advanced/)
-- [Supported Languages](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html)
-- [Community](https://pdf2zh-next.com/community/)
-- [FAQ](https://pdf2zh-next.com/community/FAQ.html)
-- [For Translators](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
-
-## PRs that are recommended to discuss with maintainers via Issue before submission:
-- **New feature or major changes** (e.g., adding a new translation service, changing the core architecture, etc.)
-- **Changes that may affect user experience** (e.g., modifying the default configuration, changing the UI/UX, etc.)
-- **Changes that may affect performance** (e.g., modifying the core algorithms, changing the caching strategy, etc.)
-- **Changes that may affect security** (e.g., modifying the authentication mechanism, changing the data storage method, etc.)
-- **Changes that may affect compatibility** (e.g., modifying the API, changing the data format, etc.)
-- **Changes that may affect the project's long-term maintenance** (e.g., modifying the project structure, changing the dependency management method, etc.)
-
----
-
-### TRANSLATION
+- **http_api.py**: Fornisce l'API HTTP (non avviata).
 
 Chiedi all'AI di comprendere il progetto: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
-- [Home](https://pdf2zh-next.com/)
-- [Iniziare](https://pdf2zh-next.com/getting-started/)
-- [Installazione](https://pdf2zh-next.com/getting-started/INSTALLATION.html)
-- [Riga di comando](https://pdf2zh-next.com/getting-started/USAGE_cli.html)
-- [Utilizzo](https://pdf2zh-next.com/getting-started/USAGE.html)
-- [Codice lingua](https://pdf2zh-next.com/getting-started/LANGUAGE_CODE.html)
-- [Documentazione dei servizi di traduzione](https://pdf2zh-next.com/getting-started/TRANSLATION_SERVICE.html)
-- [Iniziare](https://pdf2zh-next.com/getting-started/)
-- [Opzioni avanzate](https://pdf2zh-next.com/advanced/)
-- [Lingue supportate](https://pdf2zh-next.com/advanced/SUPPORTED_LANGUAGES.html)
-- [Comunità](https://pdf2zh-next.com/community/)
-- [Domande frequenti](https://pdf2zh-next.com/community/FAQ.html)
-- [Guida alla contribuzione per le traduzioni](https://pdf2zh-next.com/community/FOR_TRANSLATORS.html)
-
-## PRs che è consigliato discutere con i maintainer tramite Issue prima della presentazione:
-- **Nuove funzionalità o modifiche sostanziali** (ad esempio, aggiungere un nuovo servizio di traduzione, modificare l'architettura core, ecc.)
-- **Modifiche che potrebbero influenzare l'esperienza utente** (ad esempio, modificare la configurazione predefinita, cambiare l'UI/UX, ecc.)
-- **Modifiche che potrebbero influenzare le prestazioni** (ad esempio, modificare gli algoritmi core, cambiare la strategia di caching, ecc.)
-- **Modifiche che potrebbero influenzare la sicurezza** (ad esempio, modificare il meccanismo di autenticazione, cambiare il metodo di archiviazione dei dati, ecc.)
-- **Modifiche che potrebbero influenzare la compatibilità** (ad esempio, modificare l'API, cambiare il formato dei dati, ecc.)
-- **Modifiche che potrebbero influenzare la manutenzione a lungo termine del progetto** (ad esempio, modificare la struttura del progetto, cambiare il metodo di gestione delle dipendenze, ecc.)
 
 ## Contattaci
 
-Se hai domande, invia feedback tramite Issue o unisciti al nostro gruppo Telegram. Grazie per il tuo contributo!
+Se hai domande, invia feedback tramite Issue o unisciti al nostro Gruppo Telegram. Grazie per il tuo contributo!
 
 > [!TIP]
 >
-> [Immersive Translate](https://immersivetranslate.com) sponsorizza codici mensili di abbonamento Pro per i contributori attivi a questo progetto. Per i dettagli, consultare: [BabelDOC/PDFMathTranslate Regole di ricompensa per i contributori](https://funstory-ai.github.io/BabelDOC/CONTRIBUTOR_REWARD/)
+> [Immersive Translate](https://immersivetranslate.com) sponsorizza codici mensili di abbonamento Pro per i contributori attivi di questo progetto. Per i dettagli, consultare: [Regole di ricompensa per i contributori di BabelDOC/PDFMathTranslate](https://funstory-ai.github.io/BabelDOC/CONTRIBUTOR_REWARD/)
 
 <div align="right"> 
 <h6><small>Parte del contenuto di questa pagina è stata tradotta da GPT e potrebbe contenere errori.</small></h6>

@@ -14,7 +14,7 @@ Thank you for your interest in this project! Before you start contributing, plea
 <!-- CHUNK ID: chunk_FB836CBD  CHUNK TYPE: header START_LINE:11 -->
 ## Types of Contributions Not Accepted
 
-<!-- CHUNK ID: chunk_D91B42A2  CHUNK TYPE: list START_LINE:13 -->
+<!-- CHUNK ID: chunk_4B8BC98D  CHUNK TYPE: list START_LINE:13 -->
 1. Documentation internationalization/translation
 2. Contributions related to core infrastructure, such as HTTP API, etc.
 3. Issues explicitly marked as "No help needed" (including issues in the [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) and the [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) repository).
@@ -159,7 +159,7 @@ For the following types of PRs, it is recommended to discuss with maintainers fi
 - **high_level.py**: High-level interfaces based on BabelDOC.
 - **http_api.py**: Provides HTTP API (not started).
 
-<!-- CHUNK ID: chunk_7B1CB228  CHUNK TYPE: paragraph START_LINE:127 -->
+<!-- CHUNK ID: chunk_B52358FF  CHUNK TYPE: paragraph START_LINE:127 -->
 Ask AI to understand the project: [DeepWiki](https://deepwiki.com/PDFMathTranslate-next/PDFMathTranslate-next)
 
 <!-- CHUNK ID: chunk_0C087ADF  CHUNK TYPE: header START_LINE:129 -->

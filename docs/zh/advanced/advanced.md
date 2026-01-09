@@ -21,7 +21,7 @@
 
 #### 命令行参数
 
-在命令行中执行翻译命令，在当前工作目录中生成翻译后的文档 `example-mono.pdf` 和双语文档 `example-dual.pdf`。使用 Google 作为默认翻译服务。更多支持的翻译服务可以在 [这里](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。
+在命令行中执行翻译命令，在当前工作目录下生成翻译文档 `example-mono.pdf` 和双语文档 `example-dual.pdf`。默认使用 Google 作为翻译服务。更多支持的翻译服务可以在 [这里](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。
 
 <img src="./../../images/cmd_light.svg" width="580px"  alt="cmd"/>
 

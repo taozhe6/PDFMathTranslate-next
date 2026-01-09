@@ -21,7 +21,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_8268bba0",
+      "chunk_id": "h_rule_e4111f69",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 3,
@@ -75,7 +75,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_4f9c9a70",
+      "chunk_id": "h_rule_63e7223f",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 20,
@@ -111,21 +111,21 @@
       }
     },
     {
-      "chunk_id": "chunk_A2860DDF",
+      "chunk_id": "chunk_6AD92D23",
       "chunk_type": "paragraph",
       "original_content": "Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
       "start_line_no": 24,
       "translations": {
-        "zh": "在命令行中执行翻译命令，在当前工作目录中生成翻译后的文档 `example-mono.pdf` 和双语文档 `example-dual.pdf`。使用 Google 作为默认翻译服务。更多支持的翻译服务可以在 [这里](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。\n",
-        "zh_TW": "在命令行中執行翻譯命令，在當前工作目錄中生成翻譯後的文檔 `example-mono.pdf` 和雙語文檔 `example-dual.pdf`。使用 Google 作為默認翻譯服務。更多支持的翻譯服務可以在 [這裡](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。\n",
-        "pt": "Execute o comando de tradução na linha de comando para gerar o documento traduzido `example-mono.pdf` e o documento bilíngue `example-dual.pdf` no diretório de trabalho atual. Use o Google como o serviço de tradução padrão. Mais serviços de tradução suportados podem ser encontrados [AQUI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
-        "it": "Esegui il comando di traduzione nella riga di comando per generare il documento tradotto `example-mono.pdf` e il documento bilingue `example-dual.pdf` nella directory di lavoro corrente. Utilizza Google come servizio di traduzione predefinito. Altri servizi di traduzione supportati possono essere trovati [QUI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+        "zh": "在命令行中执行翻译命令，在当前工作目录下生成翻译文档 `example-mono.pdf` 和双语文档 `example-dual.pdf`。默认使用 Google 作为翻译服务。更多支持的翻译服务可以在 [这里](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。\n",
+        "zh_TW": "在命令行中執行翻譯命令，以在當前工作目錄中生成翻譯文檔 `example-mono.pdf` 和雙語文檔 `example-dual.pdf`。使用 Google 作為默認翻譯服務。更多支持的翻譯服務可以在 [這裡](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 找到。\n",
+        "ko": "명령줄에서 번역 명령을 실행하여 현재 작업 디렉토리에 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성합니다. 기본 번역 서비스로 Google 을 사용합니다. 더 많은 지원 번역 서비스는 [여기](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 찾을 수 있습니다.\n",
         "ja": "コマンドラインで翻訳コマンドを実行し、現在の作業ディレクトリに翻訳文書 `example-mono.pdf` とバイリンガル文書 `example-dual.pdf` を生成します。デフォルトの翻訳サービスとして Google を使用します。その他のサポート翻訳サービスは [こちら](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) で確認できます。\n",
-        "fr": "Exécutez la commande de traduction dans la ligne de commande pour générer le document traduit `example-mono.pdf` et le document bilingue `example-dual.pdf` dans le répertoire de travail actuel. Utilisez Google comme service de traduction par défaut. Plus de services de traduction pris en charge peuvent être trouvés [ICI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
-        "ko": "현재 작업 디렉토리에서 번역된 문서 `example-mono.pdf` 와 이중 언어 문서 `example-dual.pdf` 를 생성하려면 명령줄에서 번역 명령을 실행하세요. 기본 번역 서비스로 Google 을 사용합니다. 지원되는 더 많은 번역 서비스는 [여기](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services) 에서 확인할 수 있습니다.\n",
-        "es": "Ejecuta el comando de traducción en la línea de comandos para generar el documento traducido `example-mono.pdf` y el documento bilingüe `example-dual.pdf` en el directorio de trabajo actual. Utiliza Google como servicio de traducción predeterminado. Más servicios de traducción compatibles se pueden encontrar [AQUÍ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+        "es": "Ejecuta el comando de traducción en la línea de comandos para generar el documento traducido `example-mono.pdf` y el documento bilingüe `example-dual.pdf` en el directorio de trabajo actual. Usa Google como servicio de traducción predeterminado. Más servicios de traducción soportados se pueden encontrar [AQUÍ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+        "pt": "Execute o comando de tradução na linha de comando para gerar o documento traduzido `example-mono.pdf` e o documento bilíngue `example-dual.pdf` no diretório de trabalho atual. Use o Google como o serviço de tradução padrão. Mais serviços de tradução suportados podem ser encontrados [AQUI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+        "it": "Esegui il comando di traduzione nella riga di comando per generare il documento tradotto `example-mono.pdf` e il documento bilingue `example-dual.pdf` nella directory di lavoro corrente. Utilizza Google come servizio di traduzione predefinito. Ulteriori servizi di traduzione supportati possono essere trovati [QUI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
+        "fr": "Exécutez la commande de traduction dans la ligne de commande pour générer le document traduit `example-mono.pdf` et le document bilingue `example-dual.pdf` dans le répertoire de travail actuel. Utilisez Google comme service de traduction par défaut. Plus de services de traduction supportés peuvent être trouvés [ICI](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
         "de": "Führen Sie den Übersetzungsbefehl in der Kommandozeile aus, um das übersetzte Dokument `example-mono.pdf` und das zweisprachige Dokument `example-dual.pdf` im aktuellen Arbeitsverzeichnis zu generieren. Verwenden Sie Google als Standard-Übersetzungsdienst. Weitere unterstützte Übersetzungsdienste finden Sie [HIER](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n",
-        "ru": "Выполните команду перевода в командной строке, чтобы сгенерировать переведенный документ `example-mono.pdf` и двуязычный документ `example-dual.pdf` в текущем рабочем каталоге. Используйте Google в качестве службы перевода по умолчанию. Дополнительные поддерживаемые службы перевода можно найти [ЗДЕСЬ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n"
+        "ru": "Выполните команду перевода в командной строке, чтобы сгенерировать переведённый документ `example-mono.pdf` и двуязычный документ `example-dual.pdf` в текущей рабочей директории. Используйте Google в качестве службы перевода по умолчанию. Дополнительные поддерживаемые службы перевода можно найти [ЗДЕСЬ](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/blob/main/docs/ADVANCED.md#services).\n"
       }
     },
     {
@@ -1263,7 +1263,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_60043796",
+      "chunk_id": "h_rule_66bf327f",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 101,
@@ -1605,7 +1605,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_53cb14ca",
+      "chunk_id": "h_rule_fdf6ab11",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 159,
@@ -1839,7 +1839,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_c55a47b4",
+      "chunk_id": "h_rule_f1ee6b45",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 199,
@@ -1911,7 +1911,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_4469a613",
+      "chunk_id": "h_rule_2e5fd4f2",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 211,
@@ -2019,7 +2019,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_48128847",
+      "chunk_id": "h_rule_130f102a",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 229,
@@ -2055,7 +2055,7 @@
       }
     },
     {
-      "chunk_id": "chunk_54E57534",
+      "chunk_id": "chunk_1EEB1341",
       "chunk_type": "html_comment",
       "original_content": "<!-- Note: System prompt is currently not supported. See [this change](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/pull/637). -->\n",
       "start_line_no": 233,
@@ -2109,7 +2109,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_fb0c24b1",
+      "chunk_id": "h_rule_214e1d68",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 243,
@@ -2433,7 +2433,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_18b4b4d3",
+      "chunk_id": "h_rule_a6994942",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 304,
@@ -2559,7 +2559,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_068fd2f7",
+      "chunk_id": "h_rule_5693b811",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 325,
@@ -2631,7 +2631,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_85c7ddf7",
+      "chunk_id": "h_rule_b2f0cdc4",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 337,
@@ -2739,7 +2739,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_dd52a23a",
+      "chunk_id": "h_rule_63e205b9",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 366,
@@ -2883,7 +2883,7 @@
       }
     },
     {
-      "chunk_id": "h_rule_4616fb87",
+      "chunk_id": "h_rule_00910910",
       "chunk_type": "h_rule",
       "original_content": "---\n",
       "start_line_no": 415,

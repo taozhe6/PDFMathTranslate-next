@@ -1,5 +1,5 @@
 > [!NOTE]
-> 이 문서에는 AI 생성 콘텐츠가 포함될 수 있습니다. 정확성을 위해 노력하고 있지만 부정확한 내용이 있을 수 있습니다. 문제가 발견되면 다음을 통해 신고해 주세요:
+> 이 문서는 AI 생성 콘텐츠를 포함할 수 있습니다. 정확성을 위해 노력하고 있지만 부정확한 내용이 있을 수 있습니다. 문제가 발견되면 다음을 통해 보고해 주세요:
 >
 > - [GitHub Issues](https://github.com/PDFMathTranslate-next/PDFMathTranslate-next/issues)
 > - 커뮤니티 기여 (PR 환영합니다!)

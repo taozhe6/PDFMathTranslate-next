@@ -2,78 +2,33 @@
 
 > [!CAUTION]
 >
-> 当前项目维护者正在研究自动化文档国际化方案。因此，任何与文档国际化/翻译相关的 PR 将不被接受！
+> 当前项目维护者正在研究自动化文档国际化。因此，任何与文档国际化/翻译相关的 PR 将不被接受！
 >
 > 请勿提交与文档国际化/翻译相关的 PR！
 
-感谢您对本项目的关注！在开始贡献之前，请花些时间阅读以下指南，以确保您的贡献能够顺利被接受。
+感谢您对本项目的关注！在开始贡献之前，请花一些时间阅读以下指南，以确保您的贡献能够顺利被接受。
 
 ## 不接受的贡献类型
 
 1. 文档国际化/翻译
-2. 与核心基础设施相关的贡献，例如 HTTP API 等
-3. 明确标记为「无需帮助」的 Issues（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) 仓库中的 Issues）
-4. 维护者认为不合适的其他贡献
-5. 贡献文档，但修改非英语语言的文档
-6. 需要修改 PDF 文件的 PR
-7. 修改 `pdf2zh_next/gui_translation.yaml` 文件的 PR
+2. 与核心基础设施相关的贡献，例如 HTTP API 等。
+3. 明确标记为“无需帮助”的 Issue（包括 [Byaidu/PDFMathTranslate](Byaidu/PDFMathTranslate) 和 [PDFMathTranslate-next/PDFMathTranslate-next](PDFMathTranslate-next/PDFMathTranslate-next) 仓库中的 Issue）。
+4. 维护者认为不合适的其他贡献。
+5. 贡献文档，但修改非英语语言的文档。
+6. 需要修改 PDF 文件的 PR。
+7. 修改 `pdf2zh_next/gui_translation.yaml` 文件的 PR。
 
-请勿提交与上述类型相关的 PR。
+请不要提交与上述类型相关的 PR。
 
 > [!NOTE]
 >
-> 如果你想贡献文档，请**仅修改文档的英文版本**。其他语言版本由贡献者自行翻译。
+> 如果你想贡献文档，请**只修改英文版本的文档**。其他语言版本由贡献者自行翻译。
 
-To avoid wasting your time, we recommend that you create an Issue to discuss with the maintainers before submitting a PR for the following types of changes:
+## 建议在提交前通过 Issue 与维护者讨论的 PR 类型
 
-- **Major changes**: Changes that would significantly alter the structure of the codebase, such as adding a new major feature or refactoring large portions of the code.
-- **Breaking changes**: Changes that would break existing functionality or change the API in a way that is not backward compatible.
-- **New dependencies**: Adding new dependencies to the project, especially if they are large or have licensing implications.
-- **Performance optimizations**: Changes that are intended to improve performance but might have trade-offs in terms of code readability or maintainability.
-- **UI/UX changes**: Changes to the user interface or user experience that might affect how users interact with the application.
-- **Documentation updates**: While minor documentation fixes are always welcome, major documentation overhauls or changes to the documentation structure should be discussed first.
+对于以下类型的 PR，建议在提交前先与维护者讨论：
 
-By discussing these changes upfront, we can ensure that your contributions align with the project's goals and avoid unnecessary rework.
-
----
-
-### OUTPUT
-
-## 建议在提交 PR 前通过 Issue 与维护者讨论的类型
-为了避免浪费您的时间，我们建议您在提交以下类型的更改的 PR 之前，先创建一个 Issue 与维护者进行讨论：
-
-- **重大更改**：会显著改变代码库结构的更改，例如添加新的主要功能或重构大部分代码。
-- **破坏性更改**：会破坏现有功能或以不向后兼容的方式更改 API 的更改。
-- **新依赖项**：向项目添加新的依赖项，特别是如果它们体积较大或涉及许可问题。
-- **性能优化**：旨在提高性能但可能在代码可读性或可维护性方面有所权衡的更改。
-- **UI/UX 更改**：对用户界面或用户体验的更改，可能会影响用户与应用程序的交互方式。
-- **文档更新**：虽然欢迎小的文档修复，但大的文档 overhaul 或文档结构的更改应首先讨论。
-
-通过预先讨论这些更改，我们可以确保您的贡献符合项目的目标，并避免不必要的返工。
-
-- **Major changes**: Changes that would significantly alter the structure of the codebase, such as adding a new major feature or refactoring large portions of the code.
-- **Breaking changes**: Changes that would break existing functionality or change the API in a way that is not backward compatible.
-- **New dependencies**: Adding new dependencies to the project, especially if they are large or have licensing implications.
-- **Performance optimizations**: Changes that are intended to improve performance but might have trade-offs in terms of code readability or maintainability.
-- **UI/UX changes**: Changes to the user interface or user experience that might affect how users interact with the application.
-- **Documentation updates**: While minor documentation fixes are always welcome, major documentation overhauls or changes to the documentation structure should be discussed first.
-
-By discussing these changes upfront, we can ensure that your contributions align with the project's goals and avoid unnecessary rework.
-
-2. PRs that add new dependencies without sufficient justification.
-3. PRs that change the core architecture of the project without prior discussion.
-4. PRs that introduce breaking changes to the API or user interface without migration paths.
-5. PRs that are not aligned with the project's goals or scope.
-
----
-
-### OUTPUT
-
-1. 与多用户共享功能相关的 PR。（此项目主要为单用户使用而设计，不打算引入完整的多用户系统）。
-2. 在没有充分理由的情况下添加新依赖项的 PR。
-3. 未经事先讨论就更改项目核心架构的 PR。
-4. 在没有迁移路径的情况下对 API 或用户界面引入破坏性更改的 PR。
-5. 与项目目标或范围不符的 PR。
+1. 与多用户共享功能相关的 PR。（本项目主要设计为单用户使用，不打算引入全面的多用户系统）。
 
 ## 贡献流程
 
@@ -91,39 +46,39 @@ By discussing these changes upfront, we can ensure that your contributions align
 
 > [!TIP]
 >
-> 你无需等到开发完全完成才创建 PR。提前创建 PR 可以让我们审查你的实现并提供建议。
+> 你不需要等到开发完全完成才创建 PR。提前创建一个 PR 可以让我们审查你的实现并提供建议。
 >
-> 如果你对源代码或相关事项有任何疑问，请联系维护者 aw@funstory.ai。
+> 如果你对源代码或相关事宜有任何疑问，请联系维护者 aw@funstory.ai。
 >
-> 2.0 版本的资源文件与 [BabelDOC](https://github.com/funstory-ai/BabelDOC) 共享。下载相关资源的代码位于 BabelDOC 中。如果你想添加新的资源文件，请联系 BabelDOC 维护者 aw@funstory.ai。
+> 2.0 版本的资源文件与 [BabelDOC](https://github.com/funstory-ai/BabelDOC) 共享。下载相关资源的代码在 BabelDOC 中。如果你想添加新的资源文件，请联系 BabelDOC 维护者 aw@funstory.ai。
 
 ## 基本要求
 
 <h4 id="sop">1. 工作流程</h4>
 
-   - 请从 `main` 分支进行 fork，并在你的 fork 分支上进行开发。
-   - 提交 Pull Request（PR）时，请提供详细的变更描述。
-   - 如果你的 PR 未通过自动化检查（显示为 `checks failed` 和红色叉号），请查看对应的 `details` 并修改你的提交，确保新的 PR 能通过所有检查。
+   - 请从 `main` 分支进行 fork，并在你 fork 的分支上进行开发。
+- 提交 Pull Request (PR) 时，请提供你更改的详细说明。
+- 如果你的 PR 未通过自动化检查（显示为 `checks failed` 和一个红色的叉号），请查看相应的 `details` 并修改你的提交，以确保新的 PR 通过所有检查。
 
 
-<h4 id="开发与测试">2. 开发与测试</h4>
+<h4 id="dev&test">2. 开发与测试</h4>
 
    - 使用命令 `pip install -e .` 进行开发和测试。
 
 
-<h4 id="格式">3. 代码格式化</h4>
+<h4 id="format">3. 代码格式化</h4>
 
    - 配置 `pre-commit` 工具并启用 `black` 和 `flake8` 进行代码格式化。
 
 
-<h4 id="requpdate">4. 依赖项更新</h4>
+<h4 id="requpdate">4. 依赖更新</h4>
 
-   - 如果您引入了新的依赖项，请及时更新 `pyproject.toml` 文件中的依赖列表。
+   - 如果你引入了新的依赖项，请及时更新 `pyproject.toml` 文件中的依赖列表。
 
 
 <h4 id="docupdate">5. 文档更新</h4>
 
-   - 如果添加了新的命令行选项，请相应地更新所有语言版本的 `README.md` 文件中的命令行选项列表。
+   - 如果你添加了新的命令行选项，请相应地更新所有语言版本的 `README.md` 文件中的命令行选项列表。
 
 
 <h4 id="commitmsg">6. 提交信息</h4>
@@ -133,31 +88,31 @@ By discussing these changes upfront, we can ensure that your contributions align
 
 <h4 id="codestyle">7. 代码风格</h4>
 
-   - 确保提交的代码符合基本的编码风格标准。
-   - 变量命名请使用 snake_case 或 camelCase。
+   - 确保你提交的代码符合基本的编码风格标准。
+- 变量命名使用 snake_case 或 camelCase。
 
 
 <h4 id="doctypo">8. 文档格式</h4>
 
    - 对于 `README.md` 的格式，请遵循 [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)。
-   - 确保英文和中文文档始终保持最新；其他语言文档的更新是可选的。
+   - 确保英文和中文文档始终是最新的；其他语言文档的更新是可选的。
 
 ## 添加翻译引擎
 
 1. 在 `pdf2zh/config/translate_engine_model.py` 文件中添加一个新的翻译器配置类。
-2. 在同一文件中将新的翻译器配置类实例添加到 `TRANSLATION_ENGINE_SETTING_TYPE` 类型别名中。
+2. 在同一文件中，将新翻译器配置类的实例添加到 `TRANSLATION_ENGINE_SETTING_TYPE` 类型别名中。
 3. 在 `pdf2zh/translator/translator_impl` 文件夹中添加新的翻译器实现类。
 
 > [!NOTE]
 >
-> 本项目无意支持任何 RPS（每秒请求数）低于 4 的翻译引擎。请勿提交对此类引擎的支持请求。
-> 以下类型的翻译器同样不会被集成：
-> - 已被上游维护者弃用的翻译器（例如 deeplx）
+> 本项目无意支持任何 RPS（每秒请求数）低于 4 的翻译引擎。请不要提交对此类引擎的支持。
+> 以下类型的翻译器也不会被集成：
+> - 已被上游维护者停止维护的翻译器（例如 deeplx）
 > - 依赖项庞大的翻译器（例如依赖 pytorch 的翻译器）
 > - 不稳定的翻译器
 > - 基于逆向工程 API 的翻译器
 >
-> 若您不确定某个翻译器是否符合要求，可以提交 issue 与维护者讨论。
+> 当你不确定某个翻译器是否符合要求时，可以发送 issue 与维护者讨论。
 
 ## 项目结构
 
@@ -173,11 +128,11 @@ By discussing these changes upfront, we can ensure that your contributions align
 
 ## 联系我们
 
-如果您有任何问题，请通过 Issue 提交反馈或加入我们的 Telegram 群组。感谢您的贡献！
+如果您有任何疑问，请通过 Issue 提交反馈或加入我们的 Telegram 群组。感谢您的贡献！
 
 > [!TIP]
 >
-> [Immersive Translate](https://immersivetranslate.com) 为该项目活跃贡献者提供每月 Pro 会员兑换码。详情请参阅：[BabelDOC/PDFMathTranslate 贡献者奖励规则](https://funstory-ai.github.io/BabelDOC/CONTRIBUTOR_REWARD/)
+> [Immersive Translate](https://immersivetranslate.com) 为活跃的贡献者提供月度 Pro 会员码。详情请参阅：[BabelDOC/PDFMathTranslate 贡献者奖励规则](https://funstory-ai.github.io/BabelDOC/CONTRIBUTOR_REWARD/)
 
 <div align="right"> 
 <h6><small>本页面的部分内容由 GPT 翻译，可能包含错误。</small></h6>
