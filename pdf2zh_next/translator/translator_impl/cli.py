@@ -1,6 +1,9 @@
 import logging
+import os
 import shlex
 import subprocess
+from pathlib import Path
+from shutil import which
 
 from pdf2zh_next.config.model import SettingsModel
 from pdf2zh_next.translator.base_rate_limiter import BaseRateLimiter
@@ -76,35 +79,32 @@ class CLITranslator(BaseTranslator):
                 "cli_postprocess_command", self.postprocess_command_string
             )
 
-        # Best-effort availability check (does not hard-fail if --version is unsupported).
+        # Best-effort availability check (does not assume --version support).
         self._test_command(self.command, label="CLI")
         if self.postprocess_command:
             self._test_command(self.postprocess_command[0], label="Postprocess")
 
     def _test_command(self, command: str, label: str):
-        """Test if the CLI command is available"""
-        try:
-            # Try to run the command with --version or --help
-            # This is just a basic availability check
-            result = subprocess.run(
-                [command, "--version"],
-                capture_output=True,
-                text=True,
-                timeout=5,
-            )
-            # We don't fail if --version doesn't work,
-            # as not all commands support it
-            if result.returncode == 0:
-                logger.info("%s command '%s' is available", label, command)
-        except FileNotFoundError as e:
+        """Validate that the command is executable or discoverable on PATH."""
+        cmd_path = Path(command)
+        if cmd_path.is_absolute() or cmd_path.parent != Path("."):
+            if not cmd_path.exists():
+                raise ValueError(
+                    f"{label} command '{command}' not found. "
+                    f"Please ensure it's installed and in your PATH."
+                )
+            if not os.access(cmd_path, os.X_OK):
+                raise ValueError(
+                    f"{label} command '{command}' is not executable. "
+                    f"Please check permissions."
+                )
+            return
+
+        resolved = which(command)
+        if not resolved:
             raise ValueError(
                 f"{label} command '{command}' not found. "
                 f"Please ensure it's installed and in your PATH."
-            ) from e
-        except Exception as e:
-            logger.warning(
-                f"Could not verify {label} command '{command}': {e}. "
-                f"Proceeding anyway..."
             )
 
     @retry(
