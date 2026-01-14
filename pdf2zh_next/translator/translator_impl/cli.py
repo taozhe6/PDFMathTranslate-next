@@ -1,4 +1,3 @@
-import json
 import logging
 import shlex
 import subprocess
@@ -29,14 +28,12 @@ class CLITranslator(BaseTranslator):
     2. Using stdin with custom tool:
        cli_command: "my-translate --from en --to ja"
 
-    3. With JSON output:
-       cli_command: "translate-api --format json"
-       cli_output_format: "json"
-       cli_json_path: "result.translation"
-
-    4. With postprocess command (e.g. jq):
+    3. With postprocess command (e.g. jq):
        cli_command: "translate-api --format json"
        cli_postprocess_command: "jq -r .result.translation"
+
+       Alternative:
+       cli_postprocess_command: "jq -r .reqult.translation"
     """
 
     name = "cli"
@@ -60,8 +57,6 @@ class CLITranslator(BaseTranslator):
         self.command = command_parts[0]
         self.args = command_parts[1:]
         self.timeout = cli_settings.cli_timeout
-        self.output_format = cli_settings.cli_output_format
-        self.json_path = cli_settings.cli_json_path
         self.postprocess_command_string = cli_settings.cli_postprocess_command
         self.postprocess_command = None
         if self.postprocess_command_string:
@@ -154,9 +149,7 @@ class CLITranslator(BaseTranslator):
                 # Allow arbitrary stdout transformation (e.g., jq).
                 output = self._run_postprocess(output)
 
-            # Parse output based on format
-            translation = self._parse_output(output)
-            return translation.strip()
+            return output.strip()
 
         except subprocess.TimeoutExpired as e:
             if "process" in locals():
@@ -200,46 +193,3 @@ class CLITranslator(BaseTranslator):
             raise ValueError(
                 f"CLI postprocess timed out after {self.timeout} seconds"
             ) from e
-
-    def _parse_output(self, output: str) -> str:
-        """Parse the CLI output based on configured format"""
-
-        if self.output_format == "plain":
-            # Return raw output
-            return output.strip()
-
-        elif self.output_format == "json":
-            # Parse JSON and extract value from path
-            try:
-                data = json.loads(output)
-                result = self._extract_json_path(data, self.json_path)
-                if result is None:
-                    raise ValueError(
-                        f"Could not find translation at JSON path: {self.json_path}"
-                    )
-                return str(result)
-            except json.JSONDecodeError as e:
-                logger.error(f"Failed to parse JSON output: {output}")
-                raise ValueError(f"Invalid JSON output from CLI: {e}") from e
-
-        else:
-            raise ValueError(f"Unknown output format: {self.output_format}")
-
-    def _extract_json_path(self, data: dict, path: str) -> str | None:
-        """Extract value from JSON data using dot notation path
-
-        Example: "result.translation" -> data["result"]["translation"]
-        """
-        if not path:
-            return None
-
-        keys = path.split(".")
-        current = data
-
-        for key in keys:
-            if isinstance(current, dict) and key in current:
-                current = current[key]
-            else:
-                return None
-
-        return current

@@ -856,19 +856,11 @@ class CLISettings(BaseModel):
         ge=1,
         le=300,
     )
-    cli_output_format: Literal["plain", "json"] = Field(
-        default="plain",
-        description="Output format: 'plain' for raw text, 'json' for JSON response",
-    )
-    cli_json_path: str | None = Field(
-        default=None,
-        description="JSON path to extract translation (e.g., 'result.translation')",
-    )
     cli_postprocess_command: str | None = Field(
         default=None,
         description=(
             "Optional postprocess command to run on CLI output (reads from stdin). "
-            "Example: 'jq -r .result.translation'"
+            "Example: 'jq -r .result.translation' or 'jq -r .reqult.translation'"
         ),
     )
 
@@ -904,9 +896,6 @@ class CLISettings(BaseModel):
                 raise ValueError(
                     "Template variables are not supported in cli_postprocess_command."
                 )
-
-        if self.cli_output_format == "json" and not self.cli_json_path:
-            raise ValueError("cli_json_path is required when cli_output_format='json'")
 
 
 ## Please add the translator configuration class above this location.

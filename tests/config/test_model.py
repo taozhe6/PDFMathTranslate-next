@@ -235,14 +235,6 @@ class TestCLISettings:
         with pytest.raises(ValueError, match="Template variables are not supported"):
             settings.validate_settings()
 
-    def test_requires_json_path_when_json_output(self):
-        settings = CLISettings(
-            cli_command="uvx plamo-translate",
-            cli_output_format="json",
-        )
-        with pytest.raises(ValueError, match="cli_json_path is required"):
-            settings.validate_settings()
-
     def test_invalid_cli_command(self):
         settings = CLISettings(cli_command="uvx 'unterminated")
         with pytest.raises(ValueError, match="Invalid cli_command"):
