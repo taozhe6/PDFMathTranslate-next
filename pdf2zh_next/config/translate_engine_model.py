@@ -837,26 +837,26 @@ class CLISettings(BaseModel):
     Input text is always passed via stdin.
 
     Example (stdin, default):
-    - cli_command: "your-translator-command --flag value"
+    - clitranslator_command: "your-translator-command --flag value"
     """
 
-    translate_engine_type: Literal["CLI"] = Field(default="CLI")
+    translate_engine_type: Literal["CLITranslator"] = Field(default="CLITranslator")
     support_llm: Literal["yes", "no"] = Field(default="no")
 
-    cli_command: str = Field(
+    clitranslator_command: str = Field(
         default="",
         description=(
             "CLI command to execute. May include arguments and will be split like a "
             "shell command (e.g., 'your-translator-command --flag value')."
         ),
     )
-    cli_timeout: int = Field(
+    clitranslator_timeout: int = Field(
         default=60,
         description="Command timeout in seconds",
         ge=1,
         le=300,
     )
-    cli_postprocess_command: str | None = Field(
+    clitranslator_postprocess_command: str | None = Field(
         default=None,
         description=(
             "Optional postprocess command to run on CLI output (reads from stdin). "
@@ -865,36 +865,43 @@ class CLISettings(BaseModel):
     )
 
     def validate_settings(self):
-        if not self.cli_command:
-            raise ValueError("CLI command is required. Please specify --cli-command")
+        if not self.clitranslator_command:
+            raise ValueError(
+                "CLI command is required. Please specify --clitranslator-command"
+            )
 
         try:
-            command_parts = shlex.split(self.cli_command)
+            command_parts = shlex.split(self.clitranslator_command)
         except ValueError as e:
-            raise ValueError(f"Invalid cli_command: {e}") from e
+            raise ValueError(f"Invalid clitranslator_command: {e}") from e
         if not command_parts:
-            raise ValueError("CLI command is required. Please specify --cli-command")
+            raise ValueError(
+                "CLI command is required. Please specify --clitranslator-command"
+            )
 
         forbidden_templates = ("{text}", "{lang_in}", "{lang_out}")
-        if any(token in self.cli_command for token in forbidden_templates):
+        if any(token in self.clitranslator_command for token in forbidden_templates):
             raise ValueError(
                 "Template variables are not supported. "
-                "Pass fixed arguments in cli_command and provide input via stdin."
+                "Pass fixed arguments in clitranslator_command and provide input via stdin."
             )
-        if self.cli_postprocess_command is not None:
-            if not self.cli_postprocess_command.strip():
-                raise ValueError("cli_postprocess_command cannot be empty")
+        if self.clitranslator_postprocess_command is not None:
+            if not self.clitranslator_postprocess_command.strip():
+                raise ValueError("clitranslator_postprocess_command cannot be empty")
             try:
-                postprocess_parts = shlex.split(self.cli_postprocess_command)
+                postprocess_parts = shlex.split(self.clitranslator_postprocess_command)
             except ValueError as e:
-                raise ValueError(f"Invalid cli_postprocess_command: {e}") from e
+                raise ValueError(
+                    f"Invalid clitranslator_postprocess_command: {e}"
+                ) from e
             if not postprocess_parts:
-                raise ValueError("cli_postprocess_command cannot be empty")
+                raise ValueError("clitranslator_postprocess_command cannot be empty")
             if any(
-                token in self.cli_postprocess_command for token in forbidden_templates
+                token in self.clitranslator_postprocess_command
+                for token in forbidden_templates
             ):
                 raise ValueError(
-                    "Template variables are not supported in cli_postprocess_command."
+                    "Template variables are not supported in clitranslator_postprocess_command."
                 )
 
 

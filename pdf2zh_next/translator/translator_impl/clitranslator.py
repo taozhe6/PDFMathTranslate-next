@@ -17,7 +17,7 @@ from tenacity import wait_exponential
 logger = logging.getLogger(__name__)
 
 
-class CLITranslator(BaseTranslator):
+class CLITranslatorTranslator(BaseTranslator):
     """CLI translator that can call any external translation tool
 
     This translator allows you to use any CLI tool for translation by specifying
@@ -26,20 +26,20 @@ class CLITranslator(BaseTranslator):
     Example configurations:
 
     1. Basic usage:
-       cli_command: "your-translator-command --flag value"
+       clitranslator_command: "your-translator-command --flag value"
 
     2. Using stdin with custom tool:
-       cli_command: "your-translator-command --from en --to ja"
+       clitranslator_command: "your-translator-command --from en --to ja"
 
     3. With postprocess command (e.g. jq):
-       cli_command: "your-translator-command --format json"
-       cli_postprocess_command: "jq -r .result.translation"
+       clitranslator_command: "your-translator-command --format json"
+       clitranslator_postprocess_command: "jq -r .result.translation"
 
        Alternative:
-       cli_postprocess_command: "jq -r .reqult.translation"
+       clitranslator_postprocess_command: "jq -r .reqult.translation"
     """
 
-    name = "cli"
+    name = "clitranslator"
 
     def __init__(
         self,
@@ -48,35 +48,39 @@ class CLITranslator(BaseTranslator):
     ):
         super().__init__(settings, rate_limiter)
         cli_settings = settings.translate_engine_settings
-        self.command_string = cli_settings.cli_command
+        self.command_string = cli_settings.clitranslator_command
 
         try:
             command_parts = shlex.split(self.command_string)
         except ValueError as e:
-            raise ValueError(f"Invalid cli_command: {e}") from e
+            raise ValueError(f"Invalid clitranslator_command: {e}") from e
         if not command_parts:
-            raise ValueError("CLI command is required. Please specify --cli-command")
+            raise ValueError(
+                "CLI command is required. Please specify --clitranslator-command"
+            )
 
         self.command = command_parts[0]
         self.args = command_parts[1:]
-        self.timeout = cli_settings.cli_timeout
-        self.postprocess_command_string = cli_settings.cli_postprocess_command
+        self.timeout = cli_settings.clitranslator_timeout
+        self.postprocess_command_string = cli_settings.clitranslator_postprocess_command
         self.postprocess_command = None
         if self.postprocess_command_string:
             # Parse once so invalid quoting fails early and the command is cache-keyed.
             try:
                 postprocess_parts = shlex.split(self.postprocess_command_string)
             except ValueError as e:
-                raise ValueError(f"Invalid cli_postprocess_command: {e}") from e
+                raise ValueError(
+                    f"Invalid clitranslator_postprocess_command: {e}"
+                ) from e
             if not postprocess_parts:
-                raise ValueError("cli_postprocess_command cannot be empty")
+                raise ValueError("clitranslator_postprocess_command cannot be empty")
             self.postprocess_command = postprocess_parts
 
         # Add cache impact parameters
-        self.add_cache_impact_parameters("cli_command", self.command_string)
+        self.add_cache_impact_parameters("clitranslator_command", self.command_string)
         if self.postprocess_command_string:
             self.add_cache_impact_parameters(
-                "cli_postprocess_command", self.postprocess_command_string
+                "clitranslator_postprocess_command", self.postprocess_command_string
             )
 
         # Best-effort availability check (does not assume --version support).

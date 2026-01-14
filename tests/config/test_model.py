@@ -222,45 +222,53 @@ class TestOpenAISettings:
 
 class TestCLISettings:
     def test_valid_command_with_args_and_stdin_default(self):
-        settings = CLISettings(cli_command="your-translator-command --flag value")
+        settings = CLISettings(
+            clitranslator_command="your-translator-command --flag value"
+        )
         settings.validate_settings()
 
     def test_requires_command(self):
-        settings = CLISettings(cli_command="")
+        settings = CLISettings(clitranslator_command="")
         with pytest.raises(ValueError, match="CLI command is required"):
             settings.validate_settings()
 
     def test_rejects_template_variables(self):
-        settings = CLISettings(cli_command="your-translator-command --input {text}")
+        settings = CLISettings(
+            clitranslator_command="your-translator-command --input {text}"
+        )
         with pytest.raises(ValueError, match="Template variables are not supported"):
             settings.validate_settings()
 
     def test_invalid_cli_command(self):
-        settings = CLISettings(cli_command="your-translator-command 'unterminated")
-        with pytest.raises(ValueError, match="Invalid cli_command"):
+        settings = CLISettings(
+            clitranslator_command="your-translator-command 'unterminated"
+        )
+        with pytest.raises(ValueError, match="Invalid clitranslator_command"):
             settings.validate_settings()
 
     def test_valid_postprocess_command(self):
         settings = CLISettings(
-            cli_command="your-translator-command",
-            cli_postprocess_command="jq -r .result.translation",
+            clitranslator_command="your-translator-command",
+            clitranslator_postprocess_command="jq -r .result.translation",
         )
         settings.validate_settings()
 
     def test_rejects_postprocess_templates(self):
         settings = CLISettings(
-            cli_command="your-translator-command",
-            cli_postprocess_command="jq -r .result.{text}",
+            clitranslator_command="your-translator-command",
+            clitranslator_postprocess_command="jq -r .result.{text}",
         )
         with pytest.raises(ValueError, match="Template variables are not supported"):
             settings.validate_settings()
 
     def test_invalid_postprocess_command(self):
         settings = CLISettings(
-            cli_command="your-translator-command",
-            cli_postprocess_command="jq 'unterminated",
+            clitranslator_command="your-translator-command",
+            clitranslator_postprocess_command="jq 'unterminated",
         )
-        with pytest.raises(ValueError, match="Invalid cli_postprocess_command"):
+        with pytest.raises(
+            ValueError, match="Invalid clitranslator_postprocess_command"
+        ):
             settings.validate_settings()
 
     def test_base_url_handling(self):
