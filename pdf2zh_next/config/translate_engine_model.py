@@ -1,5 +1,6 @@
 import logging
 import re
+import shlex
 import typing
 from dataclasses import dataclass
 from inspect import getdoc
@@ -828,6 +829,86 @@ class ClaudeCodeSettings(BaseModel):
             raise ValueError("Claude Code path is required")
 
 
+class CLISettings(BaseModel):
+    """CLI translator settings
+
+    This allows you to use any external CLI translation tool.
+
+    Input text is always passed via stdin.
+
+    Example for plamo-translate (stdin, default):
+    - cli_command: "uvx plamo-translate"
+    """
+
+    translate_engine_type: Literal["CLI"] = Field(default="CLI")
+    support_llm: Literal["yes", "no"] = Field(default="no")
+
+    cli_command: str = Field(
+        default="",
+        description=(
+            "CLI command to execute. May include arguments and will be split like a "
+            "shell command (e.g., 'uvx plamo-translate --flag value')."
+        ),
+    )
+    cli_timeout: int = Field(
+        default=60,
+        description="Command timeout in seconds",
+        ge=1,
+        le=300,
+    )
+    cli_output_format: Literal["plain", "json"] = Field(
+        default="plain",
+        description="Output format: 'plain' for raw text, 'json' for JSON response",
+    )
+    cli_json_path: str | None = Field(
+        default=None,
+        description="JSON path to extract translation (e.g., 'result.translation')",
+    )
+    cli_postprocess_command: str | None = Field(
+        default=None,
+        description=(
+            "Optional postprocess command to run on CLI output (reads from stdin). "
+            "Example: 'jq -r .result.translation'"
+        ),
+    )
+
+    def validate_settings(self):
+        if not self.cli_command:
+            raise ValueError("CLI command is required. Please specify --cli-command")
+
+        try:
+            command_parts = shlex.split(self.cli_command)
+        except ValueError as e:
+            raise ValueError(f"Invalid cli_command: {e}") from e
+        if not command_parts:
+            raise ValueError("CLI command is required. Please specify --cli-command")
+
+        forbidden_templates = ("{text}", "{lang_in}", "{lang_out}")
+        if any(token in self.cli_command for token in forbidden_templates):
+            raise ValueError(
+                "Template variables are not supported. "
+                "Pass fixed arguments in cli_command and provide input via stdin."
+            )
+        if self.cli_postprocess_command is not None:
+            if not self.cli_postprocess_command.strip():
+                raise ValueError("cli_postprocess_command cannot be empty")
+            try:
+                postprocess_parts = shlex.split(self.cli_postprocess_command)
+            except ValueError as e:
+                raise ValueError(f"Invalid cli_postprocess_command: {e}") from e
+            if not postprocess_parts:
+                raise ValueError("cli_postprocess_command cannot be empty")
+            if any(
+                token in self.cli_postprocess_command for token in forbidden_templates
+            ):
+                raise ValueError(
+                    "Template variables are not supported in cli_postprocess_command."
+                )
+
+        if self.cli_output_format == "json" and not self.cli_json_path:
+            raise ValueError("cli_json_path is required when cli_output_format='json'")
+
+
 ## Please add the translator configuration class above this location.
 
 # 所有翻译引擎
@@ -855,6 +936,7 @@ TRANSLATION_ENGINE_SETTING_TYPE: TypeAlias = (
     | QwenMtSettings
     | OpenAICompatibleSettings
     | ClaudeCodeSettings
+    | CLISettings
 )
 
 # 不支持的翻译引擎

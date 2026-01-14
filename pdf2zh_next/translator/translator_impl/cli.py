@@ -1,0 +1,243 @@
+import json
+import logging
+import shlex
+import subprocess
+
+from pdf2zh_next.config.model import SettingsModel
+from pdf2zh_next.translator.base_rate_limiter import BaseRateLimiter
+from pdf2zh_next.translator.base_translator import BaseTranslator
+from tenacity import before_sleep_log
+from tenacity import retry
+from tenacity import retry_if_exception_type
+from tenacity import stop_after_attempt
+from tenacity import wait_exponential
+
+logger = logging.getLogger(__name__)
+
+
+class CLITranslator(BaseTranslator):
+    """CLI translator that can call any external translation tool
+
+    This translator allows you to use any CLI tool for translation by specifying
+    the command and arguments. Input text is always provided via stdin.
+
+    Example configurations:
+
+    1. Using plamo-translate:
+       cli_command: "uvx plamo-translate"
+
+    2. Using stdin with custom tool:
+       cli_command: "my-translate --from en --to ja"
+
+    3. With JSON output:
+       cli_command: "translate-api --format json"
+       cli_output_format: "json"
+       cli_json_path: "result.translation"
+
+    4. With postprocess command (e.g. jq):
+       cli_command: "translate-api --format json"
+       cli_postprocess_command: "jq -r .result.translation"
+    """
+
+    name = "cli"
+
+    def __init__(
+        self,
+        settings: SettingsModel,
+        rate_limiter: BaseRateLimiter,
+    ):
+        super().__init__(settings, rate_limiter)
+        cli_settings = settings.translate_engine_settings
+        self.command_string = cli_settings.cli_command
+
+        try:
+            command_parts = shlex.split(self.command_string)
+        except ValueError as e:
+            raise ValueError(f"Invalid cli_command: {e}") from e
+        if not command_parts:
+            raise ValueError("CLI command is required. Please specify --cli-command")
+
+        self.command = command_parts[0]
+        self.args = command_parts[1:]
+        self.timeout = cli_settings.cli_timeout
+        self.output_format = cli_settings.cli_output_format
+        self.json_path = cli_settings.cli_json_path
+        self.postprocess_command_string = cli_settings.cli_postprocess_command
+        self.postprocess_command = None
+        if self.postprocess_command_string:
+            try:
+                postprocess_parts = shlex.split(self.postprocess_command_string)
+            except ValueError as e:
+                raise ValueError(f"Invalid cli_postprocess_command: {e}") from e
+            if not postprocess_parts:
+                raise ValueError("cli_postprocess_command cannot be empty")
+            self.postprocess_command = postprocess_parts
+
+        # Add cache impact parameters
+        self.add_cache_impact_parameters("cli_command", self.command_string)
+        if self.postprocess_command_string:
+            self.add_cache_impact_parameters(
+                "cli_postprocess_command", self.postprocess_command_string
+            )
+
+        # Test if command is available
+        self._test_command(self.command, label="CLI")
+        if self.postprocess_command:
+            self._test_command(self.postprocess_command[0], label="Postprocess")
+
+    def _test_command(self, command: str, label: str):
+        """Test if the CLI command is available"""
+        try:
+            # Try to run the command with --version or --help
+            # This is just a basic availability check
+            result = subprocess.run(
+                [command, "--version"],
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            # We don't fail if --version doesn't work,
+            # as not all commands support it
+            if result.returncode == 0:
+                logger.info("%s command '%s' is available", label, command)
+        except FileNotFoundError as e:
+            raise ValueError(
+                f"{label} command '{command}' not found. "
+                f"Please ensure it's installed and in your PATH."
+            ) from e
+        except Exception as e:
+            logger.warning(
+                f"Could not verify {label} command '{command}': {e}. "
+                f"Proceeding anyway..."
+            )
+
+    @retry(
+        retry=retry_if_exception_type(
+            (subprocess.CalledProcessError, subprocess.TimeoutExpired)
+        ),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=2, min=2, max=15),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+    )
+    def do_translate(self, text, rate_limit_params: dict = None) -> str:
+        """Execute translation using the configured CLI tool"""
+
+        cmd = [self.command] + self.args
+
+        try:
+            logger.debug(f"Executing CLI command: {' '.join(cmd)}")
+
+            # Pass text via stdin
+            process = subprocess.Popen(
+                cmd,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            stdout, stderr = process.communicate(input=text, timeout=self.timeout)
+
+            if process.returncode != 0:
+                logger.error(
+                    "CLI command failed (exit %s): %s", process.returncode, stderr
+                )
+                raise subprocess.CalledProcessError(
+                    process.returncode,
+                    cmd,
+                    output=stdout,
+                    stderr=stderr,
+                )
+
+            output = stdout
+            if self.postprocess_command:
+                output = self._run_postprocess(output)
+
+            # Parse output based on format
+            translation = self._parse_output(output)
+            return translation.strip()
+
+        except subprocess.TimeoutExpired as e:
+            if "process" in locals():
+                process.kill()
+                process.communicate()
+            raise ValueError(
+                f"CLI translation timed out after {self.timeout} seconds"
+            ) from e
+
+    def _run_postprocess(self, output: str) -> str:
+        """Run postprocess command on CLI output."""
+        if not self.postprocess_command:
+            return output
+
+        try:
+            process = subprocess.Popen(
+                self.postprocess_command,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+            )
+            stdout, stderr = process.communicate(input=output, timeout=self.timeout)
+            if process.returncode != 0:
+                logger.error(
+                    "Postprocess command failed (exit %s): %s",
+                    process.returncode,
+                    stderr,
+                )
+                raise subprocess.CalledProcessError(
+                    process.returncode,
+                    self.postprocess_command,
+                    output=stdout,
+                    stderr=stderr,
+                )
+            return stdout
+        except subprocess.TimeoutExpired as e:
+            if "process" in locals():
+                process.kill()
+                process.communicate()
+            raise ValueError(
+                f"CLI postprocess timed out after {self.timeout} seconds"
+            ) from e
+
+    def _parse_output(self, output: str) -> str:
+        """Parse the CLI output based on configured format"""
+
+        if self.output_format == "plain":
+            # Return raw output
+            return output.strip()
+
+        elif self.output_format == "json":
+            # Parse JSON and extract value from path
+            try:
+                data = json.loads(output)
+                result = self._extract_json_path(data, self.json_path)
+                if result is None:
+                    raise ValueError(
+                        f"Could not find translation at JSON path: {self.json_path}"
+                    )
+                return str(result)
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse JSON output: {output}")
+                raise ValueError(f"Invalid JSON output from CLI: {e}") from e
+
+        else:
+            raise ValueError(f"Unknown output format: {self.output_format}")
+
+    def _extract_json_path(self, data: dict, path: str) -> str | None:
+        """Extract value from JSON data using dot notation path
+
+        Example: "result.translation" -> data["result"]["translation"]
+        """
+        if not path:
+            return None
+
+        keys = path.split(".")
+        current = data
+
+        for key in keys:
+            if isinstance(current, dict) and key in current:
+                current = current[key]
+            else:
+                return None
+
+        return current

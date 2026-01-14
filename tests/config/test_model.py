@@ -5,6 +5,7 @@ from pdf2zh_next.config.cli_env_model import CLIEnvSettingsModel
 from pdf2zh_next.config.model import BasicSettings
 from pdf2zh_next.config.model import PDFSettings
 from pdf2zh_next.config.model import TranslationSettings
+from pdf2zh_next.config.translate_engine_model import CLISettings
 from pdf2zh_next.config.translate_engine_model import OpenAISettings
 
 
@@ -217,6 +218,58 @@ class TestOpenAISettings:
         assert settings.openai_model == "gpt-4"
         assert settings.openai_base_url == "http://api.example.com"
         assert settings.openai_api_key == "test-key"
+
+
+class TestCLISettings:
+    def test_valid_command_with_args_and_stdin_default(self):
+        settings = CLISettings(cli_command="uvx plamo-translate --flag value")
+        settings.validate_settings()
+
+    def test_requires_command(self):
+        settings = CLISettings(cli_command="")
+        with pytest.raises(ValueError, match="CLI command is required"):
+            settings.validate_settings()
+
+    def test_rejects_template_variables(self):
+        settings = CLISettings(cli_command="uvx plamo-translate --input {text}")
+        with pytest.raises(ValueError, match="Template variables are not supported"):
+            settings.validate_settings()
+
+    def test_requires_json_path_when_json_output(self):
+        settings = CLISettings(
+            cli_command="uvx plamo-translate",
+            cli_output_format="json",
+        )
+        with pytest.raises(ValueError, match="cli_json_path is required"):
+            settings.validate_settings()
+
+    def test_invalid_cli_command(self):
+        settings = CLISettings(cli_command="uvx 'unterminated")
+        with pytest.raises(ValueError, match="Invalid cli_command"):
+            settings.validate_settings()
+
+    def test_valid_postprocess_command(self):
+        settings = CLISettings(
+            cli_command="uvx plamo-translate",
+            cli_postprocess_command="jq -r .result.translation",
+        )
+        settings.validate_settings()
+
+    def test_rejects_postprocess_templates(self):
+        settings = CLISettings(
+            cli_command="uvx plamo-translate",
+            cli_postprocess_command="jq -r .result.{text}",
+        )
+        with pytest.raises(ValueError, match="Template variables are not supported"):
+            settings.validate_settings()
+
+    def test_invalid_postprocess_command(self):
+        settings = CLISettings(
+            cli_command="uvx plamo-translate",
+            cli_postprocess_command="jq 'unterminated",
+        )
+        with pytest.raises(ValueError, match="Invalid cli_postprocess_command"):
+            settings.validate_settings()
 
     def test_base_url_handling(self):
         """Test base URL handling"""
