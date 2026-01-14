@@ -130,6 +130,8 @@ class CLITranslator(BaseTranslator):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
             )
             stdout, stderr = process.communicate(input=text, timeout=self.timeout)
 
@@ -151,13 +153,11 @@ class CLITranslator(BaseTranslator):
 
             return output.strip()
 
-        except subprocess.TimeoutExpired as e:
+        except subprocess.TimeoutExpired:
             if "process" in locals():
                 process.kill()
                 process.communicate()
-            raise ValueError(
-                f"CLI translation timed out after {self.timeout} seconds"
-            ) from e
+            raise
 
     def _run_postprocess(self, output: str) -> str:
         """Run postprocess command on CLI output."""
@@ -171,6 +171,8 @@ class CLITranslator(BaseTranslator):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
             )
             stdout, stderr = process.communicate(input=output, timeout=self.timeout)
             if process.returncode != 0:
@@ -186,10 +188,8 @@ class CLITranslator(BaseTranslator):
                     stderr=stderr,
                 )
             return stdout
-        except subprocess.TimeoutExpired as e:
+        except subprocess.TimeoutExpired:
             if "process" in locals():
                 process.kill()
                 process.communicate()
-            raise ValueError(
-                f"CLI postprocess timed out after {self.timeout} seconds"
-            ) from e
+            raise
