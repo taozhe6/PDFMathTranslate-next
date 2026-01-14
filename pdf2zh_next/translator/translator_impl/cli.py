@@ -65,6 +65,7 @@ class CLITranslator(BaseTranslator):
         self.postprocess_command_string = cli_settings.cli_postprocess_command
         self.postprocess_command = None
         if self.postprocess_command_string:
+            # Parse once so invalid quoting fails early and the command is cache-keyed.
             try:
                 postprocess_parts = shlex.split(self.postprocess_command_string)
             except ValueError as e:
@@ -80,7 +81,7 @@ class CLITranslator(BaseTranslator):
                 "cli_postprocess_command", self.postprocess_command_string
             )
 
-        # Test if command is available
+        # Best-effort availability check (does not hard-fail if --version is unsupported).
         self._test_command(self.command, label="CLI")
         if self.postprocess_command:
             self._test_command(self.postprocess_command[0], label="Postprocess")
@@ -150,6 +151,7 @@ class CLITranslator(BaseTranslator):
 
             output = stdout
             if self.postprocess_command:
+                # Allow arbitrary stdout transformation (e.g., jq).
                 output = self._run_postprocess(output)
 
             # Parse output based on format
