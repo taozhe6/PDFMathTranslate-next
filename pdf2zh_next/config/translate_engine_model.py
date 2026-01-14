@@ -836,8 +836,8 @@ class CLISettings(BaseModel):
 
     Input text is always passed via stdin.
 
-    Example for plamo-translate (stdin, default):
-    - cli_command: "uvx plamo-translate"
+    Example (stdin, default):
+    - cli_command: "your-translator-command --flag value"
     """
 
     translate_engine_type: Literal["CLI"] = Field(default="CLI")
@@ -847,7 +847,7 @@ class CLISettings(BaseModel):
         default="",
         description=(
             "CLI command to execute. May include arguments and will be split like a "
-            "shell command (e.g., 'uvx plamo-translate --flag value')."
+            "shell command (e.g., 'your-translator-command --flag value')."
         ),
     )
     cli_timeout: int = Field(

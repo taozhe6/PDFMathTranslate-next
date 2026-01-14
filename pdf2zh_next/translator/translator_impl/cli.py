@@ -22,14 +22,14 @@ class CLITranslator(BaseTranslator):
 
     Example configurations:
 
-    1. Using plamo-translate:
-       cli_command: "uvx plamo-translate"
+    1. Basic usage:
+       cli_command: "your-translator-command --flag value"
 
     2. Using stdin with custom tool:
-       cli_command: "my-translate --from en --to ja"
+       cli_command: "your-translator-command --from en --to ja"
 
     3. With postprocess command (e.g. jq):
-       cli_command: "translate-api --format json"
+       cli_command: "your-translator-command --format json"
        cli_postprocess_command: "jq -r .result.translation"
 
        Alternative:
