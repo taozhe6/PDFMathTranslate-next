@@ -232,13 +232,6 @@ class TestCLISettings:
         with pytest.raises(ValueError, match="CLI command is required"):
             settings.validate_settings()
 
-    def test_rejects_template_variables(self):
-        settings = CLISettings(
-            clitranslator_command="your-translator-command --input {text}"
-        )
-        with pytest.raises(ValueError, match="Template variables are not supported"):
-            settings.validate_settings()
-
     def test_invalid_cli_command(self):
         settings = CLISettings(
             clitranslator_command="your-translator-command 'unterminated"
@@ -252,14 +245,6 @@ class TestCLISettings:
             clitranslator_postprocess_command="jq -r .result.translation",
         )
         settings.validate_settings()
-
-    def test_rejects_postprocess_templates(self):
-        settings = CLISettings(
-            clitranslator_command="your-translator-command",
-            clitranslator_postprocess_command="jq -r .result.{text}",
-        )
-        with pytest.raises(ValueError, match="Template variables are not supported"):
-            settings.validate_settings()
 
     def test_invalid_postprocess_command(self):
         settings = CLISettings(

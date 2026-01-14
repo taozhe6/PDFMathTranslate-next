@@ -28,15 +28,13 @@ class CLITranslatorTranslator(BaseTranslator):
     1. Basic usage:
        clitranslator_command: "your-translator-command --flag value"
 
-    2. Using stdin with custom tool:
+    2. Custom flags:
        clitranslator_command: "your-translator-command --from en --to ja"
 
-    3. With postprocess command (e.g. jq):
+    3. Postprocess command (e.g. jq):
        clitranslator_command: "your-translator-command --format json"
        clitranslator_postprocess_command: "jq -r .result.translation"
-
-       Alternative:
-       clitranslator_postprocess_command: "jq -r .reqult.translation"
+       (or: "jq -r .reqult.translation")
     """
 
     name = "clitranslator"

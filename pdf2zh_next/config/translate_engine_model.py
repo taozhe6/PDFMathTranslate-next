@@ -879,12 +879,6 @@ class CLISettings(BaseModel):
                 "CLI command is required. Please specify --clitranslator-command"
             )
 
-        forbidden_templates = ("{text}", "{lang_in}", "{lang_out}")
-        if any(token in self.clitranslator_command for token in forbidden_templates):
-            raise ValueError(
-                "Template variables are not supported. "
-                "Pass fixed arguments in clitranslator_command and provide input via stdin."
-            )
         if self.clitranslator_postprocess_command is not None:
             if not self.clitranslator_postprocess_command.strip():
                 raise ValueError("clitranslator_postprocess_command cannot be empty")
@@ -896,13 +890,6 @@ class CLISettings(BaseModel):
                 ) from e
             if not postprocess_parts:
                 raise ValueError("clitranslator_postprocess_command cannot be empty")
-            if any(
-                token in self.clitranslator_postprocess_command
-                for token in forbidden_templates
-            ):
-                raise ValueError(
-                    "Template variables are not supported in clitranslator_postprocess_command."
-                )
 
 
 ## Please add the translator configuration class above this location.
