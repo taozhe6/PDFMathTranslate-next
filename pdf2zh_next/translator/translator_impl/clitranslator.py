@@ -88,7 +88,7 @@ class CLITranslatorTranslator(BaseTranslator):
     def _test_command(self, command: str, label: str):
         """Validate that the command is executable or discoverable on PATH."""
         cmd_path = Path(command)
-        if cmd_path.is_absolute() or cmd_path.parent != Path("."):
+        if cmd_path.is_absolute() or cmd_path.parent != Path():
             if not cmd_path.exists():
                 raise ValueError(
                     f"{label} command '{command}' not found. "
