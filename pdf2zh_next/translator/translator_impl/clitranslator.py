@@ -34,7 +34,6 @@ class CLITranslatorTranslator(BaseTranslator):
     3. Postprocess command (e.g. jq):
        clitranslator_command: "your-translator-command --format json"
        clitranslator_postprocess_command: "jq -r .result.translation"
-       (or: "jq -r .reqult.translation")
     """
 
     name = "clitranslator"
@@ -156,9 +155,8 @@ class CLITranslatorTranslator(BaseTranslator):
             return output.strip()
 
         except subprocess.TimeoutExpired:
-            if "process" in locals():
-                process.kill()
-                process.communicate()
+            process.kill()
+            process.communicate()
             raise
 
     def _run_postprocess(self, output: str) -> str:
@@ -191,7 +189,6 @@ class CLITranslatorTranslator(BaseTranslator):
                 )
             return stdout
         except subprocess.TimeoutExpired:
-            if "process" in locals():
-                process.kill()
-                process.communicate()
+            process.kill()
+            process.communicate()
             raise

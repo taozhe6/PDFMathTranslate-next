@@ -860,7 +860,7 @@ class CLISettings(BaseModel):
         default=None,
         description=(
             "Optional postprocess command to run on CLI output (reads from stdin). "
-            "Example: 'jq -r .result.translation' or 'jq -r .reqult.translation'"
+            "Example: 'jq -r .result.translation'"
         ),
     )
 
