@@ -1,5 +1,6 @@
 import logging
 import re
+import shlex
 import typing
 from dataclasses import dataclass
 from inspect import getdoc
@@ -828,6 +829,69 @@ class ClaudeCodeSettings(BaseModel):
             raise ValueError("Claude Code path is required")
 
 
+class CLISettings(BaseModel):
+    """CLI translator settings
+
+    This allows you to use any external CLI translation tool.
+
+    Input text is always passed via stdin.
+
+    Example (stdin, default):
+    - clitranslator_command: "your-translator-command --flag value"
+    """
+
+    translate_engine_type: Literal["CLITranslator"] = Field(default="CLITranslator")
+    support_llm: Literal["yes", "no"] = Field(default="no")
+
+    clitranslator_command: str = Field(
+        default="",
+        description=(
+            "CLI command to execute. May include arguments and will be split like a "
+            "shell command (e.g., 'your-translator-command --flag value')."
+        ),
+    )
+    clitranslator_timeout: int = Field(
+        default=60,
+        description="Command timeout in seconds",
+        ge=1,
+        le=300,
+    )
+    clitranslator_postprocess_command: str | None = Field(
+        default=None,
+        description=(
+            "Optional postprocess command to run on CLI output (reads from stdin). "
+            "Example: 'jq -r .result.translation'"
+        ),
+    )
+
+    def validate_settings(self):
+        if not self.clitranslator_command:
+            raise ValueError(
+                "CLI command is required. Please specify --clitranslator-command"
+            )
+
+        try:
+            command_parts = shlex.split(self.clitranslator_command)
+        except ValueError as e:
+            raise ValueError(f"Invalid clitranslator_command: {e}") from e
+        if not command_parts:
+            raise ValueError(
+                "CLI command is required. Please specify --clitranslator-command"
+            )
+
+        if self.clitranslator_postprocess_command is not None:
+            if not self.clitranslator_postprocess_command.strip():
+                raise ValueError("clitranslator_postprocess_command cannot be empty")
+            try:
+                postprocess_parts = shlex.split(self.clitranslator_postprocess_command)
+            except ValueError as e:
+                raise ValueError(
+                    f"Invalid clitranslator_postprocess_command: {e}"
+                ) from e
+            if not postprocess_parts:
+                raise ValueError("clitranslator_postprocess_command cannot be empty")
+
+
 ## Please add the translator configuration class above this location.
 
 # 所有翻译引擎
@@ -855,6 +919,7 @@ TRANSLATION_ENGINE_SETTING_TYPE: TypeAlias = (
     | QwenMtSettings
     | OpenAICompatibleSettings
     | ClaudeCodeSettings
+    | CLISettings
 )
 
 # 不支持的翻译引擎
