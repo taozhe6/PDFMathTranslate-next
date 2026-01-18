@@ -869,7 +869,7 @@ def _build_glossary_list(glossary_file, service_name=None):
         try:
             f = io.StringIO(file.decode(chardet.detect(file)["encoding"]))
             with tempfile.NamedTemporaryFile(
-                mode="w", delete=False, suffix=".csv"
+                mode="w", delete=False, suffix=".csv", encoding="utf-8"
             ) as temp_file:
                 temp_file.write(f.getvalue())
                 f.close()
